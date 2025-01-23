@@ -9,5 +9,5 @@ package com.mycompany.monopoly.modelos;
  * @author pablo
  */
 public class Jugador1 {
-    
+    private Long J1_Id; 
 }
