@@ -4,6 +4,9 @@
 
 package com.mycompany.monopoly;
 
+import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioRepositorio;
+import com.mycompany.monopoly.modelos.Usuario;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -14,12 +17,14 @@ import java.sql.SQLException;
  */
 public class Monopoly {
 
-    public static void main(String[] args)throws SQLException {
-        String url = "jdbc:mysql://database.c1qy2c4wwbk2.eu-north-1.rds.amazonaws.com:3306/bibliasql?serverTimezone=UTC"; 
-        String user = "default"; 
-        String pass = ""; 
+    public static void main(String[] args)throws SQLException,Exception {
+        UsuarioRRepositorio u = new UsuarioRepositorio();
         
-        Connection con = DriverManager.getConnection(url,user,pass);
+        u.insertar(new Usuario("Pablo","Nieto","root", "pablongo03"));
+        System.out.println(u.listar());
+        //System.out.println(u.porUser("root3"));
+        
+        
         
         
         

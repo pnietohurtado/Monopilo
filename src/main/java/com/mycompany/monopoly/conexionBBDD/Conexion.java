@@ -18,7 +18,7 @@ import javax.crypto.spec.SecretKeySpec;
  * @author pablo
  */
 public class Conexion {
-    private static String url ="jdbc:mysql://database.c1qy2c4wwbk2.eu-north-1.rds.amazonaws.com:3306/bibliasql?serverTimezone=UTC" ; 
+    private static String url ="jdbc:mysql://database.c1qy2c4wwbk2.eu-north-1.rds.amazonaws.com:3306/monopoly?serverTimezone=UTC" ; 
     private static String pass; //Contraseña de conexion a la BBDD
     private static String key; //Clave para poder desencriptar la contraseña de los datos del usuarios para la BBDD
     private static String user = "root"; 
@@ -27,10 +27,10 @@ public class Conexion {
     public static Connection getConnection()throws SQLException{
         if(con == null){
             try{
-                leer("G:/Proyecto#2/Proyecto2/Encriptado.txt"); 
+                leer("Encriptado.txt"); 
                 String clave = desencriptar(pass,key); 
-                System.out.println(clave);
                 con = DriverManager.getConnection(url,user,clave ); 
+                
                 
             }catch(Exception e){}
         }
