@@ -4,8 +4,14 @@ package com.mycompany.monopoly.modelos;
  *
  * @author pablo
  */
-public class Casilla {
-    
+public class Casilla 
+        /*Es muy importante comprender que no va a añadir el usuario ningún tipo de casilla 
+        nueva, para lo único para lo que sirve esta clase, es para poder mostrar los tipos 
+        de casillas que tiene el usuario. NO PODRA NI ACTUALIZAR, NI AÑADIR y TAMPOCO BORRAR
+        NINGUNO DE LOS DATOS DE LAS CASILLAS.*/
+        
+{
+   /* 
     enum Tipo{
         CARCEL ("Carcel"), 
         SUERTE ("Suerte"), 
@@ -21,22 +27,26 @@ public class Casilla {
             return this.nombre; 
         }
     }
-
+*/
     private Long CAS_Id; 
     private String CAS_Nombre; 
     private Double CAS_Precio; 
-    private boolean CAS_Disponibilidad; 
+    private int CAS_Disponibilidad; 
     private String CAS_Propietario; 
-    private Tipo CAS_Tipo; 
+    private String CAS_Tipo; 
+    private String CAS_Color; 
     
+    public Casilla(){}
     
-    public Casilla(Long id, String n, Double prr, boolean dis, String p, Tipo t){
+    public Casilla(Long id, String n, Double prr, int dis, String p, String t, String c){
+        this(); 
         this.CAS_Id = id; 
         this.CAS_Nombre = n; 
         this.CAS_Precio = prr; 
         this.CAS_Disponibilidad = dis; 
         this.CAS_Propietario = p; 
         this.CAS_Tipo = t; 
+        this.CAS_Color = c; 
     }
 
     public Long getCAS_Id() {
@@ -63,18 +73,29 @@ public class Casilla {
         this.CAS_Precio = CAS_Precio;
     }
 
-    public boolean isCAS_Disponibilidad() {
+    public int isCAS_Disponibilidad() {
         return CAS_Disponibilidad;
     }
 
-    public void setCAS_Disponibilidad(int CAS_Disponibilidad) {
+    public String getCAS_Color() {
+        return CAS_Color;
+    }
+
+    public void setCAS_Color(String CAS_Color) {
+        this.CAS_Color = CAS_Color;
+    }
+
+    
+    
+    public String comprobarDisponibilidad(int CAS_Disponibilidad) {
+        String disponibilidad = ""; 
         if(CAS_Disponibilidad == 1){
             //Está libre
-            this.CAS_Disponibilidad = true; 
+            disponibilidad = "Disponible"; 
         }else{
-            this.CAS_Disponibilidad = false; 
+            disponibilidad = "No Disponible"; 
         }
-        
+        return disponibilidad; 
     }
 
     public String getCAS_Propietario() {
@@ -85,11 +106,11 @@ public class Casilla {
         this.CAS_Propietario = CAS_Propietario;
     }
 
-    public Tipo getCAS_Tipo() {
+    public String getCAS_Tipo() {
         return CAS_Tipo;
     }
 
-    public void setCAS_Tipo(Tipo CAS_Tipo) {
+    public void setCAS_Tipo(String CAS_Tipo) {
         this.CAS_Tipo = CAS_Tipo;
     }
     
@@ -98,7 +119,7 @@ public class Casilla {
         StringBuilder sb = new StringBuilder(); 
         if(getCAS_Tipo().equals("Propiedad")){
             sb.append(" Nombre de la Propiedad: ").append(this.CAS_Nombre).append(" Precio de la Propiedad: ").append(this.CAS_Precio)
-                    .append(" Disponibilidad: ").append(this.CAS_Disponibilidad); 
+                    .append(" Disponibilidad: ").append(comprobarDisponibilidad(this.CAS_Disponibilidad)); 
             if(!(getCAS_Propietario().equals("0"))){
                 sb.append(" Propietario: ").append(this.CAS_Propietario).append("\n");
             }
