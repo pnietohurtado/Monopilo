@@ -5,8 +5,11 @@
 package com.mycompany.monopoly.conexionBBDD.ropositorios;
 
 import com.mycompany.monopoly.conexionBBDD.Conexion;
+import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioNoEncontrado;
 import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioYaExisteException;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.modelos.Jugador1;
+import com.mycompany.monopoly.modelos.Jugador2;
 import com.mycompany.monopoly.modelos.UsuarioI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -20,6 +23,8 @@ import java.util.List;
  * @author pablo
  */
 public class UsuarioIRepositorio implements IUsuarioIRepositorio{
+
+    
     public Connection getConnection() throws SQLException{
         return Conexion.getConnection(); 
     }
@@ -32,6 +37,38 @@ public class UsuarioIRepositorio implements IUsuarioIRepositorio{
         u.setUI_Pass(rs.getString("UI_Pass")); 
         
         return u; 
+    }
+
+    
+    public void inicioSesion(String user, String pass, int i) throws SQLException, UsuarioNoEncontrado ,Exception
+            /*En esta función podría incluso meter pasarle el usuario a la base de datos 
+            asignandolo al Jugador1 o Jugador2*/
+    {
+        UsuarioI u = porUser(user); 
+        if(user.equals(u.getUI_User()) && pass.equals(u.getUI_Pass())){
+            System.out.println("Sesión iniciada correctamente ");
+            if(i == 1){
+                try{
+                    PreparedStatement pt = getConnection().prepareStatement("call addJugador1(?, ?)"); 
+                    pt.setLong(1, u.getUI_Id());
+                    pt.setLong(2, 100L); 
+                    pt.executeQuery(); 
+                }catch(UsuarioYaExisteException e){
+                    throw new UsuarioYaExisteException("Ya hay un usuario registrado como Jugador1"); 
+                }
+            }else{
+                try{
+                    PreparedStatement pt = getConnection().prepareStatement("call addJugador2(?, ?)"); 
+                    pt.setLong(1, u.getUI_Id());
+                    pt.setLong(2, 100L); 
+                    pt.executeQuery(); 
+                }catch(UsuarioYaExisteException e){
+                    throw new UsuarioYaExisteException("Ya hay un usuario registrado como Jugador2"); 
+                }
+            }
+        }else{
+            throw new UsuarioNoEncontrado("El usuario que ha indicado no ha sido registrado aún!"); 
+        }
     }
     
     @Override

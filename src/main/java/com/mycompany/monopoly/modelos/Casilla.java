@@ -125,8 +125,8 @@ public class Casilla
             if(!(getCAS_Propietario().equals("0"))){
                 sb.append(" , Propietario ->  ").append(this.CAS_Propietario).append("\n");
             }
-        }else if(getCAS_Tipo().equals("Propiedad")){
-            sb.append("");
+        }else if(getCAS_Tipo().equals("Carcel")){
+            sb.append("A la carcel durante dos turnos!!!!!");
         }   
         return sb.toString(); 
     }

@@ -20,8 +20,10 @@ public class Jugador2
     private UsuarioI user; 
     
     //NO insert, SI select, Si funcionDelete (Inicio del programa), NO/SI update (según avance).  
+    public Jugador2(){}
     
     public Jugador2(Long idUser, Long casilla){
+        this(); 
         this.J2_IdUser = idUser; 
         this.J2_IdCasilla = casilla; 
     }
