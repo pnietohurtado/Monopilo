@@ -27,7 +27,7 @@ public class UsuarioIRepositorio implements IUsuarioIRepositorio{
     public static UsuarioI getUsuario(ResultSet rs) throws SQLException{
         UsuarioI u = new UsuarioI(); 
         u.setUI_Id(rs.getLong("UI_Id")); 
-        u.setUI_IdUr(rs.getLong("UI_IdUi")); 
+        u.setUI_IdUr(rs.getLong("UI_IdUr")); 
         u.setUI_User(rs.getString("UI_User")); 
         u.setUI_Pass(rs.getString("UI_Pass")); 
         

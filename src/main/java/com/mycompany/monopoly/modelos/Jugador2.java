@@ -1,6 +1,8 @@
 package com.mycompany.monopoly.modelos;
 
+import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import java.sql.SQLException;
 
@@ -8,7 +10,10 @@ import java.sql.SQLException;
  *
  * @author pablo
  */
-public class Jugador2 {
+public class Jugador2 
+        /*Tener en cuenta que en esta clase cuando el juego comience, se van a borrar los datos de los 
+        jugadores anteriores para poder comenzar una nueva partida*/
+{
      private Long J2_Id; 
     private Long J2_IdUser; 
     private Long J2_IdCasilla; 
@@ -54,9 +59,10 @@ public class Jugador2 {
         try{
             IUsuarioIRepositorio u = new UsuarioIRepositorio(); 
             UsuarioI u1 = u.porId(this.J2_IdUser); 
+            ICasillasRepositorio c = new CasillasRepositorio(); 
             StringBuilder sb = new StringBuilder(); 
             //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña) 
-            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(this.J2_IdCasilla).append("\n"); 
+            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append("\n"); 
             return sb.toString(); 
         }catch(SQLException e){
             e.printStackTrace();

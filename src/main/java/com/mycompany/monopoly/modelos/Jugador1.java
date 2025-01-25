@@ -4,7 +4,9 @@
  */
 package com.mycompany.monopoly.modelos;
 
+import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import java.sql.SQLException;
 
@@ -21,7 +23,10 @@ public class Jugador1 {
     
     //NO insert, SI select, Si funcionDelete (Inicio del programa), NO/SI update (según avance).  
     
+    public Jugador1(){}
+    
     public Jugador1(Long idUser, Long casilla){
+        this(); 
         this.J1_IdUser = idUser; 
         this.J1_IdCasilla = casilla; 
     }
@@ -59,9 +64,10 @@ public class Jugador1 {
         try{
             IUsuarioIRepositorio u = new UsuarioIRepositorio(); 
             UsuarioI u1 = u.porId(this.J1_IdUser); 
+            ICasillasRepositorio c = new CasillasRepositorio(); 
             StringBuilder sb = new StringBuilder(); 
             //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña) 
-            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(this.J1_IdCasilla).append("\n"); 
+            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append("\n"); 
             return sb.toString(); 
         }catch(SQLException e){
             e.printStackTrace();

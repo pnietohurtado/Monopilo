@@ -118,10 +118,12 @@ public class Casilla
     public String toString(){
         StringBuilder sb = new StringBuilder(); 
         if(getCAS_Tipo().equals("Propiedad")){
-            sb.append(" Nombre de la Propiedad: ").append(this.CAS_Nombre).append(" Precio de la Propiedad: ").append(this.CAS_Precio)
-                    .append(" Disponibilidad: ").append(comprobarDisponibilidad(this.CAS_Disponibilidad)); 
+            sb.append(" , Nombre de la Propiedad ->  ").append(this.CAS_Nombre).append(" , Precio de la Propiedad ->  ").append(this.CAS_Precio); 
+            if(comprobarDisponibilidad(this.CAS_Disponibilidad).equals("Disponible")){
+                sb.append(" , Disponibilidad ->  ").append(comprobarDisponibilidad(this.CAS_Disponibilidad)); 
+            }
             if(!(getCAS_Propietario().equals("0"))){
-                sb.append(" Propietario: ").append(this.CAS_Propietario).append("\n");
+                sb.append(" , Propietario ->  ").append(this.CAS_Propietario).append("\n");
             }
         }else if(getCAS_Tipo().equals("Propiedad")){
             sb.append("");

@@ -6,7 +6,7 @@ package com.mycompany.monopoly.conexionBBDD.ropositorios;
 
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioYaExisteException;
-import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillaRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
 import com.mycompany.monopoly.modelos.Casilla;
 import com.mycompany.monopoly.modelos.UsuarioI;
@@ -21,7 +21,7 @@ import java.util.List;
  *
  * @author pablo
  */
-public class CasillasRepositorio implements ICasillaRepositorio{
+public class CasillasRepositorio implements ICasillasRepositorio{
     public Connection getConnection() throws SQLException{
         return Conexion.getConnection(); 
     }
@@ -40,39 +40,89 @@ public class CasillasRepositorio implements ICasillaRepositorio{
 
     @Override
     public List<Casilla> listar() throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        List<Casilla> casillas = new ArrayList<>(); 
+        String sql = "select * from casilla"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            Casilla c = getCasilla(rs); 
+            casillas.add(c); 
+        }
+        return casillas; 
     }
 
     @Override
-    public Casilla porId(Long id) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public List<Casilla> casillasPropietario(String propietario) throws SQLException, Exception 
+            /*Esta función va a tener una pequeña particularidad y es que vamos a tener que enlazarlo con el usuario
+            que está jugando la partida de alguna forma*/
+    
+    {
+        List<Casilla> casillas = new ArrayList<>(); 
+        String sql = "select * from casilla where CAS_Propietario = ?"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        pt.setString(1, propietario); 
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            Casilla c = getCasilla(rs); 
+            casillas.add(c); 
+        }
+        return casillas; 
+    }
+
+    @Override
+    public List<Casilla> diponibilidad() throws SQLException, Exception {
+        List<Casilla> casillas = new ArrayList<>(); 
+        String sql = "select * from casilla where CAS_Disponibilidad = 1"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            Casilla c = getCasilla(rs); 
+            casillas.add(c); 
+        }
+        return casillas; 
+    }
+
+    @Override
+    public List<Casilla> tipos(String tipo) throws SQLException, Exception {
+        List<Casilla> casillas = new ArrayList<>(); 
+        String sql = "select * from casilla where CAS_Tipo = ?"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        pt.setString(1, tipo); 
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            Casilla c = getCasilla(rs); 
+            casillas.add(c); 
+        }
+        return casillas; 
+    }
+
+    @Override
+    public List<Casilla> color(String color) throws SQLException, Exception {
+        List<Casilla> casillas = new ArrayList<>(); 
+        String sql = "select * from casilla where CAS_Color = ? "; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        pt.setString(1, color); 
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            Casilla c = getCasilla(rs); 
+            casillas.add(c); 
+        }
+        return casillas; 
     }
 
     @Override
     public Casilla porNombre(String nombre) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        Casilla c = null;  
+        String sql = "select * from casilla where CAS_Nombre = ?"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql);
+        pt.setString(1, nombre);
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            c =  getCasilla(rs); 
+        }
+        return c; 
     }
 
-    @Override
-    public Casilla porTipo(String tipo) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Casilla porColor(String color) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Casilla porDisponibilidad() throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-
-    @Override
-    public Casilla porPropietario(String propietario) throws SQLException, Exception {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
-    
-    
+   
     
 }
