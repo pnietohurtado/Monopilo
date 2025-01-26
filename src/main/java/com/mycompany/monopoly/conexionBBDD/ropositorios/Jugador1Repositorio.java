@@ -37,6 +37,15 @@ public class Jugador1Repositorio implements IJugadoresRepositorio<Jugador1> {
         }
         return j1; 
     }
+
+    @Override //Esto esta mal
+    public void casillas() throws SQLException, Exception {
+        String sql = "select * from jugador1 group by J1_IdCasilla"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        pt.executeQuery(); 
+    }
+    
+    
     
     
 }

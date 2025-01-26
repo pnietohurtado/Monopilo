@@ -38,5 +38,12 @@ public class Jugador2Repositorio implements IJugadoresRepositorio<Jugador2>{
         }
         return j2; 
     }
+
+    @Override //Esto está mal
+    public void casillas() throws SQLException, Exception {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    
     
 }

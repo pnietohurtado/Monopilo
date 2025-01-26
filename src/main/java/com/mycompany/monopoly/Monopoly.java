@@ -10,9 +10,12 @@ import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioRepositorio;
 import com.mycompany.monopoly.modelos.Jugador1;
+import com.mycompany.monopoly.modelos.Jugador2;
+import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.Usuario;
 import com.mycompany.monopoly.modelos.UsuarioI;
 import java.sql.Connection;
@@ -67,11 +70,22 @@ public class Monopoly {
         Long idJ1 = user1.getUI_Id(); 
         Long idJ2 = user2.getUI_Id(); 
         
-        System.out.println("id J1 "+ idJ1);
+        //System.out.println("id J1 "+ idJ1);
      
         IJugadoresRepositorio<Jugador1>  j1 = new Jugador1Repositorio(); 
-        System.out.println(j1.porId(idJ1));
+        IJugadoresRepositorio<Jugador2>  j2 = new Jugador2Repositorio(); 
+        //System.out.println(j1.porId(idJ1));
         
+        Jugador1 jug1 = j1.porId(idJ1); 
+        Jugador2 jug2 = j2.porId(idJ2); 
+        
+        Tablero t = new Tablero(jug1, jug2); 
+        
+        
+        System.out.println("Compra el jugador1 la casilla 1");
+        t.CargarCasillaJ1(11L, jug1);
+        System.out.println("===========");
+        System.out.println(t.casillasDisponibles());
         
     }
 }

@@ -5,6 +5,7 @@
 package com.mycompany.monopoly.conexionBBDD.interfaces;
 
 import com.mycompany.monopoly.modelos.Casilla;
+import com.mycompany.monopoly.modelos.Tablero;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -19,4 +20,8 @@ public interface ICasillasRepositorio {
     public List<Casilla> tipos(String tipo) throws SQLException, Exception;
     public List<Casilla> color(String color) throws SQLException, Exception;
     public Casilla porNombre(String nombre) throws SQLException, Exception;
+    
+    /*En el siguiente ejemplo, vamos a necesitar una instancia de tablero para poder cargar todas las casillas 
+    que tenemos declaradas dentro de la base de datos a el programad de java*/
+    public void cargarCasillasCasilla(Tablero t) throws SQLException, Exception; 
 }

@@ -9,4 +9,5 @@ import java.sql.SQLException;
 public interface IJugadoresRepositorio<T>  {
 
     public T porId (Long id) throws SQLException, Exception; 
+    public void casillas() throws  SQLException, Exception; 
 }

@@ -36,6 +36,11 @@ public class Casilla
     private String CAS_Tipo; 
     private String CAS_Color; 
     
+    
+    //Vamos a tener que añadir la casilla de posición para que podamos saber donde esta
+    private int posicionI; 
+    private int posicionJ; 
+    
     public Casilla(){}
     
     public Casilla(Long id, String n, Double prr, int dis, String p, String t, String c){
@@ -47,6 +52,11 @@ public class Casilla
         this.CAS_Propietario = p; 
         this.CAS_Tipo = t; 
         this.CAS_Color = c; 
+    }
+    public Casilla(Long id, String n, Double prr, int dis, String p, String t, String c,int posI, int posJ){
+        this(id, n,prr,dis,p,t,c); 
+        this.posicionI = posI; 
+        this.posicionJ = posJ;      
     }
 
     public Long getCAS_Id() {
@@ -114,6 +124,27 @@ public class Casilla
         this.CAS_Tipo = CAS_Tipo;
     }
     
+    /*--------------------------------------------Obtener la posición en el tablero -------------------------------------*/
+
+    public int getPosicionI() {
+        return posicionI;
+    }
+
+    public void setPosicionI(int posicionI) {
+        this.posicionI = posicionI;
+    }
+
+    public int getPosicionJ() {
+        return posicionJ;
+    }
+
+    public void setPosicionJ(int posicionJ) {
+        this.posicionJ = posicionJ;
+    }
+    
+    
+    
+    
     @Override 
     public String toString(){
         StringBuilder sb = new StringBuilder(); 
@@ -122,9 +153,9 @@ public class Casilla
             if(comprobarDisponibilidad(this.CAS_Disponibilidad).equals("Disponible")){
                 sb.append(" , Disponibilidad ->  ").append(comprobarDisponibilidad(this.CAS_Disponibilidad)); 
             }
-            if(!(getCAS_Propietario().equals("0"))){
-                sb.append(" , Propietario ->  ").append(this.CAS_Propietario).append("\n");
-            }
+            
+            sb.append(" , Propietario ->  ").append(this.CAS_Propietario).append("\n");
+            
         }else if(getCAS_Tipo().equals("Carcel")){
             sb.append("A la carcel durante dos turnos!!!!!");
         }   

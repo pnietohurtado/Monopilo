@@ -9,6 +9,7 @@ import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioYaExisteException;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
 import com.mycompany.monopoly.modelos.Casilla;
+import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.UsuarioI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -37,6 +38,21 @@ public class CasillasRepositorio implements ICasillasRepositorio{
         c.setCAS_Color(rs.getString("CAS_Color")); 
         return c; 
     }
+    
+    private static Casilla getCasillaPos(ResultSet rs) throws SQLException{
+        Casilla c = new Casilla(); 
+        c.setCAS_Id(rs.getLong("CAS_Id"));
+        c.setCAS_Nombre(rs.getString("CAS_Nombre"));
+        c.setCAS_Precio(rs.getDouble("CAS_Precio")); 
+        c.comprobarDisponibilidad(rs.getInt("CAS_Disponibilidad"));
+        c.setCAS_Propietario(rs.getString("CAS_Propietario"));
+        c.setCAS_Tipo(rs.getString("CAS_Tipo"));
+        c.setCAS_Color(rs.getString("CAS_Color")); 
+        c.setPosicionI(rs.getInt("posicionI"));
+        c.setPosicionJ(rs.getInt("posicionJ"));
+        return c; 
+    }
+    
 
     @Override
     public List<Casilla> listar() throws SQLException, Exception {
@@ -123,6 +139,21 @@ public class CasillasRepositorio implements ICasillasRepositorio{
         return c; 
     }
 
+    @Override
+    public void cargarCasillasCasilla(Tablero t) throws SQLException, Exception {
+        Casilla c = null; 
+        String sql = "select * from casilla where CAS_Id != 100"; 
+        PreparedStatement pt = getConnection().prepareStatement(sql); 
+        ResultSet rs = pt.executeQuery(); 
+        while(rs.next()){
+            c = getCasillaPos(rs ); 
+            t.CargarCasillasJuego(c);
+           
+        }
+    }
+
+    
+    
    
     
 }
