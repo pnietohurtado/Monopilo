@@ -83,9 +83,28 @@ public class Monopoly {
         
         
         System.out.println("Compra el jugador1 la casilla 1");
-        t.CargarCasillaJ1(11L, jug1);
+        t.CargarCasillaJ1(11L, jug1); //Básicamente puedo usar esta función para poder añadir casillas al jugador1
+        t.CargarCasillaJ1(2L, jug1);
+        t.CargarCasillaJ1(3L, jug1);
         System.out.println("===========");
+        ICasillasRepositorio cas = new CasillasRepositorio(); 
+        
+        cas.cargarCasillasCasilla(t);//Se encarga de añadir todas las casillas las cuales tienen un 1 en su CAS_Disponibilidad
         System.out.println(t.casillasDisponibles());
         
+        t.CargarCasillaJ1(1L, jug1);
+        t.CargarCasillaJ1(2L, jug1);
+        t.CargarCasillaJ1(3L, jug1);
+        t.CargarCasillaJ1(4L, jug1);
+        t.CargarCasillaJ1(5L, jug1);
+        t.CargarCasillaJ1(6L, jug1);
+        t.CargarCasillaJ1(7L, jug1);
+        t.CargarCasillaJ1(8L, jug1);
+        
+        
+        t.ActualizarCasillasDisponibles();
+        cas.cargarCasillasCasilla(t);
+        System.out.println("==============================");
+        System.out.println(t.casillasDisponibles());
     }
 }

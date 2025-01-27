@@ -142,7 +142,7 @@ public class CasillasRepositorio implements ICasillasRepositorio{
     @Override
     public void cargarCasillasCasilla(Tablero t) throws SQLException, Exception {
         Casilla c = null; 
-        String sql = "select * from casilla where CAS_Id != 100"; 
+        String sql = "select * from casilla where CAS_Id != 100 and CAS_Disponibilidad != 0"; 
         PreparedStatement pt = getConnection().prepareStatement(sql); 
         ResultSet rs = pt.executeQuery(); 
         while(rs.next()){

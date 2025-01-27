@@ -37,7 +37,7 @@ public class Tablero {
         this.casillasJ1 = new ArrayList<>(); 
         this.casillasJ2 = new ArrayList<>();
         this.casillasDisponibles = new ArrayList<>();
-        cas.cargarCasillasCasilla(this);
+        //cas.cargarCasillasCasilla(this);
     }
     
     public Tablero(Jugador1 j1, Jugador2 j2) throws SQLException, Exception{
@@ -51,7 +51,7 @@ public class Tablero {
         casillasJ1.add(c); 
         EliminarCasillaDisponible(id); 
         
-        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 1, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
+        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 0, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
         pt.setLong(1, j.getJ1_IdUser());
         pt.setString(2, "jugador1"); 
         pt.setLong(3, id); 
@@ -68,6 +68,18 @@ public class Tablero {
         Casilla c = porId(id); 
         casillasJ2.add(c); 
         EliminarCasillaDisponible(id); 
+        
+        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 0, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
+        pt.setLong(1, j.getJ2_IdUser());
+        pt.setString(2, "jugador2"); 
+        pt.setLong(3, id); 
+        pt.executeUpdate(); 
+        
+        /*De esta forma cada vez que un jugador compre alguna de las casillas no solo se va a actualizar en 
+        nuestro programa sino que también se va a ir actualizando en nuestra base de datos. */
+        String sql = "call actualizaJ2()"; 
+        PreparedStatement pt2 = getConnection().prepareStatement(sql); 
+        pt2.executeUpdate(); 
     }
     
     public Casilla porId(Long id) throws SQLException,Exception{
@@ -82,6 +94,11 @@ public class Tablero {
         return null; 
     }
     
+    
+    public void ActualizarCasillasDisponibles() {
+        casillasDisponibles.clear(); 
+    }
+    
     public void EliminarCasillaDisponible(Long id) throws SQLException,Exception{
         Casilla c = porId(id); 
         casillasDisponibles.remove(c); 
@@ -91,8 +108,11 @@ public class Tablero {
                /*Esta función va a ser la encargada de añadir todos los datos de las casillas a 
             nuestro programa de java desde la Base de Datos, haciendo los datos aún más manejables*/
     {
+        
         casillasDisponibles.add(c); 
     }
+    
+    //Vaciar las Casillas Disponibles para poder ir a la par con la BBDD 
     
     
     public List<Casilla> casillasJugador2() throws SQLException,Exception{
