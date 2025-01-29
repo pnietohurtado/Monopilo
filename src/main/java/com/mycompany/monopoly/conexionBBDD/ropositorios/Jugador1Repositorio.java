@@ -21,6 +21,7 @@ public class Jugador1Repositorio implements IJugadoresRepositorio<Jugador1> {
         Jugador1 j1 = new Jugador1(); 
         j1.setJ1_Id(rs.getLong("J1_Id"));
         j1.setJ1_IdUser(rs.getLong("J1_IdUser"));
+        j1.setJ1_Dinero(rs.getDouble("J1_Dinero"));
         j1.setJ1_IdCasilla(rs.getLong("J1_IdCasilla")); 
         return j1; 
     }

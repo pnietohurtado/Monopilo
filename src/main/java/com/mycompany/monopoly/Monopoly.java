@@ -50,7 +50,8 @@ public class Monopoly {
         
         
         
-        
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //              REGISTRO E INICIO DE SESIÓN DE LOS USUARIOS 
         /*
         System.out.println("Registra un usuario");
         String user1 = sc.nextLine(); 
@@ -67,6 +68,7 @@ public class Monopoly {
         u1.insertar(new Usuario("Default", "Default", user1, pass1));
         u1.insertar(new Usuario("Default", "Default", user2, pass3));
         */
+        //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
         System.out.println("======Todos los usuarios registrados sin problemas=======");
         IUsuarioIRepositorio u  = new UsuarioIRepositorio(); 
@@ -98,6 +100,10 @@ public class Monopoly {
         Jugador2 jug2 = j2.porId(idJ2); 
         
         Tablero t = new Tablero(jug1, jug2); 
+        
+        
+        
+        /*Hasta aquí está añadido en la clase "VersionFinal" a día 29 de Enero de 2025 */
         
         
         System.out.println("Compra el jugador1 la casilla 1");

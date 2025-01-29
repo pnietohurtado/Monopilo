@@ -147,18 +147,19 @@ public class MovimientoPorEltablero {
         
         tablero[0][0] = " 1 ";  //Jugador 1
         tablero[0][0] = " 2 "; 
-        
-        listarTablero(tablero); 
+
         
         resetearJugador2(tablero);
         tablero[0][dado()] = " 2 ";
+        System.out.println("==============");
+        listarTablero(tablero); 
         resetearJugador(tablero);
         tablero[0][dado()] = " 1 "; 
         
         for(int i = 0; i < tablero.length ; i++){
             for(int j = 0 ; j< tablero[0].length ; j++){
              
-                if(tablero[i][j].equals(" 1 ")){
+                if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
                     continue; 
                 }else {
                     tablero[i][j] = tableroPlantilla[i][j]; 

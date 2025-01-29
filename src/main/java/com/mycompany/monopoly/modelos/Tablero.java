@@ -128,6 +128,27 @@ public class Tablero {
     }
     
     
+    
+    
+    //!!!!!!!!!!!!!!!!!!!!  Función para poder actualizar posición de los jugadores !!!!!!!!!!!!!!!!!!!*/
+    public void actualizaPosicionJ1(Jugador1 jug, int i, int j) throws SQLException, Exception{
+        Long idJ = jug.getJ1_Id(); 
+        PreparedStatement pt = getConnection().prepareStatement("call posicion1(?,?,?)"); 
+        pt.setLong(1, idJ); 
+        pt.setInt(2, i); 
+        pt.setInt(3, j); 
+        pt.executeUpdate(); 
+    }
+    
+    public void actualizaPosicionJ2(Jugador2 jug, int i, int j) throws SQLException, Exception{
+        Long idJ = jug.getJ2_Id(); 
+        PreparedStatement pt = getConnection().prepareStatement("call posicion2(?,?,?)"); 
+        pt.setLong(1, idJ); 
+        pt.setInt(2, i); 
+        pt.setInt(3, j); 
+        pt.executeUpdate(); 
+    }
+    
     @Override 
     public String toString(){
         StringBuilder sb = new StringBuilder(); 

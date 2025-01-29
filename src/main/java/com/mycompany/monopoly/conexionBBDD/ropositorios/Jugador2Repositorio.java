@@ -22,6 +22,7 @@ public class Jugador2Repositorio implements IJugadoresRepositorio<Jugador2>{
         Jugador2 j2 = new Jugador2(); 
         j2.setJ2_Id(rs.getLong("J2_Id"));
         j2.setJ2_IdUser(rs.getLong("J2_IdUser"));
+        j2.setJ2_Dinero(rs.getDouble("J2_Dinero"));
         j2.setJ2_IdCasilla(rs.getLong("J2_IdCasilla")); 
         return j2; 
     }

@@ -16,6 +16,7 @@ public class Jugador2
 {
      private Long J2_Id; 
     private Long J2_IdUser; 
+    private double J2_Dinero; 
     private Long J2_IdCasilla; 
     private UsuarioI user; 
     
@@ -26,13 +27,14 @@ public class Jugador2
     //NO insert, SI select, Si funcionDelete (Inicio del programa), NO/SI update (según avance).  
     public Jugador2(){}
     
-    public Jugador2(Long idUser, Long casilla){
+    public Jugador2(Long idUser,double dinero, Long casilla){
         this(); 
         this.J2_IdUser = idUser; 
+        this.J2_Dinero = dinero; 
         this.J2_IdCasilla = casilla; 
     }
-    public Jugador2(Long id, Long idUser, Long casilla){
-        this(idUser, casilla); 
+    public Jugador2(Long id, Long idUser, double dinero,Long casilla){
+        this(idUser,dinero, casilla); 
         this.J2_Id = id; 
     }
 
@@ -59,6 +61,16 @@ public class Jugador2
     public void setJ2_IdCasilla(Long J1_IdCasilla) {
         this.J2_IdCasilla = J1_IdCasilla;
     }
+
+    public double getJ2_Dinero() {
+        return J2_Dinero;
+    }
+
+    public void setJ2_Dinero(double J2_Dinero) {
+        this.J2_Dinero = J2_Dinero;
+    }
+    
+    
 
     
     
@@ -87,7 +99,7 @@ public class Jugador2
             ICasillasRepositorio c = new CasillasRepositorio();
             StringBuilder sb = new StringBuilder();
             //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña)
-            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User()))
+            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append(" Dinero -> ").append(this.J2_Dinero)
                     .append(" Posición i -> ").append(this.posI).append(" Posición j -> ").append(this.posJ)
                     .append("\n");
             return sb.toString(); 

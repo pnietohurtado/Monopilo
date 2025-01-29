@@ -18,6 +18,7 @@ import java.sql.SQLException;
 public class Jugador1 {
     private Long J1_Id; 
     private Long J1_IdUser; 
+    private double J1_Dinero; 
     private Long J1_IdCasilla; 
     private UsuarioI user; 
     
@@ -29,13 +30,14 @@ public class Jugador1 {
     
     public Jugador1(){}
     
-    public Jugador1(Long idUser, Long casilla){
+    public Jugador1(Long idUser,double dinero, Long casilla){
         this(); 
         this.J1_IdUser = idUser; 
+        this.J1_Dinero = dinero; 
         this.J1_IdCasilla = casilla; 
     }
-    public Jugador1(Long id, Long idUser, Long casilla){
-        this(idUser, casilla); 
+    public Jugador1(Long id, Long idUser,double dinero, Long casilla){
+        this(idUser, dinero, casilla); 
         this.J1_Id = id; 
     }
 
@@ -62,6 +64,17 @@ public class Jugador1 {
     public void setJ1_IdCasilla(Long J1_IdCasilla) {
         this.J1_IdCasilla = J1_IdCasilla;
     }
+
+    public double getJ1_Dinero() {
+        return J1_Dinero;
+    }
+
+    public void setJ1_Dinero(double J1_Dinero) {
+        this.J1_Dinero = J1_Dinero;
+    }
+    
+    
+    
     
     
     public int getPosI() {
@@ -89,7 +102,7 @@ public class Jugador1 {
             ICasillasRepositorio c = new CasillasRepositorio(); 
             StringBuilder sb = new StringBuilder(); 
             //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña) 
-            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append(" Posición i -> ").append(this.posI).append(" Posición j -> ").append(this.posJ)
+            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append(" Dinero -> ").append(this.J1_Dinero).append(" Posición i -> ").append(this.posI).append(" Posición j -> ").append(this.posJ)
                     .append("\n"); 
             return sb.toString(); 
         }catch(SQLException e){
