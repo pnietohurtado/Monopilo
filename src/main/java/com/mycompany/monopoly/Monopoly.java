@@ -33,6 +33,24 @@ public class Monopoly {
         Scanner sc = new Scanner(System.in); 
         
         UsuarioRRepositorio u1 = new UsuarioRepositorio(); 
+        
+        //borrarJ1(); 
+        //borrarJ2(); 
+        //cargarCasillasDisponibles(); 
+        
+        
+        /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        Al Principio de cada juego se debe llamar a una función donde vamos a 
+        eliminar todos los valores de las tablas de la BBDD los cuales son temporales 
+        como los jugador1 y jugador2, luego me gustaría añadir una tabla de la posición
+        del propio jugador a lo largo del juego. 
+        !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        */
+        
+        
+        
+        
+        
         /*
         System.out.println("Registra un usuario");
         String user1 = sc.nextLine(); 
@@ -106,5 +124,13 @@ public class Monopoly {
         cas.cargarCasillasCasilla(t);
         System.out.println("==============================");
         System.out.println(t.casillasDisponibles());
+        
+        
+        System.out.println("============Vamos a ver en que posición se encuentra el jugador1 ===============");
+        
+        jug1.setPosI(0);
+        jug1.setPosJ(0); 
+        
+        System.out.println(jug1);
     }
 }

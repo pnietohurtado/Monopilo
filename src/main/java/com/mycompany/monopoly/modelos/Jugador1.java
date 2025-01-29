@@ -21,6 +21,10 @@ public class Jugador1 {
     private Long J1_IdCasilla; 
     private UsuarioI user; 
     
+    /*En este caso vamos a añadir la posición actual del jugador*/
+    private int posI; 
+    private int posJ; 
+    
     //NO insert, SI select, Si funcionDelete (Inicio del programa), NO/SI update (según avance).  
     
     public Jugador1(){}
@@ -59,6 +63,24 @@ public class Jugador1 {
         this.J1_IdCasilla = J1_IdCasilla;
     }
     
+    
+    public int getPosI() {
+        return posI; 
+    }
+
+    public void setPosI(int posI) {
+        this.posI = posI;
+    }
+
+    public int getPosJ() {
+        return posJ;
+    }
+
+    /*Hacemos un setter y un getter de la posición del usuario */
+    public void setPosJ(int posJ) {
+        this.posJ = posJ;
+    }
+    
     @Override
     public String toString() {
         try{
@@ -67,7 +89,8 @@ public class Jugador1 {
             ICasillasRepositorio c = new CasillasRepositorio(); 
             StringBuilder sb = new StringBuilder(); 
             //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña) 
-            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append("\n"); 
+            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append(" Posición i -> ").append(this.posI).append(" Posición j -> ").append(this.posJ)
+                    .append("\n"); 
             return sb.toString(); 
         }catch(SQLException e){
             e.printStackTrace();

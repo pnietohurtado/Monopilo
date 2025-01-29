@@ -19,6 +19,10 @@ public class Jugador2
     private Long J2_IdCasilla; 
     private UsuarioI user; 
     
+    /*En este caso vamos a añadir la posición actual del jugador*/
+    private int posI; 
+    private int posJ; 
+    
     //NO insert, SI select, Si funcionDelete (Inicio del programa), NO/SI update (según avance).  
     public Jugador2(){}
     
@@ -55,16 +59,37 @@ public class Jugador2
     public void setJ2_IdCasilla(Long J1_IdCasilla) {
         this.J2_IdCasilla = J1_IdCasilla;
     }
+
     
+    
+    public int getPosI() {
+        return posI; 
+    }
+
+    public void setPosI(int posI) {
+        this.posI = posI;
+    }
+
+    public int getPosJ() {
+        return posJ;
+    }
+
+    /*Hacemos un setter y un getter de la posición del usuario */
+    public void setPosJ(int posJ) {
+        this.posJ = posJ;
+    }
+
     @Override
     public String toString() {
         try{
-            IUsuarioIRepositorio u = new UsuarioIRepositorio(); 
-            UsuarioI u1 = u.porId(this.J2_IdUser); 
-            ICasillasRepositorio c = new CasillasRepositorio(); 
-            StringBuilder sb = new StringBuilder(); 
-            //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña) 
-            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User())).append("\n"); 
+            IUsuarioIRepositorio u = new UsuarioIRepositorio();
+            UsuarioI u1 = u.porId(this.J2_IdUser);
+            ICasillasRepositorio c = new CasillasRepositorio();
+            StringBuilder sb = new StringBuilder();
+            //La idea es que automáticamente se le pasen los valores del usuario en cuestión (Excepto la contraseña)
+            sb.append(" Usuario -> ").append(u1.getUI_User()).append(" Casilla -> ").append(c.casillasPropietario(u1.getUI_User()))
+                    .append(" Posición i -> ").append(this.posI).append(" Posición j -> ").append(this.posJ)
+                    .append("\n");
             return sb.toString(); 
         }catch(SQLException e){
             e.printStackTrace();
