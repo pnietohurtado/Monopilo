@@ -6,18 +6,26 @@ package com.mycompany.monopoly;
 
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IPosicionRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador2Repositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ1Repositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioRepositorio;
 import com.mycompany.monopoly.modelos.Jugador1;
 import com.mycompany.monopoly.modelos.Jugador2;
+import com.mycompany.monopoly.modelos.PosicionJ1;
+import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.Usuario;
 import com.mycompany.monopoly.modelos.UsuarioI;
+import static com.mycompany.monopoly.pruebas.dado;
+import static com.mycompany.monopoly.pruebas.listarTablero;
+import static com.mycompany.monopoly.pruebas.resetearJugador;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -28,10 +36,23 @@ import java.util.Scanner;
 public class VersionFinal {
     
     
-    /*!!!!!!!!!!!!!!!!  FUNCIÓN DE LISTAR TABLERO SEA CUAL SEA EL RESULTADO  !!!!!!!!!!!!!!!!!!!!!!!!!!!*/  
-    public static void listarTablero(String[][] tablero){
-        for(int i = 0; i < tablero.length ; i++){
-            for(int j = 0 ; j< tablero[0].length ; j++){
+   public static void resetearJugador(String[][] tablero) {
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
+                if (tablero[i][j].equals(" 1 ") || tablero[i][j].equals(" 2 ")) {
+                    tablero[i][j] = "   ";
+                }
+            }
+        }
+    }
+
+    public static int dado() {
+        return (int) (Math.random() * 6) + 1;
+    }
+
+    public static void listarTablero(String[][] tablero) {
+        for (int i = 0; i < tablero.length; i++) {
+            for (int j = 0; j < tablero[0].length; j++) {
                 System.out.print(tablero[i][j]);
             }
             System.out.println("");
@@ -39,16 +60,7 @@ public class VersionFinal {
     }
     
     
-    /*!!!!!!!!!!!!!!   LLAMAMOS A UNA FUNCIÓN DADO PARA LOS JUGADORES   !!!!!!!!!!!!!!!!!!!!!!!!!!*/
-    public static int dado(){
-        return (int)(Math.random() * 7); 
-    }
-    
-    
-    
-    
-    
-    
+   
     
     public static void main(String[] args)throws SQLException, Exception {
         Scanner sc = new Scanner(System.in); 
@@ -61,7 +73,8 @@ public class VersionFinal {
         
         ICasillasRepositorio cas = new CasillasRepositorio(); //Con esto vamos a añadir y actualizar las casillas disponibles
         
-        
+        IPosicionRepositorio<PosicionJ1> posJ1 = new PosicionJ1Repositorio(); 
+        IPosicionRepositorio<PosicionJ2> posJ2 = new PosicionJ2Repositorio(); 
         
         
         /*!!!!!!!!!!!!    REGISTRO DE USUARIO   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
@@ -117,15 +130,15 @@ public class VersionFinal {
         
         
         /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
-        /*
-        UsuarioI u1 = u.porUser("Pablongo03"); 
+        
+        UsuarioI u1 = u.porUser("pablongo03"); 
         UsuarioI u2 = u.porUser("rufian"); 
         Long idJ1 = u1.getUI_Id(); //Con esto asignamos el "J1_IdUser" y "J2_IdUser" en la base de datos 
         Long idJ2 = u2.getUI_Id(); 
         
         Jugador1 jug1 = j1.porId(idJ1); //Metemos un objeto jugador el cual buscamos los valores mediante el select 
         Jugador2 jug2 = j2.porId(idJ2); // por "idJ1 y idJ2" para poder tener los datos de los jugadores en físico
-        */
+        
         /****************************************************************************/
         
         
@@ -160,9 +173,7 @@ public class VersionFinal {
         
         /*!!!!!!!!!!!!!!!!!!!!    PARTE DEL JUEGO CON EL TABLERO    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
         
-        String tableroPlantilla[][] = new String[11][11]; //Aquí creamos un array de tablero para poder meter los datos luego en un función 
-        String tablero[][] = new String[11][11]; //Este va a ser el tablero donde estén los dos jugadores
-        
+        String[][] tableroPlantilla = new String[11][11]; 
         for (int i = 0; i < tableroPlantilla.length; i++) {
             for (int j = 0; j < tableroPlantilla[0].length; j++) {
                 // Verificar si estamos en el anillo exterior
@@ -212,17 +223,20 @@ public class VersionFinal {
         
         
         
+        
+        String[][] tablero = new String[11][11];
+
+        // Inicializar tablero con bordes y espacios
         for (int i = 0; i < tablero.length; i++) {
             for (int j = 0; j < tablero[0].length; j++) {
-                // Verificar si estamos en el anillo exterior
-                if (i == 0 || i == 11 - 1 || j == 0 || j == 11 - 1) {
-                    tablero[i][j] = " x "; 
+                if (i == 0 || i == 10 || j == 0 || j == 10) {
+                    tablero[i][j] = " x ";
                 } else {
-                    tablero[i][j] = "   "; 
+                    tablero[i][j] = "   ";
                 }
             }
         }
-         
+        
         
         tablero[0][0] = " S "; 
         
@@ -260,8 +274,145 @@ public class VersionFinal {
         tablero[10][9] = " R "; //Rojo
         
         
-        listarTablero(tablero); // !!!!!!!!!!!!!!PRIMER LISTADO DEL TABLERO ACTUAL 
+
+        // Posición inicial del jugador
+        int x1 = 0;
+        int y1 = 0;
+        int x2 = 0; 
+        int y2 = 0; 
+        tablero[x1][y1] = " 1 ";
+        tablero[x2][y2] = " 2 ";
+        String respuesta = "";
         
+        int vueltaJ1 = 0; //Ambos atributos van a contar las respectivas vueltas de los jugadores 
+        int vueltaJ2 = 0; // jugador 1 y jugador 2
+
+        do 
+                /*A partir de aquí empieza el tablero del juego donde los jugadores van
+                a ir turnandose entre ellos para ir tirando el dado */
+        
+        {
+            
+            
+            
+            System.out.println("======================");
+            System.out.print("¿Seguir jugando? (no para salir): ");
+            respuesta = sc.nextLine();
+
+            if (respuesta.equalsIgnoreCase("no")) {
+                break;
+            }
+
+            listarTablero(tablero);
+            System.out.println("==============Jugador 1=============");
+            System.out.println("Tira el dado...");
+            int pasos = dado();
+            System.out.println("El dado mostró: " + pasos);
+
+            // Actualizar la posición del jugador en sentido horario
+            resetearJugador(tablero);
+
+            for (int i = 0; i < pasos; i++) {
+                if (x1 == 0 && y1 < 10) { // Va hacia la derecha
+
+                    y1++;
+                    if(tablero[x1][y1].equals(" S ")){
+                        System.out.println("vueltaaaaaaaa");
+                        ++vueltaJ1; 
+                    }
+                } else if (y1 == 10 && x1 < 10) { // Baja
+                    x1++;
+                    
+                } else if (x1 == 10 && y1 > 0) { // Va hacia la izquierda
+                    y1--;
+                    
+                } else if (y1 == 0 && x1 > 0) { // Sube
+                    x1--;
+                    if(tablero[x1][y1].equals(" S ")){
+                        System.out.println("vueltaaaaaaaa");
+                        ++vueltaJ1; 
+                    }
+                }
+            }
+
+            tablero[x1][y1] = " 1 ";
+            
+            for(int i = 0; i < tablero.length ; i++){
+                for(int j = 0 ; j< tablero[0].length ; j++){
+             
+                    if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
+                        continue; 
+                    }else {
+                        tablero[i][j] = tableroPlantilla[i][j]; 
+                    }
+                
+                }
+            }
+            
+            listarTablero(tablero);
+            
+            
+            /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
+            posJ1.obtenerPosActual(idJ1,x1,y1); 
+            System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+            
+            System.out.println("==============Jugador 2==================");
+            
+
+            System.out.println("Tira el dado...");
+            int pasos2 = dado();
+            System.out.println("El dado mostró: " + pasos2);
+
+            // Actualizar la posición del jugador en sentido horario
+            
+
+            for (int i = 0; i < pasos2; i++) {
+                if (x2 == 0 && y2 < 10) { // Va hacia la derecha
+                    y2++;
+                    if(tablero[x2][y2].equals(" S ")){
+                        System.out.println("vueltaaaaaaaa");
+                        ++vueltaJ2; 
+                    }
+                } else if (y2 == 10 && x2 < 10) { // Baja
+                    x2++;
+                } else if (x2 == 10 && y2 > 0) { // Va hacia la izquierda
+                    y2--;
+                } else if (y2 == 0 && x2 > 0) { // Sube
+                    x2--;
+                    if(tablero[x2][y2].equals(" S ")){
+                        System.out.println("vueltaaaaaaaa");
+                        ++vueltaJ2; 
+                    }
+                }
+            }
+
+            resetearJugador(tablero);
+            tablero[x2][y2] = " 2 "; // x2 = posI del jugador2 , y2 = posJ del jugador2 
+            
+            
+            
+            for(int i = 0; i < tablero.length ; i++){
+                for(int j = 0 ; j< tablero[0].length ; j++){
+             
+                    if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
+                        continue; 
+                    }else {
+                        tablero[i][j] = tableroPlantilla[i][j]; 
+                    }
+                
+                }
+            }
+            
+            listarTablero(tablero);
+            
+            /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
+            posJ2.obtenerPosActual(idJ2,x2,y2); 
+            System.out.println("Posicion J1 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
+            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+            
+
+        } while (!respuesta.equalsIgnoreCase("no"));
         
         
         

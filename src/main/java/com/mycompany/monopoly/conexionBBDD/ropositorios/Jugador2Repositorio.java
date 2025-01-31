@@ -2,6 +2,7 @@ package com.mycompany.monopoly.conexionBBDD.ropositorios;
 
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
+import static com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio.getJugador;
 import com.mycompany.monopoly.modelos.Jugador1;
 import com.mycompany.monopoly.modelos.Jugador2;
 import java.sql.Connection;
@@ -45,6 +46,19 @@ public class Jugador2Repositorio implements IJugadoresRepositorio<Jugador2>{
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     
+    @Override
+    public double getSaldo() throws SQLException, Exception {
+        Jugador2 j2 = null; 
+        double saldo  = 0.0d; 
+        PreparedStatement pt = getConnection().prepareStatement("select J2_Dinero from jugador2 order by J2_Dinero asc limit 1"); 
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            j2 = getJugador(rs);
+            saldo = j2.getJ2_Dinero(); 
+        }
+        return saldo; 
+        
+    }
     
     
 }

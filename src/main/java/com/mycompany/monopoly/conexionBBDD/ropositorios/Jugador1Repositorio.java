@@ -45,6 +45,22 @@ public class Jugador1Repositorio implements IJugadoresRepositorio<Jugador1> {
         PreparedStatement pt = getConnection().prepareStatement(sql); 
         pt.executeQuery(); 
     }
+
+    @Override
+    public double getSaldo() throws SQLException, Exception {
+        Jugador1 j1 = null; 
+        double saldo  = 0.0d; 
+        PreparedStatement pt = getConnection().prepareStatement("select * from jugador1 order by J1_Dinero asc limit 1"); 
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            j1 = getJugador(rs);
+            saldo = j1.getJ1_Dinero(); 
+        }
+        return saldo; 
+        
+    }
+    
+    
     
     
     
