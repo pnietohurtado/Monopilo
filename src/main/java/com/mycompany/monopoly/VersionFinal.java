@@ -35,6 +35,21 @@ import java.util.Scanner;
  */
 public class VersionFinal {
     
+    public static String menuJugador1(){
+        
+        Scanner sc = new Scanner(System.in); 
+        String opcion = ""; 
+        System.out.println(" [1] Tirar el dado. ");
+        System.out.println(" [2] Mostrar casillas disponibles. ");
+        System.out.println(" [3] Mostrar casillas en propiedad. ");
+        System.out.println(" [4] Mostrar dinero. ");
+        System.out.println(" [5] RENDIRSE. ");
+        System.out.print("Elección -> ");
+        opcion = sc.nextLine(); 
+        //sc.close(); 
+        return opcion; 
+    }
+    
     
    public static void resetearJugador(String[][] tablero) {
         for (int i = 0; i < tablero.length; i++) {
@@ -316,78 +331,131 @@ public class VersionFinal {
             if (respuesta.equalsIgnoreCase("no")) {
                 break;
             }
-
-            listarTablero(tablero);
-            System.out.println("==============Jugador 1=============");
-            System.out.println("Tira el dado...");
-            int pasos = dado();
-            System.out.println("El dado mostró: " + pasos);
-
-            // Actualizar la posición del jugador en sentido horario
-            resetearJugador(tablero);
-
-            for (int i = 0; i < pasos; i++) {
-                if (x1 == 0 && y1 < 10) { // Va hacia la derecha
-
-                    y1++;
-                    if(tablero[x1][y1].equals(" S ")){
-                        System.out.println("vueltaaaaaaaa");
-                        ++vueltaJ1; 
-                    }
-                } else if (y1 == 10 && x1 < 10) { // Baja
-                    x1++;
-                    
-                } else if (x1 == 10 && y1 > 0) { // Va hacia la izquierda
-                    y1--;
-                    
-                } else if (y1 == 0 && x1 > 0) { // Sube
-                    x1--;
-                    if(tablero[x1][y1].equals(" S ")){
-                        System.out.println("vueltaaaaaaaa");
-                        ++vueltaJ1; 
-                    }
-                }
-            }
-
-            tablero[x1][y1] = " 1 ";
             
-            for(int i = 0; i < tablero.length ; i++){
-                for(int j = 0 ; j< tablero[0].length ; j++){
-             
-                    if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                        continue; 
-                    }else {
-                        tablero[i][j] = tableroPlantilla[i][j]; 
+            
+            
+            /*En esta parte juega el jugador 1-------------------*/
+            
+            
+            String eleccion = ""; 
+            eleccion = menuJugador1(); 
+            //System.out.println("eleccion "+eleccion);
+            
+            switch(eleccion){
+                case "1": {
+                    listarTablero(tablero);
+                    System.out.println("==============Jugador 1=============");
+                    System.out.println("Tira el dado...");
+                    int pasos = dado();
+                    System.out.println("El dado mostró: " + pasos);
+
+                    // Actualizar la posición del jugador en sentido horario
+                    resetearJugador(tablero);
+
+                    for (int i = 0; i < pasos; i++) {
+                        if (x1 == 0 && y1 < 10) { // Va hacia la derecha
+
+                            y1++;
+                            if(tablero[x1][y1].equals(" S ")){
+                                System.out.println("vueltaaaaaaaa");
+                                ++vueltaJ1; 
+                            }
+                        } else if (y1 == 10 && x1 < 10) { // Baja
+                            x1++;
+
+                        } else if (x1 == 10 && y1 > 0) { // Va hacia la izquierda
+                            y1--;
+
+                        } else if (y1 == 0 && x1 > 0) { // Sube
+                            x1--;
+                            if(tablero[x1][y1].equals(" S ")){
+                                System.out.println("vueltaaaaaaaa");
+                                ++vueltaJ1; 
+                            }
+                        }
                     }
+
+                    tablero[x1][y1] = " 1 ";
+
+                    for(int i = 0; i < tablero.length ; i++){
+                        for(int j = 0 ; j< tablero[0].length ; j++){
+
+                            if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
+                                continue; 
+                            }else {
+                                tablero[i][j] = tableroPlantilla[i][j]; 
+                            }
+
+                        }
+                    }
+
+                    listarTablero(tablero);
+
+
+                    /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
+                    posJ1.obtenerPosActual(idJ1,x1,y1); 
+                    System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+
+                    /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
+
+                    Long id = cas.obtenerIdCasilla(x1, y1); 
+                    System.out.println("id "+id);
+                    //System.out.println("jug1 "+ jug1);
+                    if(id != null){
+                        System.out.println("Dinero disponible -> "+ jug1.getJ1_Dinero());
+                        System.out.println("Quiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
+                        String respuesta2 = sc.nextLine(); 
+                        if(respuesta2.equalsIgnoreCase("y")){
+                            t.CargarCasillaJ1(id, jug1); //11
+                            //System.out.println(t.casillasJugador1());
+                        }
+                        //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
+                    }
+
+                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+                    break; 
+                }
                 
+                case "2": 
+                        /*Vamos a mostrar las casillas que quedan disponibles sin 
+                    propietario en el tablero*/
+                {
+                    t.ActualizarCasillasDisponibles();
+                    cas.cargarCasillasCasilla(t);
+                    System.out.println(t.casillasDisponibles());
+                    
+                    break; 
                 }
+                
+                
+                case "3": {
+                    System.out.println(t.casillasJugador1());
+                    break; 
+                }
+                
+                
+                case "4": {
+                    System.out.println("Dinero Actual -> "+ jug1.getJ1_Dinero());
+                    break; 
+                }
+                
             }
             
-            listarTablero(tablero);
-            
-            
-            /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
-            posJ1.obtenerPosActual(idJ1,x1,y1); 
-            System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
-            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
             
             
             
             
-            /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
             
-            Long id = cas.obtenerIdCasilla(x1, y1); 
-            System.out.println("id "+id);
-            //System.out.println("jug1 "+ jug1);
-            if(id != null){
-                System.out.println("Quiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
-                String respuesta2 = sc.nextLine(); 
-                if(respuesta2.equalsIgnoreCase("y")){
-                    t.CargarCasillaJ1(id, jug1);
-                }
-            }
             
-            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+            
+            
+            /*A partir de aquí juega el jugador 2 ---------------------------------*/
+            
+            
+            
             
             System.out.println("==============Jugador 2==================");
             
@@ -441,6 +509,23 @@ public class VersionFinal {
             /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
             posJ2.obtenerPosActual(idJ2,x2,y2); 
             System.out.println("Posicion J1 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
+            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+            
+            
+            /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
+            
+            Long id2 = cas.obtenerIdCasilla(x2, y2); 
+            System.out.println("id "+id2);
+            //System.out.println("jug1 "+ jug1);
+            if(id2 != null){
+                System.out.println("Quiere comprar la propiedad "+ cas.porId(id2)+ " [Y/N]");
+                String respuesta2 = sc.nextLine(); 
+                if(respuesta2.equalsIgnoreCase("y")){
+                    t.CargarCasillaJ2(id2, jug2);
+                }
+                System.out.println("Cuanto dinero le queda"+ jug2.getJ2_Dinero());
+            }
+            
             /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
             
 

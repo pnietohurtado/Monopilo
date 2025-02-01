@@ -11,6 +11,7 @@ import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -46,10 +47,18 @@ public class Tablero {
         this.j2 = j2; 
     }
     
+    public static double getDineroJ1(ResultSet rs)throws SQLException{
+        double dineroActual = rs.getDouble("J1_Dinero"); 
+        return dineroActual; 
+    }
+    
+    public static double getDineroJ2(ResultSet rs)throws SQLException{
+        double dineroActual = rs.getDouble("J2_Dinero"); 
+        return dineroActual; 
+    }
+    
     public void CargarCasillaJ1(Long id, Jugador1 j) throws SQLException,Exception{
-        Casilla c = porId(id); 
-        casillasJ1.add(c); 
-        EliminarCasillaDisponible(id); 
+       
         
         PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 0, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
         pt.setLong(1, j.getJ1_IdUser());
@@ -62,6 +71,30 @@ public class Tablero {
         String sql = "call actualizaJ1()"; 
         PreparedStatement pt2 = getConnection().prepareStatement(sql); 
         pt2.executeUpdate(); 
+        
+        
+        PreparedStatement pt3 = getConnection().prepareStatement("update jugador1 set J1_Dinero = J1_Dinero - (select CAS_Precio from casilla where CAS_Id = ?) where J1_IdCasilla = ? "); 
+        pt3.setLong(1, id); 
+        pt3.setLong(2, j.getJ1_IdCasilla());
+        pt3.executeUpdate(); 
+        
+        double saldo = 0.0d; 
+        
+        PreparedStatement pt4 = getConnection().prepareStatement("select J1_Dinero from jugador1 order by J1_Dinero asc  limit ?");
+        pt4.setInt(1, 1);
+        ResultSet rs = pt4.executeQuery(); 
+        if(rs.next()){
+            saldo = getDineroJ1(rs); 
+            j.setJ1_Dinero(saldo);
+        }
+        //System.out.println("Saldo actual "+saldo);
+        
+        Casilla c = porId(id); 
+        System.out.println("Aquiiiiiiaisdiaisdasdasd:  "+c );
+        casillasJ1.add(c); 
+        //System.out.println(casillasJ1);
+        EliminarCasillaDisponible(id); 
+        
     }
     
     public void CargarCasillaJ2(Long id, Jugador2 j) throws SQLException,Exception{
@@ -80,9 +113,27 @@ public class Tablero {
         String sql = "call actualizaJ2()"; 
         PreparedStatement pt2 = getConnection().prepareStatement(sql); 
         pt2.executeUpdate(); 
+        
+        PreparedStatement pt3 = getConnection().prepareStatement("update jugador2 set J2_Dinero = J2_Dinero - (select CAS_Precio from casilla where CAS_Id = ?) where J2_IdCasilla = ? "); 
+        pt3.setLong(1, id); 
+        pt3.setLong(2, j.getJ2_IdCasilla());
+        pt3.executeUpdate(); 
+        
+        double saldo = 0.0d; 
+        
+        PreparedStatement pt4 = getConnection().prepareStatement("select J2_Dinero from jugador2 order by J2_Dinero asc  limit ?");
+        pt4.setInt(1, 1);
+        ResultSet rs = pt4.executeQuery(); 
+        if(rs.next()){
+            saldo = getDineroJ2(rs); 
+            
+        }
+        System.out.println("Saldo actual "+saldo);
+        
+        
     }
     
-    public Casilla porId(Long id) throws SQLException,Exception{
+    public Casilla porId(Long id) {
         
         Iterator<Casilla> it = casillasDisponibles.iterator(); 
         while(it.hasNext()){

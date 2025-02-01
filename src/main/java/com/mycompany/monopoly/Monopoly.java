@@ -138,5 +138,6 @@ public class Monopoly {
         jug1.setPosJ(0); 
         
         System.out.println(jug1);
+        System.out.println(t.casillasJugador1());
     }
 }
