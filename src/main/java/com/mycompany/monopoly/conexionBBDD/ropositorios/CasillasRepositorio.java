@@ -152,6 +152,42 @@ public class CasillasRepositorio implements ICasillasRepositorio{
         }
     }
 
+    @Override
+    public Long obtenerIdCasilla(int x, int y) throws SQLException, Exception 
+               /*Usamos esta función para poder averiguar el id de la casilla en función 
+            de la posición en la que esté tanto la casilla como el usuario */
+    {
+        Long id = null; 
+        Casilla c = null; 
+        PreparedStatement pt = getConnection().prepareStatement("select * from casilla where posicionI = ? and posicionJ = ? and CAS_Tipo = ?"); 
+        pt.setInt(1, x);
+        pt.setInt(2, y);
+        pt.setString(3, "Propiedad");
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            c = getCasilla(rs); 
+            id = c.getCAS_Id(); 
+        }
+        return id; 
+    }
+
+    @Override
+    public Casilla porId(Long id) throws SQLException, Exception {
+        Casilla c = null; 
+        PreparedStatement pt = getConnection().prepareStatement("select * from casilla where CAS_Id = ?"); 
+        pt.setLong(1, id); 
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            c = getCasilla(rs); 
+            
+        }
+        return c; 
+    }
+
+    
+    
+    
+    
     
     
    

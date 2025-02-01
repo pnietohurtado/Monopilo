@@ -20,8 +20,12 @@ public interface ICasillasRepositorio {
     public List<Casilla> tipos(String tipo) throws SQLException, Exception;
     public List<Casilla> color(String color) throws SQLException, Exception;
     public Casilla porNombre(String nombre) throws SQLException, Exception;
+    public Casilla porId(Long id) throws SQLException, Exception;
     
     /*En el siguiente ejemplo, vamos a necesitar una instancia de tablero para poder cargar todas las casillas 
     que tenemos declaradas dentro de la base de datos a el programad de java*/
     public void cargarCasillasCasilla(Tablero t) throws SQLException, Exception; 
+    
+    
+    public Long obtenerIdCasilla(int x, int y) throws SQLException, Exception; 
 }

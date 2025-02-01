@@ -73,6 +73,7 @@ public class VersionFinal {
         
         ICasillasRepositorio cas = new CasillasRepositorio(); //Con esto vamos a añadir y actualizar las casillas disponibles
         
+        
         IPosicionRepositorio<PosicionJ1> posJ1 = new PosicionJ1Repositorio(); 
         IPosicionRepositorio<PosicionJ2> posJ2 = new PosicionJ2Repositorio(); 
         
@@ -135,14 +136,15 @@ public class VersionFinal {
         UsuarioI u2 = u.porUser("rufian"); 
         Long idJ1 = u1.getUI_Id(); //Con esto asignamos el "J1_IdUser" y "J2_IdUser" en la base de datos 
         Long idJ2 = u2.getUI_Id(); 
+        //System.out.println("id "+ idJ1);
         
         Jugador1 jug1 = j1.porId(idJ1); //Metemos un objeto jugador el cual buscamos los valores mediante el select 
         Jugador2 jug2 = j2.porId(idJ2); // por "idJ1 y idJ2" para poder tener los datos de los jugadores en físico
-        
+        System.out.println("jug 1 "+jug1);
         /****************************************************************************/
         
         
-        //Tablero t = new Tablero(jug1, jug2); 
+        Tablero t = new Tablero(jug1, jug2); 
         
         
         
@@ -287,6 +289,18 @@ public class VersionFinal {
         int vueltaJ1 = 0; //Ambos atributos van a contar las respectivas vueltas de los jugadores 
         int vueltaJ2 = 0; // jugador 1 y jugador 2
 
+        
+        
+        
+        
+        /*Cargar las casillas disponibles*/
+        cas.cargarCasillasCasilla(t);
+        
+        
+        
+        
+        
+        
         do 
                 /*A partir de aquí empieza el tablero del juego donde los jugadores van
                 a ir turnandose entre ellos para ir tirando el dado */
@@ -355,6 +369,24 @@ public class VersionFinal {
             /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
             posJ1.obtenerPosActual(idJ1,x1,y1); 
             System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+            
+            
+            
+            
+            /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
+            
+            Long id = cas.obtenerIdCasilla(x1, y1); 
+            System.out.println("id "+id);
+            //System.out.println("jug1 "+ jug1);
+            if(id != null){
+                System.out.println("Quiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
+                String respuesta2 = sc.nextLine(); 
+                if(respuesta2.equalsIgnoreCase("y")){
+                    t.CargarCasillaJ1(id, jug1);
+                }
+            }
+            
             /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
             
             System.out.println("==============Jugador 2==================");
