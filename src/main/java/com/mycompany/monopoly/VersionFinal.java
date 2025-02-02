@@ -425,14 +425,15 @@ public class VersionFinal {
                                 System.out.println("Dinero disponible -> "+ jug1.getJ1_Dinero());
                                 
                                     
-                                if(casilla.isCAS_Disponibilidad() == 1){
+                                if(casilla.isCAS_Disponibilidad() == 0){
                                     System.out.println("Quiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
                                     String respuesta2 = sc.nextLine(); 
                                     if(respuesta2.equalsIgnoreCase("y")){
                                         t.CargarCasillaJ1(id, jug1); //11
                                         //System.out.println(t.casillasJugador1());
+                                        casilla.setCAS_Disponibilidad(1);
                                     }
-                                }else if(casilla.isCAS_Disponibilidad() == 0 ){
+                                }else if(casilla.isCAS_Disponibilidad() == 1 ){
                                     t.actualizarSaldoJ1(id, jug1);
                                 
                                 }
@@ -573,14 +574,14 @@ public class VersionFinal {
                                 System.out.println("Dinero disponible -> "+ jug2.getJ2_Dinero());
                                 
                                     
-                                if(casilla.isCAS_Disponibilidad() == 1){
+                                if(casilla.isCAS_Disponibilidad() == 0){
                                     System.out.println("Quiere comprar la propiedad "+ cas.porId(id2)+ " [Y/N]");
                                     String respuesta2 = sc.nextLine(); 
                                     if(respuesta2.equalsIgnoreCase("y")){
-                                        t.CargarCasillaJ1(id2, jug1); //11
+                                        t.CargarCasillaJ2(id2, jug2); //11
                                         //System.out.println(t.casillasJugador2());
                                     }
-                                }else if(casilla.isCAS_Disponibilidad() == 0 ){
+                                }else if(casilla.isCAS_Disponibilidad() == 1 ){
                                     t.actualizarSaldoJ2(id2, jug2);
                                 
                                 }

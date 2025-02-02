@@ -95,6 +95,11 @@ public class Casilla
         this.CAS_Color = CAS_Color;
     }
 
+    public void setCAS_Disponibilidad(int CAS_Disponibilidad) {
+        this.CAS_Disponibilidad = CAS_Disponibilidad;
+    }
+    
+
     
     
     public String comprobarDisponibilidad(int CAS_Disponibilidad) {
@@ -149,7 +154,7 @@ public class Casilla
     public String toString(){
         StringBuilder sb = new StringBuilder(); 
         if(getCAS_Tipo().equals("Propiedad")){
-            sb.append(" ID -> ").append(this.CAS_Id).append(" , Nombre de la Propiedad ->  ").append(this.CAS_Nombre).append(" , Precio de la Propiedad ->  ").append(this.CAS_Precio); 
+            sb.append(" ID -> ").append(this.CAS_Id).append(" , Nombre de la Propiedad ->  ").append(this.CAS_Nombre).append(" , Precio de la Propiedad ->  ").append(this.CAS_Precio).append(" Diponibilidad -> ").append(this.CAS_Disponibilidad); 
             if(comprobarDisponibilidad(this.CAS_Disponibilidad).equals("Disponible")){
                 sb.append(" , Disponibilidad ->  ").append(comprobarDisponibilidad(this.CAS_Disponibilidad)); 
             }

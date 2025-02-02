@@ -60,7 +60,7 @@ public class Tablero {
     public void CargarCasillaJ1(Long id, Jugador1 j) throws SQLException,Exception{
        
         
-        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 0, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
+        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 1, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
         pt.setLong(1, j.getJ1_IdUser());
         pt.setString(2, "jugador1"); 
         pt.setLong(3, id); 
@@ -100,7 +100,7 @@ public class Tablero {
     public void CargarCasillaJ2(Long id, Jugador2 j) throws SQLException,Exception{
         
         
-        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 0, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
+        PreparedStatement pt = getConnection().prepareStatement("update casilla set CAS_Disponibilidad = 1, CAS_IdPropietario = ?, CAS_Propietario = ? where CAS_Id = ?"); 
         pt.setLong(1, j.getJ2_IdUser());
         pt.setString(2, "jugador2"); 
         pt.setLong(3, id); 
