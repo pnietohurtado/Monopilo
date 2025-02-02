@@ -16,6 +16,7 @@ import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioRepositorio;
+import com.mycompany.monopoly.modelos.Casilla;
 import com.mycompany.monopoly.modelos.Jugador1;
 import com.mycompany.monopoly.modelos.Jugador2;
 import com.mycompany.monopoly.modelos.PosicionJ1;
@@ -35,7 +36,7 @@ import java.util.Scanner;
  */
 public class VersionFinal {
     
-    public static String menuJugador1(){
+    public static String menuJugador(){
         
         Scanner sc = new Scanner(System.in); 
         String opcion = ""; 
@@ -314,7 +315,8 @@ public class VersionFinal {
         
         
         
-        
+        int carcelJ1 = 0; 
+        int carcelJ2 = 0; 
         
         do 
                 /*A partir de aquí empieza el tablero del juego donde los jugadores van
@@ -337,122 +339,153 @@ public class VersionFinal {
             /*En esta parte juega el jugador 1-------------------*/
             
             
-            String eleccion = ""; 
-            eleccion = menuJugador1(); 
+            String eleccionJ1 = ""; 
+            do{
+            System.out.println("==============Jugador 1=============");
+            eleccionJ1 = menuJugador(); 
             //System.out.println("eleccion "+eleccion);
             
-            switch(eleccion){
-                case "1": {
-                    listarTablero(tablero);
-                    System.out.println("==============Jugador 1=============");
-                    System.out.println("Tira el dado...");
-                    int pasos = dado();
-                    System.out.println("El dado mostró: " + pasos);
+                if(carcelJ1 == 0){
+                    switch(eleccionJ1){
+                        case "1": {
+                            listarTablero(tablero);
+                            System.out.println("==============Jugador 1=============");
+                            System.out.println("Tira el dado...");
+                            int pasos = dado();
+                            System.out.println("El dado mostró: " + pasos);
 
-                    // Actualizar la posición del jugador en sentido horario
-                    resetearJugador(tablero);
+                            // Actualizar la posición del jugador en sentido horario
+                            resetearJugador(tablero);
 
-                    for (int i = 0; i < pasos; i++) {
-                        if (x1 == 0 && y1 < 10) { // Va hacia la derecha
+                            for (int i = 0; i < pasos; i++) {
+                                if (x1 == 0 && y1 < 10) { // Va hacia la derecha
 
-                            y1++;
-                            if(tablero[x1][y1].equals(" S ")){
-                                System.out.println("vueltaaaaaaaa");
-                                ++vueltaJ1; 
-                            }
-                        } else if (y1 == 10 && x1 < 10) { // Baja
-                            x1++;
+                                    y1++;
+                                    if(tablero[x1][y1].equals(" S ")){
+                                        System.out.println("vueltaaaaaaaa");
+                                        ++vueltaJ1; 
+                                    }
+                                } else if (y1 == 10 && x1 < 10) { // Baja
+                                    x1++;
 
-                        } else if (x1 == 10 && y1 > 0) { // Va hacia la izquierda
-                            y1--;
+                                } else if (x1 == 10 && y1 > 0) { // Va hacia la izquierda
+                                    y1--;
 
-                        } else if (y1 == 0 && x1 > 0) { // Sube
-                            x1--;
-                            if(tablero[x1][y1].equals(" S ")){
-                                System.out.println("vueltaaaaaaaa");
-                                ++vueltaJ1; 
-                            }
-                        }
-                    }
-
-                    tablero[x1][y1] = " 1 ";
-
-                    for(int i = 0; i < tablero.length ; i++){
-                        for(int j = 0 ; j< tablero[0].length ; j++){
-
-                            if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                                continue; 
-                            }else {
-                                tablero[i][j] = tableroPlantilla[i][j]; 
+                                } else if (y1 == 0 && x1 > 0) { // Sube
+                                    x1--;
+                                    if(tablero[x1][y1].equals(" S ")){
+                                        System.out.println("vueltaaaaaaaa");
+                                        ++vueltaJ1; 
+                                    }
+                                }
                             }
 
+                            
+
+
+                            tablero[x1][y1] = " 1 ";
+
+                            for(int i = 0; i < tablero.length ; i++){
+                                for(int j = 0 ; j< tablero[0].length ; j++){
+
+                                    if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
+                                        continue; 
+                                    }else {
+                                        tablero[i][j] = tableroPlantilla[i][j]; 
+                                    }
+
+                                }
+                            }
+
+                            listarTablero(tablero);
+
+
+                            /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
+                            posJ1.obtenerPosActual(idJ1,x1,y1); 
+                            System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+                            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+                            
+                            /*En caso de que caiga en la carcel*/
+                            if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
+                                System.out.println("A la carcellll");
+                                carcelJ1 = 2; 
+                                break; 
+                            }
+
+
+                            /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
+
+                            Long id = cas.obtenerIdCasilla(x1, y1); 
+                            System.out.println("id "+id);
+                            //System.out.println("jug1 "+ jug1);
+                            
+                            if(id != null){
+                                Casilla casilla = cas.porId(id); 
+                                System.out.println("Dinero disponible -> "+ jug1.getJ1_Dinero());
+                                
+                                    
+                                if(casilla.isCAS_Disponibilidad() == 1){
+                                    System.out.println("Quiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
+                                    String respuesta2 = sc.nextLine(); 
+                                    if(respuesta2.equalsIgnoreCase("y")){
+                                        t.CargarCasillaJ1(id, jug1); //11
+                                        //System.out.println(t.casillasJugador1());
+                                    }
+                                }else if(casilla.isCAS_Disponibilidad() == 0 ){
+                                    t.actualizarSaldoJ1(id, jug1);
+                                
+                                }
+                                //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
+                            }
+
+                            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+                            break; 
                         }
-                    }
 
-                    listarTablero(tablero);
+                        case "2": 
+                                /*Vamos a mostrar las casillas que quedan disponibles sin 
+                            propietario en el tablero*/
+                        {
+                            t.ActualizarCasillasDisponibles();
+                            cas.cargarCasillasCasilla(t);
+                            System.out.println(t.casillasDisponibles());
 
-
-                    /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
-                    posJ1.obtenerPosActual(idJ1,x1,y1); 
-                    System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
-                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
-
-
-                    /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
-
-                    Long id = cas.obtenerIdCasilla(x1, y1); 
-                    System.out.println("id "+id);
-                    //System.out.println("jug1 "+ jug1);
-                    if(id != null){
-                        System.out.println("Dinero disponible -> "+ jug1.getJ1_Dinero());
-                        System.out.println("Quiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
-                        String respuesta2 = sc.nextLine(); 
-                        if(respuesta2.equalsIgnoreCase("y")){
-                            t.CargarCasillaJ1(id, jug1); //11
-                            //System.out.println(t.casillasJugador1());
+                            break; 
                         }
-                        //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
-                    }
 
-                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-                    break; 
-                }
-                
-                case "2": 
-                        /*Vamos a mostrar las casillas que quedan disponibles sin 
-                    propietario en el tablero*/
-                {
-                    t.ActualizarCasillasDisponibles();
-                    cas.cargarCasillasCasilla(t);
-                    System.out.println(t.casillasDisponibles());
+
+                        case "3": {
+                            System.out.println(t.casillasJugador1());
+                            break; 
+                        }
+
+
+                        case "4": {
+                            System.out.println("Dinero Actual -> "+ jug1.getJ1_Dinero());
+                            break; 
+                        }
+
+                    }
+                }else {
+                    System.out.println("No puede hacer nada, está en la carcel!!!");
+                    carcelJ1--; 
                     
                     break; 
                 }
-                
-                
-                case "3": {
-                    System.out.println(t.casillasJugador1());
-                    break; 
-                }
-                
-                
-                case "4": {
-                    System.out.println("Dinero Actual -> "+ jug1.getJ1_Dinero());
-                    break; 
-                }
-                
-            }
+            
+            }while(!(eleccionJ1.equals("1"))); 
             
             
             
             
             
             
-            
-            
-            
+            /*=====================================================================*/
+            /*=====================================================================*/
             /*A partir de aquí juega el jugador 2 ---------------------------------*/
+            /*=====================================================================*/
+            /*=====================================================================*/
             
             
             
@@ -466,68 +499,125 @@ public class VersionFinal {
 
             // Actualizar la posición del jugador en sentido horario
             
+            String eleccionJ2 = ""; 
+            do{
+                System.out.println("==============Jugador 2==================");
+                eleccionJ2 = menuJugador(); 
+                System.out.println("carcel "+carcelJ2);
+                if(carcelJ2 == 0){
+                    switch(eleccionJ2){
 
-            for (int i = 0; i < pasos2; i++) {
-                if (x2 == 0 && y2 < 10) { // Va hacia la derecha
-                    y2++;
-                    if(tablero[x2][y2].equals(" S ")){
-                        System.out.println("vueltaaaaaaaa");
-                        ++vueltaJ2; 
-                    }
-                } else if (y2 == 10 && x2 < 10) { // Baja
-                    x2++;
-                } else if (x2 == 10 && y2 > 0) { // Va hacia la izquierda
-                    y2--;
-                } else if (y2 == 0 && x2 > 0) { // Sube
-                    x2--;
-                    if(tablero[x2][y2].equals(" S ")){
-                        System.out.println("vueltaaaaaaaa");
-                        ++vueltaJ2; 
-                    }
-                }
-            }
+                        case "1": {
+                            for (int i = 0; i < pasos2; i++) {
+                                if (x2 == 0 && y2 < 10) { // Va hacia la derecha
+                                    y2++;
+                                    if(tablero[x2][y2].equals(" S ")){
+                                        System.out.println("vueltaaaaaaaa");
+                                        ++vueltaJ2; 
+                                    }
+                                } else if (y2 == 10 && x2 < 10) { // Baja
+                                    x2++;
+                                } else if (x2 == 10 && y2 > 0) { // Va hacia la izquierda
+                                    y2--;
+                                } else if (y2 == 0 && x2 > 0) { // Sube
+                                    x2--;
+                                    if(tablero[x2][y2].equals(" S ")){
+                                        System.out.println("vueltaaaaaaaa");
+                                        ++vueltaJ2; 
+                                    }
+                                }
+                            }
 
-            resetearJugador(tablero);
-            tablero[x2][y2] = " 2 "; // x2 = posI del jugador2 , y2 = posJ del jugador2 
-            
-            
-            
-            for(int i = 0; i < tablero.length ; i++){
-                for(int j = 0 ; j< tablero[0].length ; j++){
-             
-                    if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                        continue; 
-                    }else {
-                        tablero[i][j] = tableroPlantilla[i][j]; 
+                            resetearJugador(tablero);
+                            
+                            
+                            tablero[x2][y2] = " 2 "; // x2 = posI del jugador2 , y2 = posJ del jugador2 
+
+                            
+
+                            for(int i = 0; i < tablero.length ; i++){
+                                for(int j = 0 ; j< tablero[0].length ; j++){
+
+                                    if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
+                                        continue; 
+                                    }else {
+                                        tablero[i][j] = tableroPlantilla[i][j]; 
+                                    }
+
+                                }
+                            }
+
+                            listarTablero(tablero);
+                           
+
+                            /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
+                            posJ2.obtenerPosActual(idJ2,x2,y2); 
+                            System.out.println("Posicion J1 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
+                            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+                            
+                            /*En caso de que caiga en la carcel*/
+                            if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
+                                System.out.println("A la carcellll");
+                                carcelJ2 = 2; 
+                                break; 
+                            }
+
+                            /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
+
+                            Long id2 = cas.obtenerIdCasilla(x2, y2); 
+                            System.out.println("id "+id2);
+                            //System.out.println("jug1 "+ jug1);
+                            if(id2 != null){
+                                Casilla casilla = cas.porId(id2); 
+                                System.out.println("Dinero disponible -> "+ jug2.getJ2_Dinero());
+                                
+                                    
+                                if(casilla.isCAS_Disponibilidad() == 1){
+                                    System.out.println("Quiere comprar la propiedad "+ cas.porId(id2)+ " [Y/N]");
+                                    String respuesta2 = sc.nextLine(); 
+                                    if(respuesta2.equalsIgnoreCase("y")){
+                                        t.CargarCasillaJ1(id2, jug1); //11
+                                        //System.out.println(t.casillasJugador2());
+                                    }
+                                }else if(casilla.isCAS_Disponibilidad() == 0 ){
+                                    t.actualizarSaldoJ2(id2, jug2);
+                                
+                                }
+                                //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
+                            }
+
+                            break; //Muy necesario ya que si no salta al siguiente "case" 
+                        }
+
+                        case "2": 
+                                /*Se encarga de mostrar las casillas que quedan disponibles para comprar
+                            para los dos jugadores, es decir, aquellas que no tienen dueño aún.*/
+                        {
+                            t.ActualizarCasillasDisponibles();
+                            cas.cargarCasillasCasilla(t);
+                            System.out.println(t.casillasDisponibles());
+
+                            break; 
+                        }
+
+                        case "3": {
+                            System.out.println(t.casillasJugador2());
+                            break; 
+                        }
+
+                        case "4": {
+                            System.out.println("Dinero Actual -> "+ jug2.getJ2_Dinero());
+                            break; 
+                        }
+
                     }
-                
+                }else{
+                    System.out.println("No puede hacer nada, está en la carcel!!!!!!!!!");
+                    carcelJ2--; 
+                    break;
                 }
-            }
-            
-            listarTablero(tablero);
-            
-            /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
-            posJ2.obtenerPosActual(idJ2,x2,y2); 
-            System.out.println("Posicion J1 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
-            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-            
-            
-            /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
-            
-            Long id2 = cas.obtenerIdCasilla(x2, y2); 
-            System.out.println("id "+id2);
-            //System.out.println("jug1 "+ jug1);
-            if(id2 != null){
-                System.out.println("Quiere comprar la propiedad "+ cas.porId(id2)+ " [Y/N]");
-                String respuesta2 = sc.nextLine(); 
-                if(respuesta2.equalsIgnoreCase("y")){
-                    t.CargarCasillaJ2(id2, jug2);
-                }
-                System.out.println("Cuanto dinero le queda"+ jug2.getJ2_Dinero());
-            }
-            
-            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-            
+            }while(!(eleccionJ2.equals("1"))); 
 
         } while (!respuesta.equalsIgnoreCase("no"));
         
