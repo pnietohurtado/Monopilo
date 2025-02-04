@@ -156,7 +156,7 @@ public class Casilla
         if(getCAS_Tipo().equals("Propiedad")){
             sb.append(" ID -> ").append(this.CAS_Id).append(" , Nombre de la Propiedad ->  ").append(this.CAS_Nombre).append(" , Precio de la Propiedad ->  ").append(this.CAS_Precio).append(" Diponibilidad -> ").append(this.CAS_Disponibilidad); 
             if(comprobarDisponibilidad(this.CAS_Disponibilidad).equals("Disponible")){
-                sb.append(" , Disponibilidad ->  ").append(comprobarDisponibilidad(this.CAS_Disponibilidad)); 
+                sb.append(" , Disponibilidad ->  ").append(this.CAS_Disponibilidad); 
             }
             
             sb.append(" , Propietario ->  ").append(this.CAS_Propietario).append("\n");

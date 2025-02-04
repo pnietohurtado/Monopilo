@@ -50,7 +50,7 @@ public class Jugador2Repositorio implements IJugadoresRepositorio<Jugador2>{
     public double getSaldo() throws SQLException, Exception {
         Jugador2 j2 = null; 
         double saldo  = 0.0d; 
-        PreparedStatement pt = getConnection().prepareStatement("select J2_Dinero from jugador2 order by J2_Dinero asc limit 1"); 
+        PreparedStatement pt = getConnection().prepareStatement("select * from jugador2 order by J2_Dinero asc limit 1"); 
         ResultSet rs = pt.executeQuery(); 
         if(rs.next()){
             j2 = getJugador(rs);

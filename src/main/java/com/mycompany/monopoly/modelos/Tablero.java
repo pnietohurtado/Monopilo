@@ -90,6 +90,7 @@ public class Tablero {
         //System.out.println("Saldo actual "+saldo);
         
         Casilla c = porId(id); 
+        c.setCAS_Disponibilidad(1);
         //System.out.println("Aquiiiiiiaisdiaisdasdasd:  "+c );
         casillasJ1.add(c); 
         //System.out.println(casillasJ1);
@@ -129,6 +130,7 @@ public class Tablero {
         //System.out.println("Saldo actual "+saldo);
         
         Casilla c = porId(id); 
+        c.setCAS_Disponibilidad(1);
         casillasJ2.add(c); 
         EliminarCasillaDisponible(id); 
         
@@ -212,7 +214,7 @@ public class Tablero {
         ResultSet rs = pt.executeQuery(); 
         if(rs.next()){
             saldo = getDineroJ1(rs); 
-            //j.setJ1_Dinero(saldo);
+            j.setJ1_Dinero(saldo);
         }
         
         Casilla casilla = cas.porId(id); 
@@ -221,6 +223,7 @@ public class Tablero {
             if(casilla.getCAS_Propietario().equals("jugador1")){
                 System.out.println("Esta ya es tu propiedad!");
             }else if(casilla.getCAS_Propietario().equals("jugador2")){
+                System.out.println("Paga multa");
                 double multa = casilla.getCAS_Precio() * 0.35; 
                 saldo -= multa; 
                 j.setJ1_Dinero(saldo);
@@ -241,7 +244,7 @@ public class Tablero {
         ResultSet rs = pt.executeQuery(); 
         if(rs.next()){
             saldo = getDineroJ2(rs); 
-            //j.setJ2_Dinero(saldo);
+            j.setJ2_Dinero(saldo);
         }
         
         Casilla casilla = cas.porId(id); 
@@ -250,6 +253,7 @@ public class Tablero {
             if(casilla.getCAS_Propietario().equals("jugador2")){
                 System.out.println("Esta ya es tu propiedad!");
             }else if(casilla.getCAS_Propietario().equals("jugador1")){
+                System.out.println("Paga multa");
                 double multa = casilla.getCAS_Precio() * 0.35; 
                 saldo -= multa; 
                 j.setJ2_Dinero(saldo);
@@ -260,7 +264,60 @@ public class Tablero {
       
     }
     
+    public void vueltaCompletada1(Long id, Jugador1 j1) throws SQLException, Exception{
+        double saldo = 0.0d; 
+        
+        PreparedStatement pt = getConnection().prepareStatement("update jugador1 set J1_Dinero = (? + 20) where J1_Id = 1");
+        //pt.setInt(1, 1);
+        pt.setDouble(1, j1.getJ1_Dinero()); 
+        
+        pt.executeUpdate(); 
+        //ResultSet rs = pt.executeQuery(); 
+        /*
+        if(rs.next()){
+            saldo = getDineroJ1(rs); 
+            //j.setJ2_Dinero(saldo);
+        }
+        */
+    }
     
+    
+    public void vueltaCompletada2(Long id, Jugador2 j2) throws SQLException, Exception{
+        double saldo = 0.0d; 
+        
+        PreparedStatement pt = getConnection().prepareStatement("update jugador2 set J2_Dinero = (? + 20) where J2_Id = 1");
+        //pt.setInt(1, 1);
+        pt.setDouble(1, j2.getJ2_Dinero()); 
+        pt.executeUpdate(); 
+        /*
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            saldo = getDineroJ2(rs); 
+            //j.setJ2_Dinero(saldo);
+        }
+        */
+        
+    }
+    
+    
+    
+    /*Casillas de la suerte o mala suerte para cada usurio*/ 
+    public void suerte1(Jugador1 j1) throws SQLException, Exception{
+        PreparedStatement pt = getConnection().prepareStatement("update jugador1 set J1_Dinero = (? + 10) where J1_Id = 1");
+        //pt.setInt(1, 1);
+        pt.setDouble(1, j1.getJ1_Dinero()); 
+        
+        pt.executeUpdate(); 
+        
+    }
+    public void suerte2(Jugador2 j2) throws SQLException, Exception{
+        PreparedStatement pt = getConnection().prepareStatement("update jugador2 set J2_Dinero = (? + 10) where J2_Id = 1");
+        //pt.setInt(1, 1);
+        pt.setDouble(1, j2.getJ2_Dinero()); 
+        
+        pt.executeUpdate(); 
+        
+    }
     
     @Override 
     public String toString(){
