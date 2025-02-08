@@ -40,15 +40,17 @@ public class UsuarioIRepositorio implements IUsuarioIRepositorio{
     }
 
     
-    public void inicioSesion(String user, String pass, int i) throws SQLException, UsuarioNoEncontrado ,Exception
+    public String inicioSesion(String user, String pass, int i) throws SQLException, UsuarioNoEncontrado ,Exception
             /*En esta función podría incluso meter pasarle el usuario a la base de datos 
             asignandolo al Jugador1 o Jugador2*/
             /*Si ponemos i = 1 se va a tratar del jugador 1, si ponemos i = 2 se va a tratar 
             del segundo jugador */
     {
+        String confirmacion = ""; 
         UsuarioI u = porUser(user); 
         if(user.equals(u.getUI_User()) && pass.equals(u.getUI_Pass())){
             System.out.println("Sesión iniciada correctamente ");
+            confirmacion = "ok"; 
             if(i == 1){
                 try{
                     PreparedStatement pt = getConnection().prepareStatement("insert into jugador1 value(1, ?,100, ?)"); 
@@ -71,6 +73,8 @@ public class UsuarioIRepositorio implements IUsuarioIRepositorio{
         }else{
             throw new UsuarioNoEncontrado("El usuario que ha indicado no ha sido registrado aún!"); 
         }
+        
+        return confirmacion; 
     }
     
     @Override

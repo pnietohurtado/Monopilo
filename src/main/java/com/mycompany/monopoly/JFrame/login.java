@@ -4,6 +4,10 @@
  */
 package com.mycompany.monopoly.JFrame;
 
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
+import java.sql.SQLException;
+
 /**
  *
  * @author pablo
@@ -15,6 +19,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        this.setLocationRelativeTo(null); //Línea de código para poder centrar un JFrame
     }
 
     /**
@@ -36,6 +41,7 @@ public class login extends javax.swing.JFrame {
         IrRegistro = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        label1 = new java.awt.Label();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,6 +80,9 @@ public class login extends javax.swing.JFrame {
 
         jLabel6.setIcon(new javax.swing.ImageIcon(System.getProperty("user.dir")+ "\\src\\main\\java\\com\\mycompany\\monopoly\\JFrame\\icons\\acceso.png"));
 
+        label1.setFont(new java.awt.Font("Arial Black", 0, 12)); // NOI18N
+        label1.setText("INICIO DE SESIÓN          ->      [Graphic Design Is My Passion]");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -102,17 +111,23 @@ public class login extends javax.swing.JFrame {
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(UsuarioInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                     .addComponent(PassInicio))
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(14, 14, 14))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(77, 77, 77)
+                .addGap(31, 31, 31)
+                .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addGap(10, 10, 10)
                 .addComponent(jLabel4)
@@ -129,7 +144,7 @@ public class login extends javax.swing.JFrame {
                         .addGap(42, 42, 42)
                         .addComponent(EnviarInicio))
                     .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 99, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
                 .addComponent(IrRegistro)
                 .addGap(25, 25, 25))
         );
@@ -138,7 +153,9 @@ public class login extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,8 +173,30 @@ public class login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_PassInicioActionPerformed
 
+    /*Inicializamos todos los datos para poder enviar el inicio de sesión */
+    IUsuarioIRepositorio u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
+    
+    String user; 
+    String pass; 
+    
+    
     private void EnviarInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EnviarInicioActionPerformed
-        // TODO add your handling code here:
+        user = UsuarioInicio.getText(); 
+        pass = PassInicio.getText(); 
+        String confir = ""; 
+        try{
+           confir = u.inicioSesion(user, pass, 1);
+        }catch(SQLException e ){
+            
+        }catch(Exception e2){
+            
+        }
+        
+        limpiarCampos(); 
+        if(confir.equals("ok")){
+           //Aquí voy a llevar al usuario a una nueva ventana explicativa sobre el juego 
+           //O en su defecto va a ir directamente al tablero y a la partida. 
+        }
     }//GEN-LAST:event_EnviarInicioActionPerformed
 
     private void IrRegistroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IrRegistroActionPerformed
@@ -166,6 +205,12 @@ public class login extends javax.swing.JFrame {
         this.dispose(); 
     }//GEN-LAST:event_IrRegistroActionPerformed
 
+    private void limpiarCampos() {
+        UsuarioInicio.setText("");
+        PassInicio.setText("");
+        //comboBox.setSelectedIndex(0); // Reiniciar comboBox a la primera opción
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -212,5 +257,6 @@ public class login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
+    private java.awt.Label label1;
     // End of variables declaration//GEN-END:variables
 }

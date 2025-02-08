@@ -21,7 +21,7 @@ public interface IUsuarioIRepositorio {
     public UsuarioI porId(Long id) throws SQLException, Exception; 
     public UsuarioI porUser(String user) throws SQLException, Exception; 
 
-    public void inicioSesion(String user, String pass, int i) throws SQLException, UsuarioNoEncontrado ,Exception; 
+    public String inicioSesion(String user, String pass, int i) throws SQLException, UsuarioNoEncontrado ,Exception; 
     
     /*-----------Actualizar los datos--------------*/
     
