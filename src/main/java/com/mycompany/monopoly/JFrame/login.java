@@ -19,6 +19,7 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+ "\\src\\main\\java\\com\\mycompany\\monopoly\\JFrame\\icons\\Icono.png").getImage());  // Se trata del icono de la ventana 
         this.setLocationRelativeTo(null); //Línea de código para poder centrar un JFrame
     }
 

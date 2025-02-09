@@ -20,6 +20,7 @@ public class Registro extends javax.swing.JFrame {
      */
     public Registro() {
         initComponents();
+        setIconImage(new javax.swing.ImageIcon(System.getProperty("user.dir")+ "\\src\\main\\java\\com\\mycompany\\monopoly\\JFrame\\icons\\Icono.png").getImage()); 
         this.setLocationRelativeTo(null); //Línea de código para poder centrar un JFrame
     }
 
