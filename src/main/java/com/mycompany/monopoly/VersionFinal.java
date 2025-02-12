@@ -24,9 +24,9 @@ import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.Usuario;
 import com.mycompany.monopoly.modelos.UsuarioI;
-import static com.mycompany.monopoly.pruebas.dado;
-import static com.mycompany.monopoly.pruebas.listarTablero;
-import static com.mycompany.monopoly.pruebas.resetearJugador;
+//import static com.mycompany.monopoly.pruebas.dado;
+//import static com.mycompany.monopoly.pruebas.listarTablero;
+//import static com.mycompany.monopoly.pruebas.resetearJugador;
 import java.sql.SQLException;
 import java.util.Scanner;
 
@@ -140,7 +140,7 @@ public class VersionFinal {
         
         
         /*!!!!!!!!!!!!!!!!!!!    INICIO DE SESIÓN DE LOS DOS JUGADORES    !!!!!!!!!!!!!!!!!!!!!!!*/
-        /*
+        
         System.out.println("Inicio de sesión, Dime un nombre: ");
         String name1 = sc.nextLine(); 
         System.out.println("Dime la contraseña: ");
@@ -149,12 +149,22 @@ public class VersionFinal {
         String name2 = sc.nextLine(); 
         System.out.println("Dime la contraseña: ");
         String contra2 = sc.nextLine();
-        */
+        
         /*Se llama a la BBDD para iniciar sesión con los dos jugadores*/
-        /*
-        u.inicioSesion(name1, contra1, 1);
-        u.inicioSesion(name2, contra2, 2);
-        */
+        
+        //u.inicioSesion(name1, contra1, 1);
+        //u.inicioSesion(name2, contra2, 2);
+        
+        UsuarioI usuario1 = u.porUser(name1); //Estoy obetiendo los valores de ambos usuarios 
+        UsuarioI usuario2 = u.porUser(name2); 
+        /**************************************************************************/
+        
+        //En base a "usuario1 y usuario2" vamos a obtener los id necesarios para poder 
+        //realizar las cuatro consultas básicas de nuestro servidor. 
+        
+           //Esta un poco más abajo donde instanciamos el "Tablero" 
+        
+        
         /**************************************************************************/
         
         
@@ -175,6 +185,7 @@ public class VersionFinal {
         
         Tablero t = new Tablero(jug1, jug2); 
         
+        t.inicioPartida(usuario1.getUI_Id(), usuario2.getUI_Id()); //Borra todos los datos de la partida anterior
         
         System.out.println(jug1);
         
@@ -412,12 +423,19 @@ public class VersionFinal {
                                 }
                             }
 
-                            listarTablero(tablero);
-                            
-
                             /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
                             posJ1.obtenerPosActual(idJ1,x1,y1); 
+                            posJ2.obtenerPosActual(idJ2, x2, y2);
+                            
+                            
+                            //Prueba sobre la posición del jugador2 en el tablero de jugador1 
+                            tablero[posJ2.obtenerX()][posJ2.obtenerY()] = " 2 "; 
+                            
+                            listarTablero(tablero);
+                           
+                            
                             System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+                            System.out.println("Posicion J2 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
                             /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
                             
@@ -573,13 +591,19 @@ public class VersionFinal {
 
                                 }
                             }
-
-                            listarTablero(tablero);
-                           
-
                             /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
                             posJ2.obtenerPosActual(idJ2,x2,y2); 
-                            System.out.println("Posicion J1 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
+                            posJ1.obtenerPosActual(idJ1, x1, y1);
+                            
+                            tablero[posJ1.obtenerX()][posJ1.obtenerY()] = " 1 "; 
+                            
+                            listarTablero(tablero);
+                           
+                            
+                            System.out.println("Posicion J2 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
+                            System.out.println("Posicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+
+                            
                             /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
                             

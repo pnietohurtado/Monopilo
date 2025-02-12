@@ -53,19 +53,13 @@ public class UsuarioIRepositorio implements IUsuarioIRepositorio{
             confirmacion = "ok"; 
             if(i == 1){
                 try{
-                    PreparedStatement pt = getConnection().prepareStatement("insert into jugador1 value(1, ?,100, ?)"); 
-                    pt.setLong(1, u.getUI_Id());
-                    pt.setLong(2, 100L); 
-                    pt.executeUpdate(); 
+                     
                 }catch(UsuarioYaExisteException e){
                     throw new UsuarioYaExisteException("Ya hay un usuario registrado como Jugador1"); 
                 }
             }else{
                 try{
-                    PreparedStatement pt = getConnection().prepareStatement("insert into jugador2 value(1, ?,100, ?)"); 
-                    pt.setLong(1, u.getUI_Id());
-                    pt.setLong(2, 100L); 
-                    pt.executeUpdate(); 
+                    
                 }catch(UsuarioYaExisteException e){
                     throw new UsuarioYaExisteException("Ya hay un usuario registrado como Jugador2"); 
                 }

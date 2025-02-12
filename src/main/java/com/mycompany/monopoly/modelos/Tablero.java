@@ -57,6 +57,26 @@ public class Tablero {
         return dineroActual; 
     }
     
+    /***********************Inicio de nuestro servidor******************************/
+    
+    public void inicioPartida(Long id1, Long id2) throws SQLException, Exception{
+        PreparedStatement pt = getConnection().prepareStatement("call borrarJugadores()"); 
+        pt.executeUpdate(); 
+        
+        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador1(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
+        pt2.setLong(1, id1); 
+        pt2.executeUpdate(); 
+        
+        PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador2(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
+        pt3.setLong(1,id2); 
+        pt3.executeUpdate(); 
+    }   
+    
+    
+    /*******************************************************************************/
+    
+    
+    
     public void CargarCasillaJ1(Long id, Jugador1 j) throws SQLException,Exception{
        
         
