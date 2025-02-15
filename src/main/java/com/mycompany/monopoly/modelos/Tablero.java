@@ -41,12 +41,23 @@ public class Tablero {
         //cas.cargarCasillasCasilla(this);
     }
     
-    public Tablero(Jugador1 j1, Jugador2 j2) throws SQLException, Exception{
+    public Tablero(Jugador1 j1) throws SQLException, Exception{
+        this(); 
+        this.j1 = j1; 
+        
+    }
+    
+    public Tablero(Jugador1 j1, Jugador2 j2) throws SQLException ,Exception{
         this(); 
         this.j1 = j1; 
         this.j2 = j2; 
     }
     
+    public Tablero(Jugador2 j2) throws SQLException, Exception{
+        this(); 
+        this.j2 = j2; 
+        
+    }
     public static double getDineroJ1(ResultSet rs)throws SQLException{
         double dineroActual = rs.getDouble("J1_Dinero"); 
         return dineroActual; 
@@ -59,7 +70,27 @@ public class Tablero {
     
     /***********************Inicio de nuestro servidor******************************/
     
-    public void inicioPartida(Long id1, Long id2) throws SQLException, Exception{
+    public void inicioPartida(Long id1) throws SQLException, Exception{
+        PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 
+        pt.executeUpdate(); 
+        
+        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador1(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
+        pt2.setLong(1, id1); 
+        pt2.executeUpdate(); 
+       
+    }   
+    
+    public void inicioPartidaJ2(Long id2) throws SQLException, Exception{ //Cambiar a jugador 2
+        PreparedStatement pt = getConnection().prepareStatement("call borrarJugador2()"); 
+        pt.executeUpdate(); 
+        
+        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador2(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
+        pt2.setLong(1, id2); 
+        pt2.executeUpdate(); 
+       
+    }
+    
+    public void inicioPartida(Long id1, Long id2) throws SQLException, Exception{ //Cambiar a jugador 2
         PreparedStatement pt = getConnection().prepareStatement("call borrarJugadores()"); 
         pt.executeUpdate(); 
         
@@ -68,9 +99,10 @@ public class Tablero {
         pt2.executeUpdate(); 
         
         PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador2(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
-        pt3.setLong(1,id2); 
+        pt3.setLong(1, id2); 
         pt3.executeUpdate(); 
-    }   
+       
+    }
     
     
     /*******************************************************************************/
