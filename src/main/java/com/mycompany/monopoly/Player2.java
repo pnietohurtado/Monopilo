@@ -330,6 +330,7 @@ public class Player2 {
 
                     int carcelJ1 = 0; 
                     int carcelJ2 = 0; 
+                    System.out.println("Hola");
 
                     do 
                             /*A partir de aquí empieza el tablero del juego donde los jugadores van
@@ -337,6 +338,20 @@ public class Player2 {
 
                     {
 
+                        
+                        
+                            synchronized(c){
+                                try{
+                                    //PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 1; "); 
+                                    //pt.executeUpdate(); 
+                                    System.out.println("Me pongo en modo espera...");
+                                    c.wait(); 
+                                }catch(InterruptedException e4){
+                                                
+                                }
+                                            
+                                            
+                            }
 
 
                         System.out.println("======================");
@@ -373,7 +388,10 @@ public class Player2 {
                         // Actualizar la posición del jugador en sentido de las agujas del reloj 
 
                         String eleccionJ2 = ""; 
+                        
                         do{
+                            
+                            
                             System.out.println("==============Jugador 2==================");
                             eleccionJ2 = menuJugador(); 
                             System.out.println("carcel "+carcelJ2);
@@ -528,18 +546,8 @@ public class Player2 {
                             
                             ganador(jug2); 
                             
-                            synchronized(c){
-                                try{
-                                    PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
-                                    pt.executeUpdate(); 
-                                    System.out.println("Me pongo en modo espera...");
-                                    c.wait(); 
-                                }catch(InterruptedException e4){
-                                                
-                                }
-                                            
-                                            
-                            }
+                            PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                            pt.executeUpdate(); 
                             
                         }while(!(eleccionJ2.equals("1"))); 
 
