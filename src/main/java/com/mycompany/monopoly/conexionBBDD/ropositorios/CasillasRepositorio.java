@@ -7,7 +7,6 @@ package com.mycompany.monopoly.conexionBBDD.ropositorios;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioYaExisteException;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
-import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
 import com.mycompany.monopoly.modelos.Casilla;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.UsuarioI;

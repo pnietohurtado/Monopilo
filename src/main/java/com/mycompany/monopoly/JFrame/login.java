@@ -4,7 +4,7 @@
  */
 package com.mycompany.monopoly.JFrame;
 
-import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import java.sql.SQLException;
 
@@ -175,7 +175,7 @@ public class login extends javax.swing.JFrame {
     }//GEN-LAST:event_PassInicioActionPerformed
 
     /*Inicializamos todos los datos para poder enviar el inicio de sesión */
-    IUsuarioIRepositorio u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
+    IUsuarioRepositorio u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
     
     String user; 
     String pass; 
@@ -186,7 +186,9 @@ public class login extends javax.swing.JFrame {
         pass = PassInicio.getText(); 
         String confir = ""; 
         try{
-           confir = u.inicioSesion(user, pass, 1);
+           UsuarioIRepositorio u2 = (UsuarioIRepositorio) u; 
+           confir = u2.inicioSesion(user, pass, 1); 
+           
         }catch(SQLException e ){
             
         }catch(Exception e2){

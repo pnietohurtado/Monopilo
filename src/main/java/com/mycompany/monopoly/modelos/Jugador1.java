@@ -5,7 +5,7 @@
 package com.mycompany.monopoly.modelos;
 
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
-import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class Jugador1 {
     private Long J1_IdUser; 
     private double J1_Dinero; 
     private Long J1_IdCasilla; 
-    private UsuarioI user; 
+    //private UsuarioI user; 
     
     /*En este caso vamos a añadir la posición actual del jugador*/
     private int posI; 
@@ -97,7 +97,7 @@ public class Jugador1 {
     @Override
     public String toString() {
         try{
-            IUsuarioIRepositorio u = new UsuarioIRepositorio(); 
+            IUsuarioRepositorio<UsuarioI> u = new UsuarioIRepositorio(); 
             UsuarioI u1 = u.porId(this.J1_IdUser); 
             ICasillasRepositorio c = new CasillasRepositorio(); 
             StringBuilder sb = new StringBuilder(); 
@@ -106,9 +106,7 @@ public class Jugador1 {
                     .append("\n"); 
             return sb.toString(); 
         }catch(SQLException e){
-            e.printStackTrace();
         }catch(Exception e){
-            e.printStackTrace();
         }
         return null; 
     }

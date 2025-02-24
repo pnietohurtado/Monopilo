@@ -7,7 +7,7 @@ package com.mycompany.monopoly.conexionBBDD.ropositorios;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioNoEncontrado;
 import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioYaExisteException;
-import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.modelos.Jugador1;
 import com.mycompany.monopoly.modelos.Jugador2;
 import com.mycompany.monopoly.modelos.UsuarioI;
@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author pablo
  */
-public class UsuarioIRepositorio implements IUsuarioIRepositorio{
+public class UsuarioIRepositorio implements IUsuarioRepositorio<UsuarioI>{
 
     
     public Connection getConnection() throws SQLException{
@@ -107,28 +107,6 @@ public class UsuarioIRepositorio implements IUsuarioIRepositorio{
         }
         return u;
     }
-
-    @Override
-    public void ActualizaNombre(Long id, String user) throws SQLException, Exception {
-        String sql = "update dieta_usuario set UI_User = ? where UI_Id = ? ";
-        PreparedStatement pt = getConnection().prepareStatement(sql); 
-        pt.setString(1, user); 
-        pt.setLong(2,id); 
-        pt.executeUpdate(); 
-    }
-
-    @Override
-    public void ActualizaCalorias(Long id, String pass) throws SQLException, Exception {
-        String sql = "update dieta_usuario set UI_Pass = ? where UI_Id = ? ";
-        PreparedStatement pt = getConnection().prepareStatement(sql); 
-        pt.setString(1, pass); 
-        pt.setLong(2,id); 
-        pt.executeUpdate();
-    }
-    
-    
-
-    
-   
+  
     
 }

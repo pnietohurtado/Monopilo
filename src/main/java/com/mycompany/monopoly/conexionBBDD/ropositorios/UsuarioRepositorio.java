@@ -1,8 +1,9 @@
 package com.mycompany.monopoly.conexionBBDD.ropositorios;
 
 import com.mycompany.monopoly.conexionBBDD.Conexion;
+import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioNoEncontrado;
 import com.mycompany.monopoly.conexionBBDD.Excepciones.UsuarioYaExisteException;
-import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.modelos.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,7 +16,7 @@ import java.util.List;
  *
  * @author pablo
  */
-public class UsuarioRepositorio implements UsuarioRRepositorio{
+public class UsuarioRepositorio implements IUsuarioRepositorio<Usuario>{
     public Connection getConnection()throws SQLException{
         return Conexion.getConnection(); 
     }
@@ -71,7 +72,6 @@ public class UsuarioRepositorio implements UsuarioRRepositorio{
     }
 
 
-    @Override
     public void insertar(Usuario u) throws UsuarioYaExisteException,SQLException,Exception {
         
         porUser(u.getUR_User()); 
@@ -90,6 +90,10 @@ public class UsuarioRepositorio implements UsuarioRRepositorio{
             throw new UsuarioYaExisteException("El usuario que acaba de introducir ya exixste!!!"); 
         }
     }
+
+   
+    
+    
     
     
     

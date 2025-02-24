@@ -4,7 +4,6 @@
  */
 package com.mycompany.monopoly;
 
-import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioRepositorio;
 import com.mycompany.monopoly.modelos.Usuario;
 import java.sql.SQLException;

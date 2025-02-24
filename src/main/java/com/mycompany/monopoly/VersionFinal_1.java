@@ -7,8 +7,7 @@ package com.mycompany.monopoly;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IPosicionRepositorio;
-import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
-import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador2Repositorio;
@@ -22,7 +21,6 @@ import com.mycompany.monopoly.modelos.Jugador2;
 import com.mycompany.monopoly.modelos.PosicionJ1;
 import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
-import com.mycompany.monopoly.modelos.Usuario;
 import com.mycompany.monopoly.modelos.UsuarioI;
 //import static com.mycompany.monopoly.pruebas.dado;
 //import static com.mycompany.monopoly.pruebas.listarTablero;
@@ -93,9 +91,9 @@ public class VersionFinal_1 {
     
     public static void main(String[] args)throws SQLException, Exception {
         Scanner sc = new Scanner(System.in); 
-        UsuarioRRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
+        IUsuarioRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
         //y que con ayuda del trigger dentro de la BBDD se añadan a la tabla "usuarioI". 
-        IUsuarioIRepositorio u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
+        IUsuarioRepositorio u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
         
         IJugadoresRepositorio<Jugador1>  j1 = new Jugador1Repositorio();  //Ambos jugadores quedan registrados
         IJugadoresRepositorio<Jugador2>  j2 = new Jugador2Repositorio(); 
@@ -155,8 +153,8 @@ public class VersionFinal_1 {
         //u.inicioSesion(name1, contra1, 1);
         //u.inicioSesion(name2, contra2, 2);
         
-        UsuarioI usuario1 = u.porUser(name1); //Estoy obetiendo los valores de ambos usuarios 
-        UsuarioI usuario2 = u.porUser(name2); 
+        UsuarioI usuario1 = (UsuarioI) u.porUser(name1); //Estoy obetiendo los valores de ambos usuarios 
+        UsuarioI usuario2 = (UsuarioI) u.porUser(name2); 
         /**************************************************************************/
         
         //En base a "usuario1 y usuario2" vamos a obtener los id necesarios para poder 
@@ -171,8 +169,8 @@ public class VersionFinal_1 {
         
         /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
         
-        UsuarioI u1 = u.porUser("pablongo03"); 
-        UsuarioI u2 = u.porUser("rufian"); 
+        UsuarioI u1 = (UsuarioI) u.porUser("pablongo03"); 
+        UsuarioI u2 = (UsuarioI) u.porUser("rufian"); 
         Long idJ1 = u1.getUI_Id(); //Con esto asignamos el "J1_IdUser" y "J2_IdUser" en la base de datos 
         Long idJ2 = u2.getUI_Id(); 
         //System.out.println("id "+ idJ1);
@@ -324,7 +322,7 @@ public class VersionFinal_1 {
         int y2 = 0; 
         tablero[x1][y1] = " 1 ";
         tablero[x2][y2] = " 2 ";
-        String respuesta = "";
+        String respuesta;
         
         int vueltaJ1 = 0; //Ambos atributos van a contar las respectivas vueltas de los jugadores 
         int vueltaJ2 = 0; // jugador 1 y jugador 2
@@ -363,7 +361,7 @@ public class VersionFinal_1 {
             /*En esta parte juega el jugador 1-------------------*/
             
             
-            String eleccionJ1 = ""; 
+            String eleccionJ1; 
             do{
             System.out.println("==============Jugador 1=============");
             eleccionJ1 = menuJugador(); 
@@ -371,7 +369,7 @@ public class VersionFinal_1 {
             
                 if(carcelJ1 == 0){
                     switch(eleccionJ1){
-                        case "1": {
+                        case "1" ->  {
                             listarTablero(tablero);
                             System.out.println("==============Jugador 1=============");
                             System.out.println("Tira el dado...");
@@ -415,7 +413,7 @@ public class VersionFinal_1 {
                                 for(int j = 0 ; j< tablero[0].length ; j++){
 
                                     if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                                        continue; 
+                                        //continue; 
                                     }else {
                                         tablero[i][j] = tableroPlantilla[i][j]; 
                                     }
@@ -443,7 +441,6 @@ public class VersionFinal_1 {
                             if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
                                 System.out.println("A la carcellll");
                                 carcelJ1 = 2; 
-                                break; 
                             }
 
 
@@ -451,6 +448,7 @@ public class VersionFinal_1 {
 
                             Long id = cas.obtenerIdCasilla(x1, y1); 
                             System.out.println("id "+id);
+                            //System.out.println("jug1 "+ jug1);
                             //System.out.println("jug1 "+ jug1);
                             
                             if(id != null){
@@ -478,33 +476,27 @@ public class VersionFinal_1 {
                                 }
                                 //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
                             }
-
-                            /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-                            break; 
+                        /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/ 
                         }
 
-                        case "2": 
-                                /*Vamos a mostrar las casillas que quedan disponibles sin 
+                        case "2" ->                                 /*Vamos a mostrar las casillas que quedan disponibles sin 
                             propietario en el tablero*/
                         {
                             t.ActualizarCasillasDisponibles();
                             cas.cargarCasillasCasilla(t);
                             System.out.println(t.casillasDisponibles());
 
-                            break; 
                         }
 
 
-                        case "3": {
+                        case "3" ->  {
                             System.out.println(t.casillasJugador1());
-                            break; 
                         }
 
 
-                        case "4": {
+                        case "4" ->  {
                             t.actualizarSaldoJ1(100L, jug1);
                             System.out.println("Dinero Actual -> "+ jug1.getJ1_Dinero());
-                            break; 
                         }
 
                     }
@@ -541,7 +533,7 @@ public class VersionFinal_1 {
 
             // Actualizar la posición del jugador en sentido de las agujas del reloj 
             
-            String eleccionJ2 = ""; 
+            String eleccionJ2; 
             do{
                 System.out.println("==============Jugador 2==================");
                 eleccionJ2 = menuJugador(); 
@@ -549,7 +541,7 @@ public class VersionFinal_1 {
                 if(carcelJ2 == 0){
                     switch(eleccionJ2){
 
-                        case "1": {
+                        case "1" ->  {
                             for (int i = 0; i < pasos2; i++) {
                                 if (x2 == 0 && y2 < 10) { // Va hacia la derecha
                                     y2++;
@@ -584,7 +576,7 @@ public class VersionFinal_1 {
                                 for(int j = 0 ; j< tablero[0].length ; j++){
 
                                     if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                                        continue; 
+                                        //continue; 
                                     }else {
                                         tablero[i][j] = tableroPlantilla[i][j]; 
                                     }
@@ -611,7 +603,6 @@ public class VersionFinal_1 {
                             if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
                                 System.out.println("A la carcellll");
                                 carcelJ2 = 2; 
-                                break; 
                             }
 
                             /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
@@ -644,30 +635,26 @@ public class VersionFinal_1 {
                                 }
                                 //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
                             }
+                            //Muy necesario ya que si no salta al siguiente "case"
 
-                            break; //Muy necesario ya que si no salta al siguiente "case" 
                         }
 
-                        case "2": 
-                                /*Se encarga de mostrar las casillas que quedan disponibles para comprar
+                        case "2" ->                                 /*Se encarga de mostrar las casillas que quedan disponibles para comprar
                             para los dos jugadores, es decir, aquellas que no tienen dueño aún.*/
                         {
                             t.ActualizarCasillasDisponibles();
                             cas.cargarCasillasCasilla(t);
                             System.out.println(t.casillasDisponibles());
 
-                            break; 
                         }
 
-                        case "3": {
+                        case "3" ->  {
                             System.out.println(t.casillasJugador2());
-                            break; 
                         }
 
-                        case "4": {
+                        case "4" ->  {
                             t.actualizarSaldoJ2(100L, jug2);
                             System.out.println("Dinero Actual -> "+ jug2.getJ2_Dinero());
-                            break; 
                         }
 
                     }

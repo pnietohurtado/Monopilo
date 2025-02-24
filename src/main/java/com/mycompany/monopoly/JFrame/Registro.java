@@ -4,7 +4,8 @@
  */
 package com.mycompany.monopoly.JFrame;
 
-import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
+
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioRepositorio;
 import com.mycompany.monopoly.modelos.Usuario;
 import java.sql.SQLException;
@@ -171,7 +172,7 @@ public class Registro extends javax.swing.JFrame {
     String apellido; 
     String user; 
     String pass; 
-    UsuarioRRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
+    IUsuarioRepositorio<Usuario> usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
     
     private void RegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RegistrarActionPerformed
         nombre = NombreUsuarioR.getText(); 
@@ -179,7 +180,8 @@ public class Registro extends javax.swing.JFrame {
         user = UsuarioUsuarioR.getText(); 
         pass = PassUsuarioR.getText(); 
         try{
-        usuarios.insertar(new Usuario(nombre, apellido,user,pass)); 
+        UsuarioRepositorio u = (UsuarioRepositorio) usuarios; 
+        u.insertar(new Usuario(nombre, apellido,user,pass));
         }catch(SQLException e){
             
         }catch(Exception e2){

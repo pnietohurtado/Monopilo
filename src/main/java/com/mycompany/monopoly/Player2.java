@@ -4,13 +4,11 @@
  */
 package com.mycompany.monopoly;
 
-import static com.mycompany.monopoly.Player1.getConnection;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IPosicionRepositorio;
-import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioIRepositorio;
-import com.mycompany.monopoly.conexionBBDD.interfaces.UsuarioRRepositorio;
+import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador2Repositorio;
@@ -24,7 +22,6 @@ import com.mycompany.monopoly.modelos.Jugador2;
 import com.mycompany.monopoly.modelos.PosicionJ1;
 import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
-import com.mycompany.monopoly.modelos.Usuario;
 import com.mycompany.monopoly.modelos.UsuarioI;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -89,7 +86,6 @@ public class Player2 {
     /*Función que mire si los usuarios están en banca rota o no*/
     
     public static void ganador( Jugador2 jug2) throws SQLException, Exception{
-        
         IJugadoresRepositorio<Jugador2> jugador2 = new Jugador2Repositorio(); 
         if(jugador2.getSaldo() <= 0){
             System.out.println("El ganador es el Jugador1");
@@ -110,7 +106,7 @@ public class Player2 {
     
     public static class HiloJugador2 implements Runnable{
         
-        private ClaseComun c; 
+        private final ClaseComun c; 
         
         public HiloJugador2(ClaseComun c){
             this.c = c; 
@@ -313,9 +309,8 @@ public class Player2 {
                     int y2 = 0; 
                     tablero[x1][y1] = " 1 ";
                     tablero[x2][y2] = " 2 ";
-                    String respuesta = "";
+                    String respuesta;
 
-                    int vueltaJ1 = 0; //Ambos atributos van a contar las respectivas vueltas de los jugadores 
                     int vueltaJ2 = 0; // jugador 1 y jugador 2
 
 
@@ -328,7 +323,6 @@ public class Player2 {
 
 
 
-                    int carcelJ1 = 0; 
                     int carcelJ2 = 0; 
                     System.out.println("Hola");
 
@@ -387,7 +381,7 @@ public class Player2 {
 
                         // Actualizar la posición del jugador en sentido de las agujas del reloj 
 
-                        String eleccionJ2 = ""; 
+                        String eleccionJ2; 
                         
                         do{
                             
@@ -433,7 +427,7 @@ public class Player2 {
                                             for(int j = 0 ; j< tablero[0].length ; j++){
 
                                                 if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                                                    continue; 
+                                                    //continue; 
                                                 }else {
                                                     tablero[i][j] = tableroPlantilla[i][j]; 
                                                 }
@@ -574,7 +568,7 @@ public class Player2 {
     
     public static class Comprobar implements Runnable{
 
-        private ClaseComun c; 
+        private final ClaseComun c; 
         
         
         
@@ -616,11 +610,10 @@ public class Player2 {
     
     /*----------------INSTANCIACIÓN DE TODOS LOS OBJETOS NECESARIOS PARA EL FUNCIONAMIENTO DEL JUEGO --------------------------------*/
         static Scanner sc = new Scanner(System.in); 
-        static UsuarioRRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
+        //static IUsuarioRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
         //y que con ayuda del trigger dentro de la BBDD se añadan a la tabla "usuarioI". 
-        static IUsuarioIRepositorio u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
+        static IUsuarioRepositorio<UsuarioI> u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
         
-        static IJugadoresRepositorio<Jugador1>  j1 = new Jugador1Repositorio();  //Ambos jugadores quedan registrados
         static IJugadoresRepositorio<Jugador2>  j2 = new Jugador2Repositorio(); 
         
         static ICasillasRepositorio cas = new CasillasRepositorio(); //Con esto vamos a añadir y actualizar las casillas disponibles
