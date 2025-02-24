@@ -8,10 +8,7 @@ package com.mycompany.monopoly.modelos;
  *
  * @author pablo
  */
-public class PosicionJ2 {
-    private Long Pos_IdUser; 
-    private int Pos_PosI; 
-    private int Pos_PosJ ; 
+public class PosicionJ2 extends Posicion{
     
     public PosicionJ2(){}
     public PosicionJ2(Long id, int posi, int posj){
@@ -20,30 +17,6 @@ public class PosicionJ2 {
         this.Pos_PosJ = posj; 
     }
 
-    public Long getPos_IdUser() {
-        return Pos_IdUser;
-    }
-
-    public void setPos_IdUser(Long Pos_IdUser) {
-        this.Pos_IdUser = Pos_IdUser;
-    }
-
-    public int getPos_PosI() {
-        return Pos_PosI;
-    }
-
-    public void setPos_PosI(int Pos_PosI) {
-        this.Pos_PosI = Pos_PosI;
-    }
-
-    public int getPos_PosJ() {
-        return Pos_PosJ;
-    }
-
-    public void setPos_PosJ(int Pos_PosJ) {
-        this.Pos_PosJ = Pos_PosJ;
-    }
-    
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder(); 

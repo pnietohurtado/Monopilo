@@ -20,7 +20,7 @@ public class Jugador2 extends Jugadores
     private int posJ; 
     
     //NO insert, SI select, Si funcionDelete (Inicio del programa), NO/SI update (según avance).  
-    public Jugador2(){}
+    public Jugador2(){super();}
     
     public Jugador2(Long idUser,double dinero, Long casilla){
         this(); 

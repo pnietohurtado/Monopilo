@@ -8,40 +8,13 @@ package com.mycompany.monopoly.modelos;
  *
  * @author pablo
  */
-public class PosicionJ1 {
-    private Long Pos_IdUser; 
-    private int Pos_PosI; 
-    private int Pos_PosJ ; 
+public class PosicionJ1 extends Posicion{
     
     public PosicionJ1(){}
     public PosicionJ1(Long id, int posi, int posj){
         this.Pos_IdUser = id; 
         this.Pos_PosI = posi; 
         this.Pos_PosJ = posj; 
-    }
-
-    public Long getPos_IdUser() {
-        return Pos_IdUser;
-    }
-
-    public void setPos_IdUser(Long Pos_IdUser) {
-        this.Pos_IdUser = Pos_IdUser;
-    }
-
-    public int getPos_PosI() {
-        return Pos_PosI;
-    }
-
-    public void setPos_PosI(int Pos_PosI) {
-        this.Pos_PosI = Pos_PosI;
-    }
-
-    public int getPos_PosJ() {
-        return Pos_PosJ;
-    }
-
-    public void setPos_PosJ(int Pos_PosJ) {
-        this.Pos_PosJ = Pos_PosJ;
     }
     
     @Override
