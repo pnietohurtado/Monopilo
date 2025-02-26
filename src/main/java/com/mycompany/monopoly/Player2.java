@@ -187,11 +187,11 @@ public class Player2 {
 
                      /****************************************************************************/
 
-
+                     
                      Tablero t = new Tablero( null, jug2); 
-
+                     
                      t.inicioPartida(usuario2.getUI_Id(),2); //Borra todos los datos de la partida anterior
-
+                     
 
 
 

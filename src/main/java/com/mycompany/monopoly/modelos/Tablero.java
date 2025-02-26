@@ -60,19 +60,25 @@ public class Tablero {
     /***********************Inicio de nuestro servidor******************************/
     
     public void inicioPartida(Long id, int numJug) throws SQLException, Exception{
-        PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 
-        pt.executeUpdate(); 
+        
         
         if(numJug == 1){
+            PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 
+            pt.executeUpdate(); 
+            
             PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador?(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
             pt2.setInt(1, numJug); 
             pt2.setLong(2, id); 
             pt2.executeUpdate(); 
         }else if(numJug == 2){
-            PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador?(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
-            pt2.setInt(1, numJug); 
-            pt2.setLong(2, id); 
-            pt2.executeUpdate(); 
+            PreparedStatement pt = getConnection().prepareStatement("call borrarJugador2()"); 
+            pt.executeUpdate(); 
+            
+            System.out.println("Jugador2");
+            PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador?(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
+            pt3.setInt(1, numJug); 
+            pt3.setLong(2, id); 
+            pt3.executeUpdate(); 
         }
     }   
     
