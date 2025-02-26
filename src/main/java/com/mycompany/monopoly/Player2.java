@@ -188,9 +188,9 @@ public class Player2 {
                      /****************************************************************************/
 
 
-                     Tablero t = new Tablero( jug2); 
+                     Tablero t = new Tablero( null, jug2); 
 
-                     t.inicioPartidaJ2(usuario2.getUI_Id()); //Borra todos los datos de la partida anterior
+                     t.inicioPartida(usuario2.getUI_Id(),2); //Borra todos los datos de la partida anterior
 
 
 

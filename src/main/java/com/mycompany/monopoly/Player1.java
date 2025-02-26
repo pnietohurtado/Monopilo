@@ -186,9 +186,9 @@ public class Player1 {
                     /****************************************************************************/
 
 
-                    Tablero t = new Tablero(jug1); 
+                    Tablero t = new Tablero(jug1,null); 
 
-                    t.inicioPartida(usuario1.getUI_Id()); //Borra todos los datos de la partida anterior
+                    t.inicioPartida(usuario1.getUI_Id(),1); //Borra todos los datos de la partida anterior
 
                     System.out.println(jug1);
             
@@ -335,7 +335,8 @@ public class Player1 {
                                     respuesta = sc.nextLine();
 
                                     if (respuesta.equalsIgnoreCase("no")) {
-                                        break;
+                                        System.exit(0); 
+                                        //break;
                                     }
 
 
@@ -345,8 +346,8 @@ public class Player1 {
 
                                     String eleccionJ1; 
                                     do{
-                                    System.out.println("==============Jugador 1=============");
-                                    eleccionJ1 = menuJugador(); 
+                                        System.out.println("==============Jugador 1=============");
+                                        eleccionJ1 = menuJugador(); 
                                     //System.out.println("eleccion "+eleccion);
 
                                         if(carcelJ1 == 0){
@@ -517,18 +518,19 @@ public class Player1 {
                                         
                                         ganador(jug1); 
                                         
-                                        
-                                        synchronized(c){
-                                            try{
-                                                PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
-                                                pt.executeUpdate(); 
-                                                System.out.println("Me pongo en modo espera...");
-                                                c.wait(); 
-                                            }catch(InterruptedException e4){
-                                                
+                                        if(eleccionJ1.equals("1")){
+                                            synchronized(c){
+                                                try{
+                                                    PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
+                                                    pt.executeUpdate(); 
+                                                    System.out.println("Me pongo en modo espera...");
+                                                    c.wait(); 
+                                                }catch(InterruptedException e4){
+
+                                                }
+
+
                                             }
-                                            
-                                            
                                         }
                                         
                                     }while(!(eleccionJ1.equals("1"))); 
