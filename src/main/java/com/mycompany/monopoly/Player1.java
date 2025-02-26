@@ -439,6 +439,7 @@ public class Player1 {
 
                                                     if(id != null){
                                                         Casilla casilla = cas.porId(id); 
+                                                        t.actualizarSaldoJ1(id, jug1);
                                                         System.out.println("Dinero disponible -> "+ jug1.getJ1_Dinero());
                                                         System.out.println("propietario de la casilla" + casilla.getCAS_Propietario()+ " Disponibilidad "+casilla.isCAS_Disponibilidad() );
 

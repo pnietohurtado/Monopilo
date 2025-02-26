@@ -466,6 +466,7 @@ public class Player2 {
                                         //System.out.println("jug1 "+ jug1);
                                         if(id2 != null){
                                             Casilla casilla = cas.porId(id2); 
+                                            t.actualizarSaldoJ2(id2, jug2);
                                             System.out.println("Dinero disponible -> "+ jug2.getJ2_Dinero());
 
 

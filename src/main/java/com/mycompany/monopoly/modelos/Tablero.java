@@ -240,6 +240,8 @@ public class Tablero {
                 double multa = casilla.getCAS_Precio() * 0.35; 
                 saldo -= multa; 
                 j.setJ1_Dinero(saldo);
+                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1") ; 
+                pt2.setDouble(1, multa); 
             }else{
                 System.out.println("aimaiiiiiiii");
             }
@@ -270,6 +272,8 @@ public class Tablero {
                 double multa = casilla.getCAS_Precio() * 0.35; 
                 saldo -= multa; 
                 j.setJ2_Dinero(saldo);
+                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                pt2.setDouble(1, multa);
             }else{
                 System.out.println("aimaiiiiiiii");
             }
