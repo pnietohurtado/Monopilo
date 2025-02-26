@@ -23,11 +23,11 @@ import java.util.List;
 public class Tablero {
     private Jugador1 j1; 
     private Jugador2 j2; 
-    private List<Casilla> casillasJ1; 
-    private List<Casilla> casillasJ2; 
-    private List<Casilla> casillasDisponibles; 
+    private List<Casilla> casillasJ1; //NO TOCAR 
+    private List<Casilla> casillasJ2; //NO TOCAR 
+    private List<Casilla> casillasDisponibles; //NO TOCAR 
     
-    ICasillasRepositorio cas = new CasillasRepositorio(); 
+    ICasillasRepositorio cas = new CasillasRepositorio();  //NO TOCAR 
     
     
     public Connection getConnectio() throws SQLException{
