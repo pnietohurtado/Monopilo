@@ -385,7 +385,7 @@ public class VersionFinal_1 {
                                     y1++;
                                     if(tablero[x1][y1].equals(" S ")){
                                         System.out.println("vueltaaaaaaaa");
-                                        t.vueltaCompletada1(idJ1, jug1);
+                                        t.vueltaCompletada(idJ1, jug1,1);
                                         ++vueltaJ1; 
                                     }
                                 } else if (y1 == 10 && x1 < 10) { // Baja
@@ -398,7 +398,7 @@ public class VersionFinal_1 {
                                     x1--;
                                     if(tablero[x1][y1].equals(" S ")){
                                         System.out.println("vueltaaaaaaaa");
-                                        t.vueltaCompletada1(idJ1, jug1);
+                                        t.vueltaCompletada(idJ1, jug1,1);
                                         ++vueltaJ1; 
                                     }
                                 }
@@ -547,7 +547,7 @@ public class VersionFinal_1 {
                                     y2++;
                                     if(tablero[x2][y2].equals(" S ")){
                                         System.out.println("vueltaaaaaaaa");
-                                        t.vueltaCompletada2(idJ2, jug2);
+                                        t.vueltaCompletada(idJ2, jug2,2);
 
                                         ++vueltaJ2; 
                                     }
@@ -559,7 +559,7 @@ public class VersionFinal_1 {
                                     x2--;
                                     if(tablero[x2][y2].equals(" S ")){
                                         System.out.println("vueltaaaaaaaa");
-                                        t.vueltaCompletada2(idJ2, jug2);
+                                        t.vueltaCompletada(idJ2, jug2,2);
                                         ++vueltaJ2; 
                                     }
                                 }

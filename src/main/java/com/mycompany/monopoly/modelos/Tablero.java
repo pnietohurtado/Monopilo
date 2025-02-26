@@ -82,7 +82,7 @@ public class Tablero {
         }
     }   
     
-    /*Funcioón exclusiva para la clase de versionFinal donde juegan los dos player en el mismo dispositivo*/
+   
     
     
     /*******************************************************************************/
@@ -214,27 +214,8 @@ public class Tablero {
         return this.casillasDisponibles; 
     }
     
-    
-    
-    
-    //!!!!!!!!!!!!!!!!!!!!  Función para poder actualizar posición de los jugadores !!!!!!!!!!!!!!!!!!!*/
-    public void actualizaPosicionJ1(Jugador1 jug, int i, int j) throws SQLException, Exception{
-        Long idJ = jug.getJ1_Id(); 
-        PreparedStatement pt = getConnection().prepareStatement("call posicion1(?,?,?)"); 
-        pt.setLong(1, idJ); 
-        pt.setInt(2, i); 
-        pt.setInt(3, j); 
-        pt.executeUpdate(); 
-    }
-    
-    public void actualizaPosicionJ2(Jugador2 jug, int i, int j) throws SQLException, Exception{
-        Long idJ = jug.getJ2_Id(); 
-        PreparedStatement pt = getConnection().prepareStatement("call posicion2(?,?,?)"); 
-        pt.setLong(1, idJ); 
-        pt.setInt(2, i); 
-        pt.setInt(3, j); 
-        pt.executeUpdate(); 
-    }
+
+ 
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     
     public void actualizarSaldoJ1(Long id, Jugador1 j) throws SQLException,Exception{
@@ -296,41 +277,24 @@ public class Tablero {
       
     }
     
-    public void vueltaCompletada1(Long id, Jugador1 j1) throws SQLException, Exception{
+    public void vueltaCompletada(Long id, Jugadores j, int num) throws SQLException, Exception{
         double saldo = 0.0d; 
         
-        PreparedStatement pt = getConnection().prepareStatement("update jugador1 set J1_Dinero = (? + 20) where J1_Id = 1");
-        //pt.setInt(1, 1);
-        pt.setDouble(1, j1.getJ1_Dinero()); 
-        
-        pt.executeUpdate(); 
-        //ResultSet rs = pt.executeQuery(); 
-        /*
-        if(rs.next()){
-            saldo = getDineroJ1(rs); 
-            //j.setJ2_Dinero(saldo);
+        if(num == 1){
+            Jugador1 x = (Jugador1) j; 
+            PreparedStatement pt = getConnection().prepareStatement("update jugador1 set J1_Dinero = (? + 20) where J1_Id = 1");            
+            pt.setDouble(1, x.getJ1_Dinero()); 
+
+            pt.executeUpdate(); 
+        }else if (num == 2){
+            Jugador2 x = (Jugador2) j; 
+            PreparedStatement pt = getConnection().prepareStatement("update jugador2 set J2_Dinero = (? + 20) where J2_Id = 1");
+            pt.setDouble(1, x.getJ2_Dinero()); 
+            pt.executeUpdate(); 
         }
-        */
     }
     
-    
-    public void vueltaCompletada2(Long id, Jugador2 j2) throws SQLException, Exception{
-        double saldo = 0.0d; 
-        
-        PreparedStatement pt = getConnection().prepareStatement("update jugador2 set J2_Dinero = (? + 20) where J2_Id = 1");
-        //pt.setInt(1, 1);
-        pt.setDouble(1, j2.getJ2_Dinero()); 
-        pt.executeUpdate(); 
-        /*
-        ResultSet rs = pt.executeQuery(); 
-        if(rs.next()){
-            saldo = getDineroJ2(rs); 
-            //j.setJ2_Dinero(saldo);
-        }
-        */
-        
-    }
-    
+
     
     
     /*Casillas de la suerte o mala suerte para cada usurio*/ 

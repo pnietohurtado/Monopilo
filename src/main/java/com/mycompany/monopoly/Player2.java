@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly;
 
+import static com.mycompany.monopoly.Player1.ESTADO_DE_TURNO;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
@@ -34,6 +35,8 @@ import java.util.Scanner;
  * @author pablo
  */
 public class Player2 {
+    
+    public static int ESTADO_DE_TURNO = 0; 
     
     public static  Connection getConnection() throws SQLException{
         return Conexion.getConnection(); 
@@ -330,7 +333,7 @@ public class Player2 {
                     {
 
                         
-                        
+                            
                             synchronized(c){
                                 try{
                                     //PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 1; "); 
@@ -343,6 +346,8 @@ public class Player2 {
                                             
                                             
                             }
+                            
+                            ESTADO_DE_TURNO = 1; 
 
 
                         System.out.println("======================");
@@ -395,7 +400,7 @@ public class Player2 {
                                                 y2++;
                                                 if(tablero[x2][y2].equals(" S ")){
                                                     System.out.println("vueltaaaaaaaa");
-                                                    t.vueltaCompletada2(idJ2, jug2);
+                                                    t.vueltaCompletada(idJ2, jug2,2);
 
                                                     ++vueltaJ2; 
                                                 }
@@ -407,7 +412,7 @@ public class Player2 {
                                                 x2--;
                                                 if(tablero[x2][y2].equals(" S ")){
                                                     System.out.println("vueltaaaaaaaa");
-                                                    t.vueltaCompletada2(idJ2, jug2);
+                                                    t.vueltaCompletada(idJ2, jug2,2);
                                                     ++vueltaJ2; 
                                                 }
                                             }
@@ -578,18 +583,19 @@ public class Player2 {
             try{
                 while(true){
                     Thread.sleep(10000); 
+                    if(ESTADO_DE_TURNO == 0){
+                        //ClaseComun c = new ClaseComun(); 
+                        System.out.println("\nCompruebo...");
+                        PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM turno"); 
+                        ResultSet rs = pt.executeQuery(); 
+                        if(rs.next()){
+                            c.setJ_Turno(rs.getInt("J_Turno"));
+                        }
 
-                    //ClaseComun c = new ClaseComun(); 
-                    System.out.println("\nCompruebo...");
-                    PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM turno"); 
-                    ResultSet rs = pt.executeQuery(); 
-                    if(rs.next()){
-                        c.setJ_Turno(rs.getInt("J_Turno"));
-                    }
-
-                    if(c.getJ_Turno() == 1){
-                        synchronized(c){
-                            c.notifyAll();
+                        if(c.getJ_Turno() == 1){
+                            synchronized(c){
+                                c.notifyAll();
+                            }
                         }
                     }
                 }

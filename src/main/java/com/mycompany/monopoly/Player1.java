@@ -35,6 +35,9 @@ import java.util.Scanner;
  */
 public class Player1 {
     
+    public static int ESTADO_DE_TURNO = 0; 
+    
+    
     public static  Connection getConnection() throws SQLException{
             return Conexion.getConnection(); 
     }
@@ -368,7 +371,7 @@ public class Player1 {
                                                             y1++;
                                                             if(tablero[x1][y1].equals(" S ")){
                                                                 System.out.println("vueltaaaaaaaa");
-                                                                t.vueltaCompletada1(idJ1, jug1);
+                                                                t.vueltaCompletada(idJ1, jug1,1);
                                                                 ++vueltaJ1; 
                                                             }
                                                         } else if (y1 == 10 && x1 < 10) { // Baja
@@ -381,7 +384,7 @@ public class Player1 {
                                                             x1--;
                                                             if(tablero[x1][y1].equals(" S ")){
                                                                 System.out.println("vueltaaaaaaaa");
-                                                                t.vueltaCompletada1(idJ1, jug1);
+                                                                t.vueltaCompletada(idJ1, jug1,1);
                                                                 ++vueltaJ1; 
                                                             }
                                                         }
@@ -519,6 +522,7 @@ public class Player1 {
                                         ganador(jug1); 
                                         
                                         if(eleccionJ1.equals("1")){
+                                            ESTADO_DE_TURNO = 1; 
                                             synchronized(c){
                                                 try{
                                                     PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
@@ -580,18 +584,21 @@ public class Player1 {
             try{
                 while(true){
                     Thread.sleep(10000); 
+                    if(ESTADO_DE_TURNO == 1){
+                        System.out.println("Dentro");
 
-                    //ClaseComun c = new ClaseComun(); 
-                    System.out.println("\nCompruebo...");
-                    PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM turno"); 
-                    ResultSet rs = pt.executeQuery(); 
-                    if(rs.next()){
-                        c.setJ_Turno(rs.getInt("J_Turno"));
-                    }
+                        //ClaseComun c = new ClaseComun(); 
+                        System.out.println("\nCompruebo...");
+                        PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM turno"); 
+                        ResultSet rs = pt.executeQuery(); 
+                        if(rs.next()){
+                            c.setJ_Turno(rs.getInt("J_Turno"));
+                        }
 
-                    if(c.getJ_Turno() == 0){
-                        synchronized(c){
-                            c.notifyAll();
+                        if(c.getJ_Turno() == 0){
+                            synchronized(c){
+                                c.notifyAll();
+                            }
                         }
                     }
                 }
