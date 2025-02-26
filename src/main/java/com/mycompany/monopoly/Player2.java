@@ -321,7 +321,7 @@ public class Player2 {
 
 
                     int carcelJ2 = 0; 
-                    System.out.println("Hola");
+                
 
                     do 
                             /*A partir de aquí empieza el tablero del juego donde los jugadores van

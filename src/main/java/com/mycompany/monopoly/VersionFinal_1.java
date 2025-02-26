@@ -183,7 +183,7 @@ public class VersionFinal_1 {
         
         Tablero t = new Tablero(jug1, jug2); 
         
-        t.inicioPartida(usuario1.getUI_Id(), usuario2.getUI_Id()); //Borra todos los datos de la partida anterior
+        //t.inicioPartida(usuario1.getUI_Id(), usuario2.getUI_Id()); //Borra todos los datos de la partida anterior
         
         System.out.println(jug1);
         

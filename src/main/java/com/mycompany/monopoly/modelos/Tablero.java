@@ -59,31 +59,24 @@ public class Tablero {
     
     /***********************Inicio de nuestro servidor******************************/
     
-    public void inicioPartida(Long id1, int numJug) throws SQLException, Exception{
+    public void inicioPartida(Long id, int numJug) throws SQLException, Exception{
         PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 
         pt.executeUpdate(); 
         
-        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador?(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
-        pt2.setInt(1, numJug); 
-        pt2.setLong(2, id1); 
-        pt2.executeUpdate(); 
-       
+        if(numJug == 1){
+            PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador?(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
+            pt2.setInt(1, numJug); 
+            pt2.setLong(2, id); 
+            pt2.executeUpdate(); 
+        }else if(numJug == 2){
+            PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador?(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
+            pt2.setInt(1, numJug); 
+            pt2.setLong(2, id); 
+            pt2.executeUpdate(); 
+        }
     }   
     
     /*Funcioón exclusiva para la clase de versionFinal donde juegan los dos player en el mismo dispositivo*/
-    public void inicioPartida(Long id1, Long id2) throws SQLException, Exception{ //Cambiar a jugador 2
-        PreparedStatement pt = getConnection().prepareStatement("call borrarJugadores()"); 
-        pt.executeUpdate(); 
-        
-        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador1(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
-        pt2.setLong(1, id1); 
-        pt2.executeUpdate(); 
-        
-        PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador2(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
-        pt3.setLong(1, id2); 
-        pt3.executeUpdate(); 
-       
-    }
     
     
     /*******************************************************************************/
