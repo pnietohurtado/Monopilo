@@ -13,6 +13,8 @@ import javax.swing.JFrame;
  */
 public class main {
     public static void main(String[] args) {
+        
+        //Primera Ventana 
         JFrame window = new JFrame(); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         window.setResizable(false);
@@ -25,15 +27,33 @@ public class main {
         
         window.setLocationRelativeTo(null); 
         window.setVisible(true); 
+        //----------
+        
+        //Segunda Ventana
+        JFrame windowMenu = new JFrame(); 
+        windowMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        windowMenu.setResizable(false);
+        windowMenu.setTitle("Menú");
+        
+        windowMenu.pack(); 
+        
+        windowMenu.setLocationRelativeTo(null); 
+        windowMenu.setVisible(true); 
+        
+        //-----------
         
         gamePanel.startGameThread(); 
+        
+        
+        
+        /*
         Player1.ClaseComun cls = new Player1.ClaseComun(); 
         Thread t = new Thread(new Player1.HiloJugador1(cls)); 
         Thread t2 = new Thread(new Player1.Comprobar(cls)); 
         
         t.start();
         t2.start();
-        
+        */
     
     
     }
