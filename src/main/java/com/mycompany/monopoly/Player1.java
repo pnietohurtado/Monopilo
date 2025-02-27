@@ -439,7 +439,7 @@ public class Player1 {
 
                                                     if(id != null){
                                                         Casilla casilla = cas.porId(id); 
-                                                        t.actualizarSaldoJ1(id, jug1);
+                                                        t.actualizarSaldoJ1(id, jug1); // Actualizamos el dinero que tiene disponible 
                                                         System.out.println("Dinero disponible -> "+ jug1.getJ1_Dinero());
                                                         System.out.println("propietario de la casilla" + casilla.getCAS_Propietario()+ " Disponibilidad "+casilla.isCAS_Disponibilidad() );
 
@@ -450,7 +450,6 @@ public class Player1 {
                                                                 if(respuesta2.equalsIgnoreCase("y")){
                                                                     casilla.setCAS_Disponibilidad(1);
                                                                     t.CargarCasillaJ1(id, jug1); //11
-                                                                    //System.out.println(t.casillasJugador1());
 
                                                                 }
                                                             }else if(casilla.getCAS_Tipo().equals("Suerte")){
@@ -487,10 +486,12 @@ public class Player1 {
 
 
                                                 case "4": {
-                                                    t.actualizarSaldoJ1(100L, jug1);
+                                                    t.actualizarSaldoJ1(100L, jug1); //Este método respecto a conseguir el valor de nuestro jugador si funciona
                                                     System.out.println("Dinero Actual -> "+ jug1.getJ1_Dinero());
                                                     break; 
                                                 }
+                                                
+                                                
                                                 case "5": {
                                                     synchronized(c){
                                                         while(true){
@@ -504,6 +505,9 @@ public class Player1 {
                                                         }
                                                     }
                                                 }
+                                                
+                                                
+                                                
                                                 
                                                 case "6" : {
                                                     System.exit(0); 
@@ -537,6 +541,8 @@ public class Player1 {
 
                                             }
                                         }
+                                        
+                                        ESTADO_DE_TURNO = 0; 
                                         
                                     }while(!(eleccionJ1.equals("1"))); 
                                     
