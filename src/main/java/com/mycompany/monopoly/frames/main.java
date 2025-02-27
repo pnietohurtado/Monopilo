@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.Player1;
 import javax.swing.JFrame;
 
 /**
@@ -26,6 +27,13 @@ public class main {
         window.setVisible(true); 
         
         gamePanel.startGameThread(); 
+        Player1.ClaseComun cls = new Player1.ClaseComun(); 
+        Thread t = new Thread(new Player1.HiloJugador1(cls)); 
+        Thread t2 = new Thread(new Player1.Comprobar(cls)); 
+        
+        t.start();
+        t2.start();
+        
     
     
     }

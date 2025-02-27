@@ -33,7 +33,7 @@ import java.util.Scanner;
  *
  * @author pablo
  */
-public class Player1 {
+public class Player1{
     
     public static int ESTADO_DE_TURNO = 0; 
     
@@ -640,7 +640,7 @@ public class Player1 {
     
     
     
-    
+    /*
     public static void main(String[] args)throws SQLException, Exception {
         
         ClaseComun cls = new ClaseComun(); 
@@ -652,7 +652,7 @@ public class Player1 {
         
         
         
-    }
+    }*/
     
     
 }
