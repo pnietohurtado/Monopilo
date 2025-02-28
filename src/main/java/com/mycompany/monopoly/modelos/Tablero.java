@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.modelos;
 
+
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import static com.mycompany.monopoly.conexionBBDD.Conexion.getConnection;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
@@ -60,16 +61,17 @@ public class Tablero {
     /***********************Inicio de nuestro servidor******************************/
     
     public void inicioPartida(Long id, int numJug) throws SQLException, Exception{
-        
+        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO turno VALUE(0)"); 
+        pt2.executeUpdate(); 
         
         if(numJug == 1){
             PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 
             pt.executeUpdate(); 
             
-            PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO jugador?(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
-            pt2.setInt(1, numJug); 
-            pt2.setLong(2, id); 
-            pt2.executeUpdate(); 
+            PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador?(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
+            pt3.setInt(1, numJug); 
+            pt3.setLong(2, id); 
+            pt3.executeUpdate(); 
         }else if(numJug == 2){
             PreparedStatement pt = getConnection().prepareStatement("call borrarJugador2()"); 
             pt.executeUpdate(); 
@@ -230,23 +232,58 @@ public class Tablero {
             j.setJ1_Dinero(saldo);
         }
         
-        Casilla casilla = cas.porId(id); 
+        Casilla casilla = cas.porId(id);
+        String color_de_la_casilla = casilla.getCAS_Color(); 
         
         if(casilla.getCAS_Propietario() != null){
             if(casilla.getCAS_Propietario().equals("jugador1")){
+               
+                
                 System.out.println("Esta ya es tu propiedad!");
+                
+                
             }else if(casilla.getCAS_Propietario().equals("jugador2")){
+                Connection conn = getConnection(); 
+                
+                int numero_propiedades = 0; 
+                
                 System.out.println("Paga multa");
-                double multa = casilla.getCAS_Precio() * 0.35; 
+                PreparedStatement pt3 = conn.prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = jugador2"); 
+                pt.setString(1, color_de_la_casilla);
+                ResultSet rs2 = pt3.executeQuery(); 
+                
+                if(rs2.next()){
+                    numero_propiedades = rs2.getInt(1); 
+                }
+                
+                double multa = 0.0d; 
+                if(numero_propiedades == 1){
+                    multa = casilla.getCAS_Precio() * 0.35; 
+                }else if(numero_propiedades == 2){
+                    multa = casilla.getCAS_Precio() * 0.40; 
+                }else if(numero_propiedades == 3){
+                    multa = casilla.getCAS_Precio()*0.45; 
+                }
+                
                 saldo -= multa; 
+                
                 j.setJ1_Dinero(saldo);
-                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1") ; 
+                
+                PreparedStatement pt2 = conn.prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                
                 pt2.setDouble(1, multa); 
+                
                 pt2.executeUpdate(); 
             }else{
                 System.out.println("aimaiiiiiiii");
             }
         }
+        
+        
+        /*Podría hacer una parte la cual comprueba el número de casillas de ese mismo 
+        tipo de su rival "SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ?" Y en función si el 
+        resultado es 1 (Se multiplica por 0.35), 2 (Se multiplica por 0.40) y si es 3 (Se multiplica por 
+        0.45). */
       
     }
     
@@ -264,17 +301,48 @@ public class Tablero {
         }
         
         Casilla casilla = cas.porId(id); 
+        String color_de_la_casilla = casilla.getCAS_Color(); 
         
         if(casilla.getCAS_Propietario() != null){
             if(casilla.getCAS_Propietario().equals("jugador2")){
+                
                 System.out.println("Esta ya es tu propiedad!");
+                
             }else if(casilla.getCAS_Propietario().equals("jugador1")){
+                
                 System.out.println("Paga multa");
-                double multa = casilla.getCAS_Precio() * 0.35; 
+                
+                int numero_propiedades = 0; 
+                
+                System.out.println("Paga multa");
+                PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = jugador1"); 
+                pt.setString(1, color_de_la_casilla);
+                ResultSet rs2 = pt3.executeQuery(); 
+                
+                if(rs2.next()){
+                    numero_propiedades = rs2.getInt(1); 
+                }
+                
+                double multa = 0.0d; 
+                if(numero_propiedades == 1){
+                    multa = casilla.getCAS_Precio() * 0.35; 
+                }else if(numero_propiedades == 2){
+                    multa = casilla.getCAS_Precio() * 0.40; 
+                }else if(numero_propiedades == 3){
+                    multa = casilla.getCAS_Precio()*0.45; 
+                }
+                
+                
+                //double multa = casilla.getCAS_Precio() * 0.35; 
+                
                 saldo -= multa; 
+                
                 j.setJ2_Dinero(saldo);
-                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                
+                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador2 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                
                 pt2.setDouble(1, multa);
+                
                 pt2.executeUpdate(); 
             }else{
                 System.out.println("aimaiiiiiiii");

@@ -28,12 +28,13 @@ import java.sql.ResultSet;
 //import static com.mycompany.monopoly.pruebas.resetearJugador;
 import java.sql.SQLException;
 import java.util.Scanner;
+import javax.swing.JPanel;
 
 /**
  *
  * @author pablo
  */
-public class Player1{
+public class Player1 extends JPanel{
     
     public static int ESTADO_DE_TURNO = 0; 
     
@@ -449,7 +450,7 @@ public class Player1{
                                                                 String respuesta2 = sc.nextLine(); 
                                                                 if(respuesta2.equalsIgnoreCase("y")){
                                                                     casilla.setCAS_Disponibilidad(1);
-                                                                    t.CargarCasillaJ1(id, jug1); //11
+                                                                    t.CargarCasillaJ1(id, jug1); // Esta es la función que se encarga de cambiar el dinero del jugador 
 
                                                                 }
                                                             }else if(casilla.getCAS_Tipo().equals("Suerte")){
@@ -640,7 +641,7 @@ public class Player1{
     
     
     
-    /*
+    
     public static void main(String[] args)throws SQLException, Exception {
         
         ClaseComun cls = new ClaseComun(); 
@@ -652,7 +653,7 @@ public class Player1{
         
         
         
-    }*/
+    }
     
     
 }

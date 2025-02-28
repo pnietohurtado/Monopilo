@@ -9,31 +9,31 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
  *
  * @author pablo
  */
-public class GamePanel extends JPanel implements Runnable 
-        /*En un principio en esta clase voy a tener metido el códifo para el jugador 1, por lo que voy a tener que duplicar tanto el main 
-        como el "GamePanel" para el segundo jugador*/
+public class MenuPanel extends JPanel implements Runnable 
+
 {
-    private Thread gameThread; 
+    
+    
+    private Thread menuThread; 
     
 
     final int originalTileSize = 19; // Lo que significa que cada elemento que encontremos en el juego va a medir 19x19
     final int scale = 3;         
     
     public final int tileSize = originalTileSize * scale;  
-    public final int maxScreenCol = 15; 
-    public final int maxScreenRow = 13; 
+    public final int maxScreenCol = 6; 
+    public final int maxScreenRow = 9; 
     public final int screenWidth = tileSize * maxScreenCol; 
     public final int screenHeight = tileSize * maxScreenRow; 
     
     // Contructor de la clase 
-    public GamePanel() 
+    public MenuPanel() 
     {
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
@@ -43,34 +43,19 @@ public class GamePanel extends JPanel implements Runnable
     
     final int FPS = 60; 
     
-    TileManager tileManager = new TileManager(this); 
+    //TileManager tileManager = new TileManager(this); 
     
     public void startGameThread()
     {
-        gameThread = new Thread(this); 
-        gameThread.start(); 
+        menuThread = new Thread(this); 
+        menuThread.start(); 
     }
-    
-    
+
     @Override
-    public void run() 
-               /*Puedo usar este método del hilo para ir consultando a la base de 
-            datos donde está el jugador e ir actualizando su posición desde aquí. De otra 
-            manera, este método no vale para absolutamente NADA. */
-    {
+    public void run() {
         
-        /*
-        // Here we will be initializing our game loop
-        while(gameThread != null) // Will execute until we close the gamePanel. 
-        {
-            
-                update(); 
-                repaint();  
-            
-            
-            
-        }*/
     }
+    
     
     
     public void update()
@@ -85,8 +70,12 @@ public class GamePanel extends JPanel implements Runnable
         
         Graphics2D g2 = (Graphics2D)g; 
         
-        tileManager.draw(g2);
+        //tileManager.draw(g2);
         g2.dispose(); 
     }
+    
+    
+    
+    
     
 }
