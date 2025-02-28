@@ -232,6 +232,14 @@ public class Tablero {
             j.setJ1_Dinero(saldo);
         }
         
+        double dinero_actual_jugador2 = 0d; 
+                PreparedStatement pt5 = getConnection().prepareStatement("SELECT J2_Dinero FROM jugador2 WHERE J2_Id=1"); 
+                ResultSet rs3 = pt5.executeQuery(); 
+                
+                if(rs.next()){
+                    dinero_actual_jugador2 = rs3.getDouble(1); 
+                }
+        
         Casilla casilla = cas.porId(id);
         String color_de_la_casilla = casilla.getCAS_Color(); 
         
@@ -248,7 +256,7 @@ public class Tablero {
                 int numero_propiedades = 0; 
                 
                 System.out.println("Paga multa");
-                PreparedStatement pt3 = conn.prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = jugador2"); 
+                PreparedStatement pt3 = conn.prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador2'"); 
                 pt.setString(1, color_de_la_casilla);
                 ResultSet rs2 = pt3.executeQuery(); 
                 
@@ -269,13 +277,13 @@ public class Tablero {
                 
                 j.setJ1_Dinero(saldo);
                 
-                PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1"); 
+                PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1"); 
                 pt4.setDouble(1, saldo); 
                 pt4.executeUpdate(); 
                 
-                
+                dinero_actual_jugador2 += multa; 
                 PreparedStatement pt2 = conn.prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1") ; 
-                pt2.setDouble(1, multa); 
+                pt2.setDouble(1, dinero_actual_jugador2); 
                 pt2.executeUpdate(); 
             }else{
                 System.out.println("aimaiiiiiiii");
@@ -318,12 +326,20 @@ public class Tablero {
                 int numero_propiedades = 0; 
                 
                 System.out.println("Paga multa");
-                PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = jugador1"); 
+                PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador1'"); 
                 pt3.setString(1, color_de_la_casilla);
                 ResultSet rs2 = pt3.executeQuery(); 
                 
                 if(rs2.next()){
                     numero_propiedades = rs2.getInt(1); 
+                }
+                
+                double dinero_actual_jugador1 = 0d; 
+                PreparedStatement pt5 = getConnection().prepareStatement("SELECT J1_Dinero FROM jugador1 WHERE J1_Id=1"); 
+                ResultSet rs3 = pt5.executeQuery(); 
+                
+                if(rs.next()){
+                    dinero_actual_jugador1 = rs3.getDouble(1); 
                 }
                 
                 double multa = 0.0d; 
@@ -346,8 +362,9 @@ public class Tablero {
                 pt4.setDouble(1, saldo); 
                 pt4.executeUpdate(); 
                 
+                dinero_actual_jugador1 += multa; 
                 PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
-                pt2.setDouble(1, multa);
+                pt2.setDouble(1, dinero_actual_jugador1);
                 pt2.executeUpdate(); 
             }else{
                 System.out.println("aimaiiiiiiii");
