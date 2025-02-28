@@ -269,10 +269,13 @@ public class Tablero {
                 
                 j.setJ1_Dinero(saldo);
                 
-                PreparedStatement pt2 = conn.prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1"); 
+                pt4.setDouble(1, saldo); 
+                pt4.executeUpdate(); 
                 
+                
+                PreparedStatement pt2 = conn.prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1") ; 
                 pt2.setDouble(1, multa); 
-                
                 pt2.executeUpdate(); 
             }else{
                 System.out.println("aimaiiiiiiii");
@@ -316,7 +319,7 @@ public class Tablero {
                 
                 System.out.println("Paga multa");
                 PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = jugador1"); 
-                pt.setString(1, color_de_la_casilla);
+                pt3.setString(1, color_de_la_casilla);
                 ResultSet rs2 = pt3.executeQuery(); 
                 
                 if(rs2.next()){
@@ -339,10 +342,12 @@ public class Tablero {
                 
                 j.setJ2_Dinero(saldo);
                 
-                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador2 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1"); 
+                pt4.setDouble(1, saldo); 
+                pt4.executeUpdate(); 
                 
+                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
                 pt2.setDouble(1, multa);
-                
                 pt2.executeUpdate(); 
             }else{
                 System.out.println("aimaiiiiiiii");
