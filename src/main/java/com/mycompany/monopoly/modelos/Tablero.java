@@ -236,8 +236,8 @@ public class Tablero {
                 PreparedStatement pt5 = getConnection().prepareStatement("SELECT J2_Dinero FROM jugador2 WHERE J2_Id=1"); 
                 ResultSet rs3 = pt5.executeQuery(); 
                 
-                if(rs.next()){
-                    dinero_actual_jugador2 = rs3.getDouble(1); 
+                if(rs3.next()){
+                    dinero_actual_jugador2 = rs3.getDouble("J2_Dinero"); 
                 }
         
         Casilla casilla = cas.porId(id);
@@ -257,12 +257,13 @@ public class Tablero {
                 
                 System.out.println("Paga multa");
                 PreparedStatement pt3 = conn.prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador2'"); 
-                pt.setString(1, color_de_la_casilla);
+                pt3.setString(1, color_de_la_casilla);
                 ResultSet rs2 = pt3.executeQuery(); 
                 
                 if(rs2.next()){
                     numero_propiedades = rs2.getInt(1); 
                 }
+                
                 
                 double multa = 0.0d; 
                 if(numero_propiedades == 1){
@@ -324,8 +325,7 @@ public class Tablero {
                 System.out.println("Paga multa");
                 
                 int numero_propiedades = 0; 
-                
-                System.out.println("Paga multa");
+
                 PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador1'"); 
                 pt3.setString(1, color_de_la_casilla);
                 ResultSet rs2 = pt3.executeQuery(); 
@@ -338,8 +338,8 @@ public class Tablero {
                 PreparedStatement pt5 = getConnection().prepareStatement("SELECT J1_Dinero FROM jugador1 WHERE J1_Id=1"); 
                 ResultSet rs3 = pt5.executeQuery(); 
                 
-                if(rs.next()){
-                    dinero_actual_jugador1 = rs3.getDouble(1); 
+                if(rs3.next()){
+                    dinero_actual_jugador1 = rs3.getDouble("J1_Dinero"); 
                 }
                 
                 double multa = 0.0d; 
