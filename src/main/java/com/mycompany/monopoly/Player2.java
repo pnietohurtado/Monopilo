@@ -336,9 +336,9 @@ public class Player2 {
                             
                             synchronized(c){
                                 try{
-                                    //PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 1; "); 
-                                    //pt.executeUpdate(); 
+                            
                                     System.out.println("Me pongo en modo espera...");
+                                    ESTADO_DE_TURNO = 0; 
                                     c.wait(); 
                                 }catch(InterruptedException e4){
                                                 
@@ -346,9 +346,7 @@ public class Player2 {
                                             
                                             
                             }
-                            
-                            ESTADO_DE_TURNO = 1; 
-
+                        ESTADO_DE_TURNO = 1; 
 
                         System.out.println("======================");
                         System.out.print("¿Seguir jugando? (no para salir): ");
@@ -456,7 +454,7 @@ public class Player2 {
                                         if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
                                             System.out.println("A la carcellll");
                                             carcelJ2 = 2; 
-                                             
+                                            break; 
                                         }
 
                                         /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
