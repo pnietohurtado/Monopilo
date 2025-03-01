@@ -428,8 +428,10 @@ public class Player1 extends JPanel{
                                                     if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
                                                         System.out.println("A la carcellll");
                                                         carcelJ1 = 2; 
-                                                        
-                                                    }
+                                                        PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
+                                                        pt.executeUpdate(); 
+                                                        break; 
+                                                    }   
 
 
                                                     /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/

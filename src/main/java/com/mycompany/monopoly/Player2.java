@@ -5,6 +5,7 @@
 package com.mycompany.monopoly;
 
 import static com.mycompany.monopoly.Player1.ESTADO_DE_TURNO;
+import static com.mycompany.monopoly.Player1.getConnection;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
@@ -454,6 +455,8 @@ public class Player2 {
                                         if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
                                             System.out.println("A la carcellll");
                                             carcelJ2 = 2; 
+                                            PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                                            pt.executeUpdate(); 
                                             break; 
                                         }
 
