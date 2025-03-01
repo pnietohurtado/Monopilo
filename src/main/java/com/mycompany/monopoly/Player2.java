@@ -540,6 +540,8 @@ public class Player2 {
                             }else{
                                 System.out.println("No puede hacer nada, está en la carcel!!!!!!!!!");
                                 carcelJ2--; 
+                                PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                                pt.executeUpdate(); 
                                 break;
                             }
                             

@@ -520,7 +520,8 @@ public class Player1 extends JPanel{
                                         }else {
                                             System.out.println("No puede hacer nada, está en la carcel!!!");
                                             carcelJ1--; 
-
+                                            PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
+                                            pt.executeUpdate(); 
                                             break; 
                                         }
 
