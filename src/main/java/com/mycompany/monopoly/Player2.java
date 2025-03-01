@@ -453,10 +453,11 @@ public class Player2 {
 
                                         /*En caso de que caiga en la carcel*/
                                         if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
-                                            System.out.println("A la carcellll");
+                                            System.out.println("Entra a la carcel...");
                                             carcelJ2 = 2; 
                                             PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
                                             pt.executeUpdate(); 
+                                            
                                             break; 
                                         }
 
