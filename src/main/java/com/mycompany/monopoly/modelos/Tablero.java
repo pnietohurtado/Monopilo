@@ -220,10 +220,9 @@ public class Tablero {
  
     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
     
-    public void actualizarSaldoJ1(Long id, Jugador1 j) throws SQLException,Exception{
+    public void actualizarSaldoJ1(Long id, Jugador1 j, int numero) throws SQLException,Exception{
         
         double saldo = 0.0d; 
-        
         PreparedStatement pt = getConnection().prepareStatement("select J1_Dinero from jugador1 order by J1_Dinero asc  limit ?");
         pt.setInt(1, 1);
         ResultSet rs = pt.executeQuery(); 
@@ -231,64 +230,66 @@ public class Tablero {
             saldo = getDineroJ1(rs); 
             j.setJ1_Dinero(saldo);
         }
-        
-        double dinero_actual_jugador2 = 0d; 
-                PreparedStatement pt5 = getConnection().prepareStatement("SELECT J2_Dinero FROM jugador2 WHERE J2_Id=1"); 
-                ResultSet rs3 = pt5.executeQuery(); 
-                
-                if(rs3.next()){
-                    dinero_actual_jugador2 = rs3.getDouble("J2_Dinero"); 
-                }
-        
-        Casilla casilla = cas.porId(id);
-        String color_de_la_casilla = casilla.getCAS_Color(); 
-        
-        if(casilla.getCAS_Propietario() != null){
-            if(casilla.getCAS_Propietario().equals("jugador1")){
-               
-                
-                System.out.println("Esta ya es tu propiedad!");
-                
-                
-            }else if(casilla.getCAS_Propietario().equals("jugador2")){
-                Connection conn = getConnection(); 
-                
-                int numero_propiedades = 0; 
-                
-                System.out.println("Paga multa");
-                PreparedStatement pt3 = conn.prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador2'"); 
-                pt3.setString(1, color_de_la_casilla);
-                ResultSet rs2 = pt3.executeQuery(); 
-                
-                if(rs2.next()){
-                    numero_propiedades = rs2.getInt(1); 
-                }
-                
-                
-                double multa = 0.0d; 
-                if(numero_propiedades == 1){
-                    multa = casilla.getCAS_Precio() * 0.35; 
-                }else if(numero_propiedades == 2){
-                    multa = casilla.getCAS_Precio() * 0.40; 
-                }else if(numero_propiedades == 3){
-                    multa = casilla.getCAS_Precio()*0.45; 
-                }
-                
-                saldo -= multa; 
-                
-                j.setJ1_Dinero(saldo);
-                
-                PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1"); 
-                pt4.setDouble(1, saldo); 
-                pt4.executeUpdate(); 
-                
-                dinero_actual_jugador2 += multa; 
-                PreparedStatement pt2 = conn.prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1") ; 
-                pt2.setDouble(1, dinero_actual_jugador2); 
-                pt2.executeUpdate(); 
-            }else{
-                System.out.println("aimaiiiiiiii");
+        if(numero == 1){
+
+            double dinero_actual_jugador2 = 0d; 
+            PreparedStatement pt5 = getConnection().prepareStatement("SELECT J2_Dinero FROM jugador2 WHERE J2_Id=1"); 
+            ResultSet rs3 = pt5.executeQuery(); 
+
+            if(rs3.next()){
+                dinero_actual_jugador2 = rs3.getDouble("J2_Dinero"); 
             }
+
+            Casilla casilla = cas.porId(id);
+            String color_de_la_casilla = casilla.getCAS_Color(); 
+
+            if(casilla.getCAS_Propietario() != null){
+                if(casilla.getCAS_Propietario().equals("jugador1")){
+
+
+                    System.out.println("Esta ya es tu propiedad!");
+
+
+                }else if(casilla.getCAS_Propietario().equals("jugador2")){
+                    Connection conn = getConnection(); 
+
+                    int numero_propiedades = 0; 
+
+                    System.out.println("Paga multa");
+                    PreparedStatement pt3 = conn.prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador2'"); 
+                    pt3.setString(1, color_de_la_casilla);
+                    ResultSet rs2 = pt3.executeQuery(); 
+
+                    if(rs2.next()){
+                        numero_propiedades = rs2.getInt(1); 
+                    }
+
+
+                    double multa = 0.0d; 
+                    if(numero_propiedades == 1){
+                        multa = casilla.getCAS_Precio() * 0.35; 
+                    }else if(numero_propiedades == 2){
+                        multa = casilla.getCAS_Precio() * 0.40; 
+                    }else if(numero_propiedades == 3){
+                        multa = casilla.getCAS_Precio()*0.45; 
+                    }
+
+                    saldo -= multa; 
+
+                    j.setJ1_Dinero(saldo);
+
+                    PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1"); 
+                    pt4.setDouble(1, saldo); 
+                    pt4.executeUpdate(); 
+
+                    dinero_actual_jugador2 += multa; 
+                    PreparedStatement pt2 = conn.prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1") ; 
+                    pt2.setDouble(1, dinero_actual_jugador2); 
+                    pt2.executeUpdate(); 
+                }else{
+                    System.out.println("aimaiiiiiiii");
+                }
+            }    
         }
         
         
@@ -300,7 +301,7 @@ public class Tablero {
     }
     
     
-    public void actualizarSaldoJ2(Long id, Jugador2 j) throws SQLException,Exception{
+    public void actualizarSaldoJ2(Long id, Jugador2 j,int numero) throws SQLException,Exception{
         
         double saldo = 0.0d; 
         
@@ -315,59 +316,62 @@ public class Tablero {
         Casilla casilla = cas.porId(id); 
         String color_de_la_casilla = casilla.getCAS_Color(); 
         
-        if(casilla.getCAS_Propietario() != null){
-            if(casilla.getCAS_Propietario().equals("jugador2")){
-                
-                System.out.println("Esta ya es tu propiedad!");
-                
-            }else if(casilla.getCAS_Propietario().equals("jugador1")){
-                
-                System.out.println("Paga multa");
-                
-                int numero_propiedades = 0; 
+        if(numero == 1){
 
-                PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador1'"); 
-                pt3.setString(1, color_de_la_casilla);
-                ResultSet rs2 = pt3.executeQuery(); 
-                
-                if(rs2.next()){
-                    numero_propiedades = rs2.getInt(1); 
+                if(casilla.getCAS_Propietario() != null){
+                    if(casilla.getCAS_Propietario().equals("jugador2")){
+
+                    System.out.println("Esta ya es tu propiedad!");
+
+                    }else if(casilla.getCAS_Propietario().equals("jugador1")){
+
+                        System.out.println("Paga multa");
+
+                        int numero_propiedades = 0; 
+
+                        PreparedStatement pt3 = getConnection().prepareStatement("SELECT COUNT(Cas_Id) FROM casilla WHERE Cas_Color = ? AND CAS_Propietario = 'jugador1'"); 
+                        pt3.setString(1, color_de_la_casilla);
+                        ResultSet rs2 = pt3.executeQuery(); 
+
+                        if(rs2.next()){
+                            numero_propiedades = rs2.getInt(1); 
+                        }
+
+                        double dinero_actual_jugador1 = 0d; 
+                        PreparedStatement pt5 = getConnection().prepareStatement("SELECT J1_Dinero FROM jugador1 WHERE J1_Id=1"); 
+                        ResultSet rs3 = pt5.executeQuery(); 
+
+                        if(rs3.next()){
+                            dinero_actual_jugador1 = rs3.getDouble("J1_Dinero"); 
+                        }
+
+                        double multa = 0.0d; 
+                        if(numero_propiedades == 1){
+                            multa = casilla.getCAS_Precio() * 0.35; 
+                        }else if(numero_propiedades == 2){
+                            multa = casilla.getCAS_Precio() * 0.40; 
+                        }else if(numero_propiedades == 3){
+                            multa = casilla.getCAS_Precio()*0.45; 
+                        }
+
+
+                        //double multa = casilla.getCAS_Precio() * 0.35; 
+
+                        saldo -= multa; 
+
+                        j.setJ2_Dinero(saldo);
+
+                        PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1"); 
+                        pt4.setDouble(1, saldo); 
+                        pt4.executeUpdate(); 
+
+                        dinero_actual_jugador1 += multa; 
+                        PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
+                        pt2.setDouble(1, dinero_actual_jugador1);
+                        pt2.executeUpdate(); 
+                }else{
+                    System.out.println("aimaiiiiiiii");
                 }
-                
-                double dinero_actual_jugador1 = 0d; 
-                PreparedStatement pt5 = getConnection().prepareStatement("SELECT J1_Dinero FROM jugador1 WHERE J1_Id=1"); 
-                ResultSet rs3 = pt5.executeQuery(); 
-                
-                if(rs3.next()){
-                    dinero_actual_jugador1 = rs3.getDouble("J1_Dinero"); 
-                }
-                
-                double multa = 0.0d; 
-                if(numero_propiedades == 1){
-                    multa = casilla.getCAS_Precio() * 0.35; 
-                }else if(numero_propiedades == 2){
-                    multa = casilla.getCAS_Precio() * 0.40; 
-                }else if(numero_propiedades == 3){
-                    multa = casilla.getCAS_Precio()*0.45; 
-                }
-                
-                
-                //double multa = casilla.getCAS_Precio() * 0.35; 
-                
-                saldo -= multa; 
-                
-                j.setJ2_Dinero(saldo);
-                
-                PreparedStatement pt4 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = ? WHERE J2_Id = 1"); 
-                pt4.setDouble(1, saldo); 
-                pt4.executeUpdate(); 
-                
-                dinero_actual_jugador1 += multa; 
-                PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = ? WHERE J1_Id = 1") ; 
-                pt2.setDouble(1, dinero_actual_jugador1);
-                pt2.executeUpdate(); 
-            }else{
-                System.out.println("aimaiiiiiiii");
             }
         }
       

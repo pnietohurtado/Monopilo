@@ -466,7 +466,7 @@ public class Player2 {
                                         //System.out.println("jug1 "+ jug1);
                                         if(id2 != null){
                                             Casilla casilla = cas.porId(id2); 
-                                            t.actualizarSaldoJ2(id2, jug2);
+                                            t.actualizarSaldoJ2(id2, jug2,4);
                                             System.out.println("Dinero disponible -> "+ jug2.getJ2_Dinero());
 
 
@@ -485,7 +485,7 @@ public class Player2 {
                                                 }
                                             }else if(casilla.getCAS_Propietario().equals("jugador1")|| casilla.getCAS_Propietario().equals("jugador2")){
                                                 //System.out.println("dentro de comprobacion");
-                                                t.actualizarSaldoJ2(id2, jug2);
+                                                t.actualizarSaldoJ2(id2, jug2,1);
 
                                             }
                                             //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
@@ -511,7 +511,7 @@ public class Player2 {
                                     }
 
                                     case "4": {
-                                        t.actualizarSaldoJ2(100L, jug2);
+                                        t.actualizarSaldoJ2(100L, jug2,4);
                                         System.out.println("Dinero Actual -> "+ jug2.getJ2_Dinero());
                                         break; 
                                     }

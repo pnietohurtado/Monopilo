@@ -32,6 +32,13 @@ public class MenuPanel extends JPanel implements Runnable
     public final int screenWidth = tileSize * maxScreenCol; 
     public final int screenHeight = tileSize * maxScreenRow; 
     
+    
+    /*Estados del juego*/
+    public int gameState; 
+    private final int titleState = 0; 
+    
+    
+    
     // Contructor de la clase 
     public MenuPanel() 
     {
@@ -44,6 +51,11 @@ public class MenuPanel extends JPanel implements Runnable
     final int FPS = 60; 
     
     //TileManager tileManager = new TileManager(this); 
+    
+    
+    public void setupGame(){
+           gameState = titleState; 
+    }
     
     public void startGameThread()
     {
@@ -69,6 +81,17 @@ public class MenuPanel extends JPanel implements Runnable
         super.paintComponent(g); 
         
         Graphics2D g2 = (Graphics2D)g; 
+        
+        // Titilo de la pantalla 
+        if(gameState == titleState ){
+           // ui.draw(g2); 
+        }
+         
+        // Otros 
+        else {
+            
+        }
+        
         
         //tileManager.draw(g2);
         g2.dispose(); 

@@ -471,7 +471,7 @@ public class VersionFinal_1 {
                                     }
                                 }else if(casilla.getCAS_Propietario().equals("jugador1")|| casilla.getCAS_Propietario().equals("jugador2") ){
                                     //System.out.println("dentro de comprobacion");
-                                    t.actualizarSaldoJ1(id, jug1);
+                                    t.actualizarSaldoJ1(id, jug1,1);
                                 
                                 }
                                 //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
@@ -495,7 +495,7 @@ public class VersionFinal_1 {
 
 
                         case "4" ->  {
-                            t.actualizarSaldoJ1(100L, jug1);
+                            t.actualizarSaldoJ1(100L, jug1,1);
                             System.out.println("Dinero Actual -> "+ jug1.getJ1_Dinero());
                         }
 
@@ -630,7 +630,7 @@ public class VersionFinal_1 {
                                     }
                                 }else if(casilla.getCAS_Propietario().equals("jugador1")|| casilla.getCAS_Propietario().equals("jugador2")){
                                     //System.out.println("dentro de comprobacion");
-                                    t.actualizarSaldoJ2(id2, jug2);
+                                    t.actualizarSaldoJ2(id2, jug2,1);
                                 
                                 }
                                 //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
@@ -653,7 +653,7 @@ public class VersionFinal_1 {
                         }
 
                         case "4" ->  {
-                            t.actualizarSaldoJ2(100L, jug2);
+                            t.actualizarSaldoJ2(100L, jug2,1);
                             System.out.println("Dinero Actual -> "+ jug2.getJ2_Dinero());
                         }
 
