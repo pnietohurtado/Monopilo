@@ -456,7 +456,7 @@ public class Player2 {
                                         if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
                                             System.out.println("A la carcellll");
                                             carcelJ2 = 2; 
-                                            break; 
+                                             
                                         }
 
                                         /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/

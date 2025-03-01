@@ -428,7 +428,7 @@ public class Player1 extends JPanel{
                                                     if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
                                                         System.out.println("A la carcellll");
                                                         carcelJ1 = 2; 
-                                                        break; 
+                                                        
                                                     }
 
 

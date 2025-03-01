@@ -61,7 +61,7 @@ public class Tablero {
     /***********************Inicio de nuestro servidor******************************/
     
     public void inicioPartida(Long id, int numJug) throws SQLException, Exception{
-        PreparedStatement pt2 = getConnection().prepareStatement("INSERT INTO turno VALUE(0)"); 
+        PreparedStatement pt2 = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1");  
         pt2.executeUpdate(); 
         
         if(numJug == 1){
