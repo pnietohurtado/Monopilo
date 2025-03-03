@@ -185,7 +185,7 @@ public class Tablero {
     
     
     public void ActualizarCasillasDisponibles() {
-        casillasDisponibles.clear(); 
+        casillasDisponibles.clear(); /*Borra todas las casillas dentro de casillas disponibles*/
     }
     
     public void EliminarCasillaDisponible(Long id) throws SQLException,Exception{
@@ -204,17 +204,23 @@ public class Tablero {
     //Vaciar las Casillas Disponibles para poder ir a la par con la BBDD 
     
     
-    public List<Casilla> casillasJugador2() throws SQLException,Exception{
-        return this.casillasJ2; 
+    
+    public void limiparCasillasJugador1(){
+        casillasJ1.clear(); 
     }
     
-    public List<Casilla> casillasJugador1() throws SQLException,Exception{
-       /* this.casillasJ1.clear();
-        Casilla c = new Casilla(); 
-        PreparedStatement pt = getConnection().prepareStatement("select * from casilla where CAS_Id != 100 and CAS_Disponibilidad != 1 AND CAS_Propietario = 'jugador1'"); 
+    public void limiparCasillasJugador2(){
+        casillasJ2.clear(); 
+    } 
+    
+    public List<Casilla> addCasillasJugador1() throws SQLException,Exception{
+       
+        
+        PreparedStatement pt = getConnection().prepareStatement("select * from casilla where CAS_Id != 100 and CAS_Disponibilidad != 0 AND CAS_Propietario = 'jugador1'"); 
         ResultSet rs = pt.executeQuery(); 
         
-        if(rs.next()){
+        while(rs.next()){
+            Casilla c = new Casilla(); 
             c.setCAS_Id(rs.getLong("CAS_Id")); 
             c.setCAS_Nombre(rs.getString("CAS_Nombre"));
             c.setCAS_Precio(rs.getDouble("CAS_Precio"));
@@ -222,9 +228,29 @@ public class Tablero {
             c.setCAS_Propietario(rs.getString("CAS_Propietario"));
             c.setCAS_Tipo(rs.getString("CAS_Tipo")); 
             c.setCAS_Color(rs.getString("CAS_Color")); 
-            
-        }*/
-        return this.casillasJ1; 
+            casillasJ1.add(c); 
+        }
+        return casillasJ1; 
+    }
+    
+    public List<Casilla> addCasillasJugador2() throws SQLException,Exception{
+       
+        
+        PreparedStatement pt = getConnection().prepareStatement("select * from casilla where CAS_Id != 100 and CAS_Disponibilidad != 0 AND CAS_Propietario = 'jugador2'"); 
+        ResultSet rs = pt.executeQuery(); 
+        
+        while(rs.next()){
+            Casilla c = new Casilla(); 
+            c.setCAS_Id(rs.getLong("CAS_Id")); 
+            c.setCAS_Nombre(rs.getString("CAS_Nombre"));
+            c.setCAS_Precio(rs.getDouble("CAS_Precio"));
+            c.setCAS_Disponibilidad(rs.getInt("CAS_Disponibilidad"));
+            c.setCAS_Propietario(rs.getString("CAS_Propietario"));
+            c.setCAS_Tipo(rs.getString("CAS_Tipo")); 
+            c.setCAS_Color(rs.getString("CAS_Color")); 
+            casillasJ2.add(c); 
+        }
+        return casillasJ2; 
     }
     
     public List<Casilla> casillasDisponibles() throws SQLException,Exception{

@@ -474,7 +474,7 @@ public class Player1 extends JPanel{
                                                         /*Vamos a mostrar las casillas que quedan disponibles sin 
                                                     propietario en el tablero*/
                                                 {
-                                                    t.ActualizarCasillasDisponibles();
+                                                    t.ActualizarCasillasDisponibles(); // Borra todas las casillas dentro del Array "casillasDisponibles"
                                                     cas.cargarCasillasCasilla(t);
                                                     System.out.println(t.casillasDisponibles());
 
@@ -483,7 +483,8 @@ public class Player1 extends JPanel{
 
 
                                                 case "3": {
-                                                    System.out.println(t.casillasJugador1());
+                                                    t.limiparCasillasJugador1();
+                                                    System.out.println(t.addCasillasJugador1());
                                                     break; 
                                                 }
 

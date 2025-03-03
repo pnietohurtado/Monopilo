@@ -508,7 +508,8 @@ public class Player2 {
                                     }
 
                                     case "3": {
-                                        System.out.println(t.casillasJugador2());
+                                        t.limiparCasillasJugador2();
+                                        System.out.println(t.addCasillasJugador2());
                                         break; 
                                     }
 
