@@ -332,7 +332,7 @@ public class VersionFinal_1 {
         
         
         /*Cargar las casillas disponibles*/
-        cas.cargarCasillasCasilla(t);
+        //cas.cargarCasillasCasilla(t);
         
         
         
@@ -483,7 +483,7 @@ public class VersionFinal_1 {
                             propietario en el tablero*/
                         {
                             t.ActualizarCasillasDisponibles();
-                            cas.cargarCasillasCasilla(t);
+                            //cas.cargarCasillasCasilla(t);
                             System.out.println(t.casillasDisponibles());
 
                         }
@@ -643,7 +643,7 @@ public class VersionFinal_1 {
                             para los dos jugadores, es decir, aquellas que no tienen dueño aún.*/
                         {
                             t.ActualizarCasillasDisponibles();
-                            cas.cargarCasillasCasilla(t);
+                            //cas.cargarCasillasCasilla(t);
                             System.out.println(t.casillasDisponibles());
 
                         }

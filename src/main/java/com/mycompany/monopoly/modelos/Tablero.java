@@ -209,6 +209,21 @@ public class Tablero {
     }
     
     public List<Casilla> casillasJugador1() throws SQLException,Exception{
+       /* this.casillasJ1.clear();
+        Casilla c = new Casilla(); 
+        PreparedStatement pt = getConnection().prepareStatement("select * from casilla where CAS_Id != 100 and CAS_Disponibilidad != 1 AND CAS_Propietario = 'jugador1'"); 
+        ResultSet rs = pt.executeQuery(); 
+        
+        if(rs.next()){
+            c.setCAS_Id(rs.getLong("CAS_Id")); 
+            c.setCAS_Nombre(rs.getString("CAS_Nombre"));
+            c.setCAS_Precio(rs.getDouble("CAS_Precio"));
+            c.setCAS_Disponibilidad(rs.getInt("CAS_Disponibilidad"));
+            c.setCAS_Propietario(rs.getString("CAS_Propietario"));
+            c.setCAS_Tipo(rs.getString("CAS_Tipo")); 
+            c.setCAS_Color(rs.getString("CAS_Color")); 
+            
+        }*/
         return this.casillasJ1; 
     }
     
