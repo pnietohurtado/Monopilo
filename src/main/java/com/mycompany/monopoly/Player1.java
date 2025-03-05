@@ -20,6 +20,10 @@ import com.mycompany.monopoly.modelos.PosicionJ1;
 import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.UsuarioI;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -90,10 +94,25 @@ public class Player1 extends JPanel{
     
     public static void ganador(Jugador1 jug1) throws SQLException, Exception{
         IJugadoresRepositorio<Jugador1> jugador1 = new Jugador1Repositorio(); 
-        if(jugador1.getSaldo() <= 0){
-            System.out.println("El ganador es el Jugador2");
-            System.exit(0); 
+        
+        try{
+            BufferedReader bf = new BufferedReader(new FileReader("Ganador.txt")); 
+            String linea ; 
+                
+            while((linea = bf.readLine()) != null){
+                if(linea.equals("jugador1")){
+                    System.out.println("El ganador es el jugador1!!!");
+                    System.exit(0); 
+                }else if(linea.equals("jugador2")){
+                    System.out.println("El ganador es el jugador2!!!!");
+                    System.exit(0); 
+                }
+            }
+                
+        }catch(Exception e){
+            e.printStackTrace();
         }
+        
     }
     
     public static class ClaseComun{
@@ -528,7 +547,14 @@ public class Player1 extends JPanel{
                                         }
 
                                         
-                                        
+                                        if(jug1.getJ1_Dinero() <= 0){
+                                            try{
+                                                BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt"));
+                                                bf.write("jugador2"); 
+                                            }catch(Exception e){
+                                                e.printStackTrace();
+                                            }
+                                        }
                                         
                                         ganador(jug1); 
                                         
