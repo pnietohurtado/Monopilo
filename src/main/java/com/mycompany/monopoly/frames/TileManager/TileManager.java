@@ -18,8 +18,8 @@ import javax.imageio.ImageIO;
  */
 public class TileManager {
     GamePanel gp ;  
-    Tile[] tile; 
-    int mapTileNum[][]; 
+    public Tile[] tile; 
+    public int mapTileNum[][]; 
     
     public TileManager(GamePanel gp){
         this.gp = gp; 
@@ -35,14 +35,14 @@ public class TileManager {
         try{
             
             tile[0] = new Tile(); 
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tile/Grass.png")); 
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Entorno/Cesped.png")); 
             
             
             tile[1] = new Tile(); 
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/Tile/Grass.png")); 
+            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/Entorno/ArbolNormal.png")); 
             
             tile[2] = new Tile(); 
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/Tile/Grass.png")); 
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/Entorno/ArbolManzanas.png")); 
             
             tile[3] = new Tile(); 
             tile[3].image = ImageIO.read(getClass().getResourceAsStream("/Tile/Carcel.png")); 
@@ -148,7 +148,7 @@ public class TileManager {
             tile[33].image = ImageIO.read(getClass().getResourceAsStream("/Tile/33.png"));
             
 
-            
+            /*Ambiente*/
             
             
         }catch(IOException e){

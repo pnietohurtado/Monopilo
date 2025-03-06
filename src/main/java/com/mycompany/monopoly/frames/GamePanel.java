@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.Player.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -38,12 +39,24 @@ public class GamePanel extends JPanel implements Runnable
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
         this.setDoubleBuffered(true); 
+        this.addKeyListener(keyHandler);
         this.setFocusable(true); 
     }
     
     final int FPS = 60; 
     
+    public final int maxWorldCol = 13; 
+    public final int maxWorldRow = 15; 
+    public final int worldWidth = tileSize * maxWorldCol;
+    public final int worldHeigth = tileSize * maxWorldRow;
+    
     TileManager tileManager = new TileManager(this); 
+    
+    KeyHandler keyHandler = new KeyHandler(); 
+    
+    public Player player = new Player(this, keyHandler); 
+    
+    public CollisionChecker cH = new CollisionChecker(this);
     
     public void startGameThread()
     {
@@ -59,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable
             manera, este método no vale para absolutamente NADA. */
     {
         
-        /*
+       
         // Here we will be initializing our game loop
         while(gameThread != null) // Will execute until we close the gamePanel. 
         {
@@ -69,13 +82,13 @@ public class GamePanel extends JPanel implements Runnable
             
             
             
-        }*/
+        }
     }
     
     
     public void update()
     {
-        
+        player.update();
     }
    
     
@@ -86,6 +99,8 @@ public class GamePanel extends JPanel implements Runnable
         Graphics2D g2 = (Graphics2D)g; 
         
         tileManager.draw(g2);
+        player.draw(g2);
+        
         g2.dispose(); 
     }
     
