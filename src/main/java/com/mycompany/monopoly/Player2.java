@@ -22,6 +22,10 @@ import com.mycompany.monopoly.modelos.PosicionJ1;
 import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.UsuarioI;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -87,10 +91,17 @@ public class Player2 {
     /*Función que mire si los usuarios están en banca rota o no*/
     
     public static void ganador( Jugador2 jug2) throws SQLException, Exception{
-        IJugadoresRepositorio<Jugador2> jugador2 = new Jugador2Repositorio(); 
-        if(jugador2.getSaldo() <= 0){
-            System.out.println("El ganador es el Jugador1");
-            System.exit(0); 
+        BufferedReader bf = new BufferedReader(new FileReader("Ganador.txt")); 
+        String linea ; 
+                
+        while((linea = bf.readLine()) != null){
+            if(linea.equals("jugador2")){
+                System.out.println("El ganador es el jugador2!!!");
+                System.exit(0); 
+            }else if(linea.equals("jugador1")){
+                System.out.println("Eres un pedazo de pringao chaval...");
+                System.exit(0); 
+            }
         }
     }
     
@@ -545,6 +556,18 @@ public class Player2 {
                                 PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
                                 pt.executeUpdate(); 
                                 */
+                            }
+                            
+                            if(jug2.getJ2_Dinero() <= 0){
+                                            
+                                try{        
+                                    BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt"));
+                                    bf.write("jugador1");
+                                    bf.newLine(); 
+                                    bf.flush(); 
+                                }catch(Exception e){
+                                    e.printStackTrace();
+                                }
                             }
                             
                             ganador(jug2); 

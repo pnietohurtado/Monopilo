@@ -9,6 +9,8 @@ import com.mycompany.monopoly.conexionBBDD.Conexion;
 import static com.mycompany.monopoly.conexionBBDD.Conexion.getConnection;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Connection;
@@ -61,8 +63,14 @@ public class Tablero {
     /***********************Inicio de nuestro servidor******************************/
     
     public void inicioPartida(Long id, int numJug) throws SQLException, Exception{
-        PreparedStatement pt2 = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1");  
+        PreparedStatement pt2 = getConnection().prepareStatement("call llamarTurnoInicio()");  
         pt2.executeUpdate(); 
+        
+        // Lo usamos para reconfigurar el ganador de nuestro archivo de texto "Ganador.txt"
+        BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt")); 
+        bf.write(""); 
+        bf.newLine();
+        bf.flush(); 
         
         if(numJug == 1){
             PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 

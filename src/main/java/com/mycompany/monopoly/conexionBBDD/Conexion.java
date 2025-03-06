@@ -75,7 +75,7 @@ public class Conexion {
     public static void main(String[] args) throws Exception {
         try{
            
-            System.out.println(leer("G:/Proyecto#2/Proyecto2/Encriptado.txt"));
+            System.out.println(leer("Encriptado.txt"));
         }catch(IOException e){}
     }
 

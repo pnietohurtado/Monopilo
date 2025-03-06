@@ -93,24 +93,31 @@ public class Player1 extends JPanel{
     /*Función que mire si los usuarios están en banca rota o no*/
     
     public static void ganador(Jugador1 jug1) throws SQLException, Exception{
-        IJugadoresRepositorio<Jugador1> jugador1 = new Jugador1Repositorio(); 
-        
-        try{
-            BufferedReader bf = new BufferedReader(new FileReader("Ganador.txt")); 
-            String linea ; 
+        BufferedReader bf = new BufferedReader(new FileReader("Ganador.txt")); 
+        String linea ; 
                 
-            while((linea = bf.readLine()) != null){
-                if(linea.equals("jugador1")){
-                    System.out.println("El ganador es el jugador1!!!");
-                    System.exit(0); 
-                }else if(linea.equals("jugador2")){
-                    System.out.println("El ganador es el jugador2!!!!");
-                    System.exit(0); 
-                }
+        while((linea = bf.readLine()) != null){
+            if(linea.equals("jugador1")){
+                System.out.println("El ganador es el jugador1!!!");
+                
+                // Vamos a actualizar el ranking 
+                /*
+                System.out.print("Dime un nombre para ponerte en el ranking: ");
+                String nombre = ""; 
+                String puntuacion; 
+                
+                BufferedWriter bw = new BufferedWriter(new FileWriter("Ranking.txt")); 
+                BufferedReader bf2 = new BufferedReader(new FileReader("Ranking.txt")); 
+                
+                //if(pun)
+                bw.write(nombre);
+                */
+                
+                System.exit(0); 
+            }else if(linea.equals("jugador2")){
+                System.out.println("No pasa nada tt");
+                System.exit(0); 
             }
-                
-        }catch(Exception e){
-            e.printStackTrace();
         }
         
     }
@@ -548,9 +555,12 @@ public class Player1 extends JPanel{
 
                                         
                                         if(jug1.getJ1_Dinero() <= 0){
-                                            try{
+                                            
+                                            try{        
                                                 BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt"));
-                                                bf.write("jugador2"); 
+                                                bf.write("jugador2");
+                                                bf.newLine(); 
+                                                bf.flush(); 
                                             }catch(Exception e){
                                                 e.printStackTrace();
                                             }
