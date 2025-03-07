@@ -97,12 +97,13 @@ public class Player2 {
         if(rs.next()){
             ganador = rs.getString("resultado"); 
         }
-        System.out.println("El ganador es "+ganador);
-        pt.close(); 
-        rs.close(); 
         
-        if(!(ganador.equals("Se bugeo"))){
+        
+        if(!(ganador.equals("Se Bugeo"))){
             System.exit(0); 
+            System.out.println("El ganador es "+ganador);
+            pt.close(); 
+            rs.close(); 
         }
     }
     

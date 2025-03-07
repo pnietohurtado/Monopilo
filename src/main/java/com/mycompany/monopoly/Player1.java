@@ -100,11 +100,12 @@ public class Player1 extends JPanel{
         if(rs.next()){
             ganador = rs.getString("resultado"); 
         }
-        System.out.println("El ganador es "+ganador);
-        pt.close(); 
-        rs.close(); 
         
-        if(!(ganador.equals("Se bugeo"))){
+        
+        if(!(ganador.equals("Se Bugeo"))){
+            System.out.println("El ganador es "+ganador);
+            pt.close(); 
+            rs.close(); 
             System.exit(0); 
         }
         
