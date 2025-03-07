@@ -9,6 +9,7 @@ import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -47,13 +48,15 @@ public class main {
         
         //----------
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException{
         
         //Primera Ventana 
         JFrame window = new JFrame(); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         window.setResizable(false);
         window.setTitle("Monopilo"); 
+        
+        window.setIconImage(ImageIO.read(main.class.getResource("/Tile/Logo.png")));
         
         GamePanel gamePanel = new GamePanel(); 
         window.add(gamePanel); 
@@ -72,7 +75,11 @@ public class main {
         windowMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         windowMenu.setResizable(false);
         windowMenu.setTitle("Menú");
-        //windowMenu.setIconImage(ImageIO.read(getClass().getResourceAsStream("/Tile/Rosa.png")));
+        
+        
+        windowMenu.setIconImage(ImageIO.read(main.class.getResource("/Tile/Logo.png")));
+        
+
         
         MenuPanel m = new MenuPanel(); 
         windowMenu.add(m); 
@@ -88,8 +95,28 @@ public class main {
         
         
         
+        //Tercera ventana exclusiva de el jugador1
+        JFrame cmd = new JFrame(); 
+        cmd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        cmd.setResizable(false);
+        cmd.setTitle("CMD");
+        
+        cmd.setIconImage(ImageIO.read(main.class.getResource("/Tile/Logo.png")));
+        
+        CMD cm = new CMD(); 
+        cmd.add(cm); 
+        
+        cerrar(cmd); // Verificación de cierre de ventana
+        
+        cmd.pack(); 
+        
+        cmd.setLocation(1000,150); 
+        cmd.setVisible(true); 
+        
+        //-----------
+        
          
-        gamePanel.startGameThread(); 
+        gamePanel.startThread(); 
         
         
         

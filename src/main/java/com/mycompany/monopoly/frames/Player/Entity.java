@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
  * @author pablo
  */
 public class Entity {
-    public int worldX, worldY; 
+    public int x, y; 
     public int speed; 
 
     public BufferedImage f1,f2,l1,l2,r1,r2,b1,b2; 
@@ -20,7 +20,5 @@ public class Entity {
     
     public int spriteCounter = 0; 
     public int spriteNum = 1; 
-    
-    public Rectangle solidArea; // Basically we create the collision range of the player 
-    public boolean collision = false; 
+   
 }

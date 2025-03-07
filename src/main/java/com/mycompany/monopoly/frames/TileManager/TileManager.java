@@ -24,7 +24,9 @@ public class TileManager {
     public TileManager(GamePanel gp){
         this.gp = gp; 
         tile = new Tile[34]; 
+        
         mapTileNum = new int[gp.maxScreenCol][gp.maxScreenRow]; 
+        
         
         getTileImage(); 
         loadMap("/Map/Mapa.txt"); 
@@ -197,8 +199,8 @@ public class TileManager {
         int x = 0; 
         int y = 0; 
         
-        while(col < gp.maxScreenCol && row < gp.maxScreenRow)
-        {
+        while(col < gp.maxScreenCol && row < gp.maxScreenRow){
+            
             int tileNum = mapTileNum[col][row]; 
             
             g2.drawImage(tile[tileNum].image, x,y,gp.tileSize,gp.tileSize,null); 
@@ -212,7 +214,6 @@ public class TileManager {
                 y += gp.tileSize; 
             }
         }
-        
         
     }
     

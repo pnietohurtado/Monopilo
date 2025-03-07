@@ -100,7 +100,10 @@ public class Player2 {
         System.out.println("El ganador es "+ganador);
         pt.close(); 
         rs.close(); 
-        System.exit(0); 
+        
+        if(!(ganador.equals("Se bugeo"))){
+            System.exit(0); 
+        }
     }
     
     

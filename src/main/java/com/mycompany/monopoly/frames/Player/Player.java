@@ -21,21 +21,9 @@ public class Player extends Entity{
     GamePanel gamePanel; 
     KeyHandler keyHandler; 
     
-    public final int screenX;
-    public final int screenY; 
-    
     public Player(GamePanel gp, KeyHandler kh){
         this.gamePanel = gp; 
         this.keyHandler = kh; 
-        
-        screenX = gamePanel.screenWidth/2 - (gamePanel.tileSize / 2); 
-        screenY = gamePanel.screenHeight/2 - (gamePanel.tileSize /2); 
-        
-        solidArea = new Rectangle();
-        solidArea.x = 8; 
-        solidArea.y = 16; 
-        solidArea.width = 32; 
-        solidArea.height = 32; 
         
         setDefaultValues(); 
         getPlayerImage(); 
@@ -43,8 +31,8 @@ public class Player extends Entity{
     
     public void setDefaultValues()
     {
-        worldX = gamePanel.tileSize * 2 ; 
-        worldY = gamePanel.tileSize * 3 ; 
+        x = 100 ; // Cuidado con este
+        y = 100; 
         speed = 4; 
         direction = "down"; 
     }
@@ -73,53 +61,34 @@ public class Player extends Entity{
             if(keyHandler.upPressed == true)
             {
                 direction = "up"; 
+                y -= speed; 
             }
             else if(keyHandler.downPressed == true)
             {
-                direction = "down";               
+                direction = "down"; 
+                y += speed; 
             }
             else if(keyHandler.leftPressed == true)
             {
-                direction="left";                
+                direction="left"; 
+                x -= speed;
             }
             else if(keyHandler.rightPressed == true)
             {
-                direction="right";                
+                direction="right";     
+                x += speed; 
             }
 
-            // Check tile collision 
-            collision = false; 
-            gamePanel.cH.checkTile(this);
-            
-            
-            // If collision is false, player can't move 
-            if(collision == false){
-                switch(direction ){
-                    case "up": 
-                        worldY -= speed;  
-                        break; 
-                    case "down": 
-                        worldY += speed; 
-                        break; 
-                    case "left": 
-                        worldX -= speed;
-                        break; 
-                    case "right": 
-                        worldX += speed; 
-                        break; 
-                }
-            }
-            
+
             spriteCounter++; 
             if(spriteCounter > 12){
                 if(spriteNum == 1){
-                    spriteNum = 2; 
-                }else if (spriteNum == 2){
+                    spriteNum = 2;
+                }else if(spriteNum == 2){
                     spriteNum = 1; 
                 }
                 spriteCounter = 0; 
-            }    
-            
+            }
         }
     }
     
@@ -162,7 +131,7 @@ public class Player extends Entity{
                 break;
         }
         
-            g2.drawImage(image,screenX,screenY,gamePanel.tileSize, gamePanel.tileSize,null); 
+            g2.drawImage(image,x,y,gamePanel.tileSize, gamePanel.tileSize,null); 
     }
     
 }
