@@ -563,12 +563,16 @@ public class Player2 {
                            
                             
                             ganador(jug2); 
-                            
-                            PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
-                            pt.executeUpdate(); 
+                        
+                            if(eleccionJ2.equals("1")){
+                                PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                                pt.executeUpdate(); 
+                            }
                             
                         }while(!(eleccionJ2.equals("1"))); 
-
+                          
+                        
+                        
                     } while (!respuesta.equalsIgnoreCase("no"));
 
 
