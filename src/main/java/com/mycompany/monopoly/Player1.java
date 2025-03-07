@@ -5,6 +5,7 @@
 package com.mycompany.monopoly;
 
 import com.mycompany.monopoly.conexionBBDD.Conexion;
+import static com.mycompany.monopoly.conexionBBDD.Conexion.getConnection;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IPosicionRepositorio;
@@ -93,32 +94,16 @@ public class Player1 extends JPanel{
     /*Función que mire si los usuarios están en banca rota o no*/
     
     public static void ganador(Jugador1 jug1) throws SQLException, Exception{
-        BufferedReader bf = new BufferedReader(new FileReader("Ganador.txt")); 
-        String linea ; 
-                
-        while((linea = bf.readLine()) != null){
-            if(linea.equals("jugador1")){
-                System.out.println("El ganador es el jugador1!!!");
-                
-                // Vamos a actualizar el ranking 
-                /*
-                System.out.print("Dime un nombre para ponerte en el ranking: ");
-                String nombre = ""; 
-                String puntuacion; 
-                
-                BufferedWriter bw = new BufferedWriter(new FileWriter("Ranking.txt")); 
-                BufferedReader bf2 = new BufferedReader(new FileReader("Ranking.txt")); 
-                
-                //if(pun)
-                bw.write(nombre);
-                */
-                
-                System.exit(0); 
-            }else if(linea.equals("jugador2")){
-                System.out.println("No pasa nada tt");
-                System.exit(0); 
-            }
+        String ganador = ""; 
+        PreparedStatement pt = getConnection().prepareStatement("CALL ganador()"); 
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            ganador = rs.getString("resultado"); 
         }
+        System.out.println("El ganador es "+ganador);
+        pt.close(); 
+        rs.close(); 
+        System.exit(0); 
         
     }
     
@@ -553,18 +538,6 @@ public class Player1 extends JPanel{
                                             */
                                         }
 
-                                        
-                                        if(jug1.getJ1_Dinero() <= 0){
-                                            
-                                            try{        
-                                                BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt"));
-                                                bf.write("jugador2");
-                                                bf.newLine(); 
-                                                bf.flush(); 
-                                            }catch(Exception e){
-                                                e.printStackTrace();
-                                            }
-                                        }
                                         
                                         ganador(jug1); 
                                         

@@ -91,18 +91,16 @@ public class Player2 {
     /*Función que mire si los usuarios están en banca rota o no*/
     
     public static void ganador( Jugador2 jug2) throws SQLException, Exception{
-        BufferedReader bf = new BufferedReader(new FileReader("Ganador.txt")); 
-        String linea ; 
-                
-        while((linea = bf.readLine()) != null){
-            if(linea.equals("jugador2")){
-                System.out.println("El ganador es el jugador2!!!");
-                System.exit(0); 
-            }else if(linea.equals("jugador1")){
-                System.out.println("Eres un pedazo de pringao chaval...");
-                System.exit(0); 
-            }
+        String ganador = ""; 
+        PreparedStatement pt = getConnection().prepareStatement("CALL ganador()"); 
+        ResultSet rs = pt.executeQuery(); 
+        if(rs.next()){
+            ganador = rs.getString("resultado"); 
         }
+        System.out.println("El ganador es "+ganador);
+        pt.close(); 
+        rs.close(); 
+        System.exit(0); 
     }
     
     
@@ -558,17 +556,7 @@ public class Player2 {
                                 */
                             }
                             
-                            if(jug2.getJ2_Dinero() <= 0){
-                                            
-                                try{        
-                                    BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt"));
-                                    bf.write("jugador1");
-                                    bf.newLine(); 
-                                    bf.flush(); 
-                                }catch(Exception e){
-                                    e.printStackTrace();
-                                }
-                            }
+                           
                             
                             ganador(jug2); 
                             

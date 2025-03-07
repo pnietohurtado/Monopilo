@@ -63,32 +63,32 @@ public class Tablero {
     /***********************Inicio de nuestro servidor******************************/
     
     public void inicioPartida(Long id, int numJug) throws SQLException, Exception{
+        
         PreparedStatement pt2 = getConnection().prepareStatement("call llamarTurnoInicio()");  
         pt2.executeUpdate(); 
-        
-        // Lo usamos para reconfigurar el ganador de nuestro archivo de texto "Ganador.txt"
-        BufferedWriter bf = new BufferedWriter(new FileWriter("Ganador.txt")); 
-        bf.write(""); 
-        bf.newLine();
-        bf.flush(); 
+        pt2.close(); 
         
         if(numJug == 1){
             PreparedStatement pt = getConnection().prepareStatement("call borrarJugador1()"); 
             pt.executeUpdate(); 
+            pt.close(); 
             
             PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador?(J1_Id, J1_IdUser, J1_IdCasilla) VALUES (1,?,100)"); 
             pt3.setInt(1, numJug); 
             pt3.setLong(2, id); 
             pt3.executeUpdate(); 
+            pt3.close(); 
         }else if(numJug == 2){
             PreparedStatement pt = getConnection().prepareStatement("call borrarJugador2()"); 
             pt.executeUpdate(); 
+            pt.close(); 
             
             System.out.println("Jugador2");
             PreparedStatement pt3 = getConnection().prepareStatement("INSERT INTO jugador?(J2_Id, J2_IdUser, J2_IdCasilla) VALUES (1,?,100)"); 
             pt3.setInt(1, numJug); 
             pt3.setLong(2, id); 
             pt3.executeUpdate(); 
+            pt3.close(); 
         }
     }   
     
@@ -107,18 +107,21 @@ public class Tablero {
         pt.setString(2, "jugador1"); 
         pt.setLong(3, id); 
         pt.executeUpdate(); 
+        pt.close(); 
         
         /*De esta forma cada vez que un jugador compre alguna de las casillas no solo se va a actualizar en 
         nuestro programa sino que también se va a ir actualizando en nuestra base de datos. */
         String sql = "call actualizaJ1()"; 
         PreparedStatement pt2 = getConnection().prepareStatement(sql); 
         pt2.executeUpdate(); 
+        pt2.close(); 
         
         
         PreparedStatement pt3 = getConnection().prepareStatement("update jugador1 set J1_Dinero = J1_Dinero - (select CAS_Precio from casilla where CAS_Id = ?) where J1_IdCasilla = ? "); 
         pt3.setLong(1, id); 
         pt3.setLong(2, j.getJ1_IdCasilla());
         pt3.executeUpdate(); 
+        pt.close(); 
         
         double saldo = 0.0d; 
         
@@ -130,6 +133,7 @@ public class Tablero {
             j.setJ1_Dinero(saldo);
         }
         //System.out.println("Saldo actual "+saldo);
+        rs.close(); 
         
         Casilla c = porId(id); 
         c.setCAS_Disponibilidad(1);
