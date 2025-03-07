@@ -4,11 +4,14 @@
  */
 package com.mycompany.monopoly.frames;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 /**
  *
@@ -38,10 +41,23 @@ public class CMD extends JPanel implements Runnable{
     // Contructor de la clase 
     public CMD() 
     {
+        this.setLayout(new BorderLayout()); 
+        
+        JTextArea campo = new JTextArea(10,20); 
+        
+        campo.setLineWrap(true); 
+        campo.setWrapStyleWord(true); 
+        
+        campo.setBackground(Color.black);
+        campo.setForeground(Color.green);
+        campo.setPreferredSize(new Dimension(100, 30)); 
+        
+        add(campo, BorderLayout.NORTH);
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
         this.setDoubleBuffered(true); 
         this.setFocusable(true); 
+        
     }
     
     final int FPS = 60; 
