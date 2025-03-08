@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 
 /**
  *
@@ -39,13 +40,15 @@ public class GamePanel extends JPanel implements Runnable{
     int playerY = 100; 
     int playerSpeed = 4; 
     
+    
     public GamePanel()
     {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight)); 
         this.setBackground(Color.white);
         this.setDoubleBuffered(true); 
         this.addKeyListener(keyH); 
-        this.setFocusable(true); 
+        this.setFocusable(true);
+
         
     }
     

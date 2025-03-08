@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.monopoly.frames;
+package com.mycompany.monopoly.frames.JugadorUno;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,8 +22,7 @@ public class Display extends JTextArea{
     public final int maxScreenRow = 6; 
     public final int screenWidth = tileSize * maxScreenCol; // 76
     public final int screenHeight = tileSize * maxScreenRow; // 114
-    
-    
+
     public Display()
     {
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
@@ -35,7 +34,7 @@ public class Display extends JTextArea{
         this.setLineWrap(true);
         this.setWrapStyleWord(true);
         
-        this.setText("hola que tal"); 
+        //this.setText("hola que tal"); 
         
     }
     

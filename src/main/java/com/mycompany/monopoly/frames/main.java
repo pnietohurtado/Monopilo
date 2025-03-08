@@ -4,6 +4,8 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.JugadorUno.ClaseComun;
+import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
 import com.mycompany.monopoly.Player1;
 import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
 import java.awt.Image;
@@ -50,6 +52,9 @@ public class main {
     
     public static void main(String[] args) throws IOException{
         
+        
+        ClaseComun c = new ClaseComun(); 
+        
         //Primera Ventana 
         JFrame window = new JFrame(); 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
@@ -81,7 +86,7 @@ public class main {
         
 
         
-        MenuPanel m = new MenuPanel(); 
+        MenuPanel m = new MenuPanel(c); 
         windowMenu.add(m); 
         
         cerrar(windowMenu); // Verificación de cierre de ventana
@@ -115,7 +120,8 @@ public class main {
         
         //-----------
         
-         
+        m.startMenuThread();
+        //Activar el Thread de Comprobación sobre el turno
         gamePanel.startThread(); 
         
         
