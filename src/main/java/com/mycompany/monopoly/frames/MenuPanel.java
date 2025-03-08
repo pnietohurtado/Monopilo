@@ -85,15 +85,8 @@ public class MenuPanel extends JPanel implements Runnable
         
         Graphics2D g2 = (Graphics2D)g; 
         
-        // Titilo de la pantalla 
-        if(gameState == titleState ){
-           // ui.draw(g2); 
-        }
-         
-        // Otros 
-        else {
-            
-        }
+        g.drawString("Hola que tal", FPS, FPS);
+        
         
         
         //tileManager.draw(g2);
