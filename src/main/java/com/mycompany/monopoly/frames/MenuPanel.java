@@ -5,12 +5,16 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.TileManager.TileManager;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -40,21 +44,43 @@ public class MenuPanel extends JPanel implements Runnable
     
     
     
+    
+    /*Creo que la idea sería inicializar todos los contenidos de nuestro JPanel
+    una vez que lo hemos inicializado podemos ajustar la información que va en cada uno de ellos
+    ES DECIR, voy a tratar esta clase como una especie de lienzo para poder poner TODA la lógica 
+    de el programa final. */
+    
+    Display display = new Display(); 
+    Boton boton = new Boton(); 
+    JScrollPane scrollPane = new JScrollPane(display); 
+    
     // Contructor de la clase 
     public MenuPanel() 
     {
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
-        this.setBackground(Color.white); 
+        this.setBackground(Color.black); 
         this.setDoubleBuffered(true); 
         this.setFocusable(true); 
+        this.setLayout(new FlowLayout()); 
         
+        scrollPane.setBorder(new LineBorder(Color.RED, 2));
+        scrollPane.setPreferredSize(new Dimension(50,50));
+        
+        this.add(scrollPane); 
+        
+        /*
+        display.append("String holas ");
+        this.add(display); 
+        display.setVisible(true);
+        */
+        
+        /*
+        boton.setText("Enviar");
+        this.add(boton); 
+        */
     }
     
     final int FPS = 60; 
-    
-    //TileManager tileManager = new TileManager(this); 
-    
-    
     
     public void setupGame(){
            gameState = titleState; 
@@ -85,7 +111,8 @@ public class MenuPanel extends JPanel implements Runnable
         
         Graphics2D g2 = (Graphics2D)g; 
         
-        g.drawString("Hola que tal", FPS, FPS);
+        g.setColor(Color.red);
+        //g.drawString("Hola que tal", FPS, FPS);
         
         
         
