@@ -21,11 +21,11 @@ public class GamePanel extends JPanel implements Runnable{
     final int originalTileSize = 19; 
     final int scale = 3; 
     
-    public final int tileSize = originalTileSize * scale; // 48x48
-    public final int maxScreenCol = 15; 
-    public final int maxScreenRow = 13; 
-    public final int screenWidth = tileSize * maxScreenCol; 
-    public final int screenHeight = tileSize * maxScreenRow; 
+    public final int tileSize = originalTileSize * scale; // 57x57
+    public final int maxScreenCol = 15; // Estos son los ajuts de la pantalla NO TOCAR 
+    public final int maxScreenRow = 13; // NO TOCAR 
+    public final int screenWidth = tileSize * maxScreenCol; // NO TOCAR
+    public final int screenHeight = tileSize * maxScreenRow; // NO TOCAR 
     
     // Instanciamos
     TileManager tileM = new TileManager(this);
@@ -66,7 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
             
             update(); 
             repaint(); 
-            
+            System.out.println("Player: "+player.getX() + " "+player.getY());
             try{
 
                 double remainingTime = nextDrawInterval - System.nanoTime(); 

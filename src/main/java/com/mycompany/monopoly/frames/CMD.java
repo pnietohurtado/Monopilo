@@ -50,7 +50,7 @@ public class CMD extends JPanel implements Runnable{
         
         campo.setBackground(Color.black);
         campo.setForeground(Color.green);
-        campo.setPreferredSize(new Dimension(100, 30)); 
+        campo.setPreferredSize(new Dimension(342, 513)); 
         
         add(campo, BorderLayout.NORTH);
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 

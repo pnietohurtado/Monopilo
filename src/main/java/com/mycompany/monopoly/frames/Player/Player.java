@@ -4,12 +4,17 @@
  */
 package com.mycompany.monopoly.frames.Player;
 
+import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.frames.GamePanel;
 import com.mycompany.monopoly.frames.KeyHandler;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.imageio.ImageIO;
 
 
@@ -29,10 +34,19 @@ public class Player extends Entity{
         getPlayerImage(); 
     }
     
+    public Connection getConnection() throws SQLException{
+        return Conexion.getConnection(); 
+    }
+    
     public void setDefaultValues()
+            /*Debemos tener en cuenta que cada casilla en el mapa son 48 píxeles por 48 píxeles 
+            por lo que situarnos en el (0,0) no  va a poner en la esquina superior izquierda y en caso
+            de que pongamos (0,48) nos vamos a situar en la misma posición, pero una casilla más abajo.*/
+            
     {
-        x = 100 ; // Cuidado con este
-        y = 100; 
+        
+        x = 117 ; // Cuidado con este
+        y = 57; 
         speed = 4; 
         direction = "down"; 
     }
@@ -55,6 +69,7 @@ public class Player extends Entity{
     
     public void update()
     {
+        /*
         if(keyHandler.upPressed == true || keyHandler.downPressed == true ||
                 keyHandler.leftPressed == true || keyHandler.rightPressed == true ){
             
@@ -90,6 +105,21 @@ public class Player extends Entity{
                 spriteCounter = 0; 
             }
         }
+        */
+        
+        
+        try{
+            PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM posJ1"); 
+            ResultSet rs = pt.executeQuery(); 
+            
+            if(rs.next()){
+                x = ((rs.getInt("Pos_PosJ")) * 57)+114; 
+                y = ((rs.getInt("Pos_PosI")) * 57)+57; 
+            }
+        }catch(SQLException e){
+           
+        }
+        
     }
     
     public void draw(Graphics2D g2) 
@@ -133,5 +163,10 @@ public class Player extends Entity{
         
             g2.drawImage(image,x,y,gamePanel.tileSize, gamePanel.tileSize,null); 
     }
+    
+    
+    
+    public int getX ( ){return this.x; }
+    public int getY ( ){return this.y; }
     
 }

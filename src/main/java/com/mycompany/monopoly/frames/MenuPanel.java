@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -26,11 +27,11 @@ public class MenuPanel extends JPanel implements Runnable
     final int originalTileSize = 19; // Lo que significa que cada elemento que encontremos en el juego va a medir 19x19
     final int scale = 3;         
     
-    public final int tileSize = originalTileSize * scale;  
+    public final int tileSize = originalTileSize * scale;  // 57x57
     public final int maxScreenCol = 6; 
     public final int maxScreenRow = 9; 
-    public final int screenWidth = tileSize * maxScreenCol; 
-    public final int screenHeight = tileSize * maxScreenRow; 
+    public final int screenWidth = tileSize * maxScreenCol; // 342
+    public final int screenHeight = tileSize * maxScreenRow; // 513
     
     
     /*Estados del juego*/
@@ -43,14 +44,16 @@ public class MenuPanel extends JPanel implements Runnable
     public MenuPanel() 
     {
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
-        this.setBackground(Color.black); 
+        this.setBackground(Color.white); 
         this.setDoubleBuffered(true); 
         this.setFocusable(true); 
+        
     }
     
     final int FPS = 60; 
     
     //TileManager tileManager = new TileManager(this); 
+    
     
     
     public void setupGame(){
