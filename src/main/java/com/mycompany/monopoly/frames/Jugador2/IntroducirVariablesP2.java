@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.monopoly.frames.JugadorUno;
+package com.mycompany.monopoly.frames.Jugador2;
 
+import com.mycompany.monopoly.frames.JugadorUno.*;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.FocusEvent;
@@ -14,7 +15,7 @@ import javax.swing.JTextField;
  *
  * @author pablo
  */
-public class IntroducirVariables extends JTextField implements FocusListener{
+public class IntroducirVariablesP2 extends JTextField implements FocusListener{
     
     final int originalTileSize = 19; // Lo que significa que cada elemento que encontremos en el juego va a medir 19x19
     final int scale = 3;         
@@ -27,7 +28,7 @@ public class IntroducirVariables extends JTextField implements FocusListener{
 
     private String placeholder; 
     
-    public IntroducirVariables(String placeholder, int columns)
+    public IntroducirVariablesP2(String placeholder, int columns)
     {
         super(placeholder, columns); 
         this.placeholder = placeholder; 

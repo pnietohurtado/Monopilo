@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.monopoly.frames.JugadorUno;
+package com.mycompany.monopoly.frames.Jugador2;
 
+import com.mycompany.monopoly.frames.JugadorUno.*;
 import com.mycompany.monopoly.Player1;
 import static com.mycompany.monopoly.Player1.ESTADO_DE_TURNO;
 import static com.mycompany.monopoly.Player1.dado;
@@ -54,7 +55,7 @@ import javax.swing.border.LineBorder;
  *
  * @author pablo
  */
-public class MenuPanel extends JPanel implements Runnable 
+public class MenuPanelP2 extends JPanel implements Runnable 
 
 {
     final int originalTileSize = 19; // Lo que significa que cada elemento que encontremos en el juego va a medir 19x19
@@ -110,7 +111,7 @@ public class MenuPanel extends JPanel implements Runnable
     private String userInput = ""; 
     
     // Contructor de la clase 
-    public MenuPanel(ClaseComun c) 
+    public MenuPanelP2(ClaseComun c) 
     {
         this.c = c; 
                 

@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.JugadorUno.Boton;
 import com.mycompany.monopoly.frames.Player.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
 import java.awt.Color;
@@ -40,6 +41,7 @@ public class GamePanel extends JPanel implements Runnable{
     int playerY = 100; 
     int playerSpeed = 4; 
     
+    Boton b = new Boton(); 
     
     public GamePanel()
     {
@@ -48,7 +50,11 @@ public class GamePanel extends JPanel implements Runnable{
         this.setDoubleBuffered(true); 
         this.addKeyListener(keyH); 
         this.setFocusable(true);
-
+        this.setLayout(null); 
+        
+        b.setBounds(100,100,200,30); 
+        b.setText("asdasdasd"); 
+        this.add(b); 
         
     }
     
@@ -69,7 +75,7 @@ public class GamePanel extends JPanel implements Runnable{
             
             update(); 
             repaint(); 
-            System.out.println("Player: "+player.getX() + " "+player.getY());
+            //System.out.println("Player: "+player.getX() + " "+player.getY());
             try{
 
                 double remainingTime = nextDrawInterval - System.nanoTime(); 
