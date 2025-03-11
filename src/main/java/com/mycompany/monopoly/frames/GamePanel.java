@@ -5,7 +5,7 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.JugadorUno.Boton;
-import com.mycompany.monopoly.frames.Player.Player;
+import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
 import java.awt.Color;
 import java.awt.Dimension;

@@ -5,10 +5,7 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.JugadorUno.ClaseComun;
-import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
-import com.mycompany.monopoly.Player1;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-import java.awt.Image;
+import com.mycompany.monopoly.frames.Jugador2.MenuPanelP2;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -86,7 +83,7 @@ public class mainP2 {
         
 
         
-        MenuPanel m = new MenuPanel(c); 
+        MenuPanelP2 m = new MenuPanelP2(); 
         windowMenu.add(m); 
         
         cerrar(windowMenu); // Verificación de cierre de ventana
@@ -95,9 +92,9 @@ public class mainP2 {
         
         windowMenu.setLocation(1000,150); 
         windowMenu.setVisible(true); 
+     
         
         //-----------
-        
         
      
         m.startMenuThread();

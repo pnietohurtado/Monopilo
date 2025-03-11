@@ -11,10 +11,12 @@ import com.mycompany.monopoly.frames.JugadorUno.*;
  * @author pablo
  */
 public class ClaseComunP2 {
-    private int J_Turno; 
+ 
         
     public ClaseComunP2(){}
-        
-    public int getJ_Turno(){return this.J_Turno; }
-    public void setJ_Turno(int t){ this.J_Turno = t;  }
+    
+    public int ESTADO_DE_TURNO = 0; 
+    public int getESTADO_DE_TURNO(){return this.ESTADO_DE_TURNO;}
+    public void setESTADO_DE_TURNO(int e){this.ESTADO_DE_TURNO = e; }
+ 
 }

@@ -4,14 +4,7 @@
  */
 package com.mycompany.monopoly.frames.JugadorUno;
 
-import com.mycompany.monopoly.Player1;
-import static com.mycompany.monopoly.Player1.ESTADO_DE_TURNO;
-import static com.mycompany.monopoly.Player1.dado;
-import static com.mycompany.monopoly.Player1.ganador;
-import static com.mycompany.monopoly.Player1.getConnection;
 import static com.mycompany.monopoly.Player1.listarTablero;
-import static com.mycompany.monopoly.Player1.menuJugador;
-import static com.mycompany.monopoly.Player1.resetearJugador;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
@@ -22,33 +15,21 @@ import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
-import com.mycompany.monopoly.frames.TileManager.TileManager;
 import com.mycompany.monopoly.modelos.Casilla;
 import com.mycompany.monopoly.modelos.Jugador1;
 import com.mycompany.monopoly.modelos.PosicionJ1;
 import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.UsuarioI;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
+
 
 /**
  *
@@ -66,16 +47,12 @@ public class MenuPanel extends JPanel implements Runnable
     public final int screenWidth = tileSize * maxScreenCol; // 342
     public final int screenHeight = tileSize * maxScreenRow; // 513
     
-    public static int ESTADO_DE_TURNO = 0; 
-    
     
     public static  Connection getConnection() throws SQLException{
             return Conexion.getConnection(); 
     }
 
-    private final ClaseComun c; 
     Thread menuThread; 
-    Thread comprobarThread; 
     
     /*------------------------Instanciaciones necesarias para que el programa funcione correctamente------------------------------------*/
         static Scanner sc = new Scanner(System.in); 
@@ -110,9 +87,8 @@ public class MenuPanel extends JPanel implements Runnable
     private String userInput = ""; 
     
     // Contructor de la clase 
-    public MenuPanel(ClaseComun c) 
+    public MenuPanel() 
     {
-        this.c = c; 
                 
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
@@ -165,12 +141,16 @@ public class MenuPanel extends JPanel implements Runnable
 
     
     
-
+    Thread comprobar; // Declaramos la comprobación de nuestro turno desde un Thread externo y lo declaramos a la vez con el menu
+    ClaseComun cls = new ClaseComun(); 
+    Comprobar comprueba = new Comprobar(cls); 
     
     public void startMenuThread()
     {
         menuThread = new Thread(this); 
+        comprobar = new Thread(comprueba); 
         menuThread.start(); 
+        comprobar.start(); 
     }
     
 
@@ -555,11 +535,11 @@ public class MenuPanel extends JPanel implements Runnable
                                                 
                                                 
                                                 case "5": {
-                                                    synchronized(c){
+                                                    synchronized(cls){
                                                         while(true){
                                                             try{
 
-                                                                c.wait();
+                                                                cls.wait();
 
                                                             }catch(InterruptedException e3){
 
@@ -589,13 +569,14 @@ public class MenuPanel extends JPanel implements Runnable
                                         ganador(jug1); 
                                         
                                         if(eleccionJ1.equals("1")){
-                                            ESTADO_DE_TURNO = 1; 
-                                            synchronized(c){
+                                            cls.setESTADO_DE_TURNO(1); 
+                                            synchronized(cls){
                                                 try{
                                                     PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
                                                     pt.executeUpdate(); 
+                                                    System.out.println("Estado de turno -> " +cls.getESTADO_DE_TURNO());
                                                     display.append("\nMe pongo en modo espera...");
-                                                    c.wait(); 
+                                                    cls.wait(); 
                                                 }catch(InterruptedException e4){
 
                                                 }
@@ -604,7 +585,7 @@ public class MenuPanel extends JPanel implements Runnable
                                             }
                                         }
                                         
-                                        ESTADO_DE_TURNO = 0; 
+                                        cls.setESTADO_DE_TURNO(0);
                                         
                                     }while(!(eleccionJ1.equals("1"))); 
                                     

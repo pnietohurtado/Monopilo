@@ -86,7 +86,7 @@ public class main {
         
 
         
-        MenuPanel m = new MenuPanel(c); 
+        MenuPanel m = new MenuPanel(); 
         windowMenu.add(m); 
         
         cerrar(windowMenu); // Verificación de cierre de ventana

@@ -5,51 +5,31 @@
 package com.mycompany.monopoly.frames.Jugador2;
 
 import com.mycompany.monopoly.frames.JugadorUno.*;
-import com.mycompany.monopoly.Player1;
-import static com.mycompany.monopoly.Player1.ESTADO_DE_TURNO;
-import static com.mycompany.monopoly.Player1.dado;
-import static com.mycompany.monopoly.Player1.ganador;
-import static com.mycompany.monopoly.Player1.getConnection;
 import static com.mycompany.monopoly.Player1.listarTablero;
-import static com.mycompany.monopoly.Player1.menuJugador;
-import static com.mycompany.monopoly.Player1.resetearJugador;
 import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.conexionBBDD.interfaces.ICasillasRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IJugadoresRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IPosicionRepositorio;
 import com.mycompany.monopoly.conexionBBDD.interfaces.IUsuarioRepositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.CasillasRepositorio;
-import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
+import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
-import com.mycompany.monopoly.frames.TileManager.TileManager;
 import com.mycompany.monopoly.modelos.Casilla;
-import com.mycompany.monopoly.modelos.Jugador1;
+import com.mycompany.monopoly.modelos.Jugador2;
 import com.mycompany.monopoly.modelos.PosicionJ1;
 import com.mycompany.monopoly.modelos.PosicionJ2;
 import com.mycompany.monopoly.modelos.Tablero;
 import com.mycompany.monopoly.modelos.UsuarioI;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.border.LineBorder;
 
 /**
  *
@@ -67,30 +47,30 @@ public class MenuPanelP2 extends JPanel implements Runnable
     public final int screenWidth = tileSize * maxScreenCol; // 342
     public final int screenHeight = tileSize * maxScreenRow; // 513
     
-    public static int ESTADO_DE_TURNO = 0; 
+    
     
     
     public static  Connection getConnection() throws SQLException{
             return Conexion.getConnection(); 
     }
 
-    private final ClaseComun c; 
+    
     Thread menuThread; 
-    Thread comprobarThread; 
     
     /*------------------------Instanciaciones necesarias para que el programa funcione correctamente------------------------------------*/
-        static Scanner sc = new Scanner(System.in); 
+       static Scanner sc = new Scanner(System.in); 
         //static IUsuarioRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
         //y que con ayuda del trigger dentro de la BBDD se añadan a la tabla "usuarioI". 
         static IUsuarioRepositorio<UsuarioI> u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
         
-        static IJugadoresRepositorio<Jugador1>  j1 = new Jugador1Repositorio();  //Ambos jugadores quedan registrados
+        static IJugadoresRepositorio<Jugador2>  j2 = new Jugador2Repositorio(); 
         
         static ICasillasRepositorio cas = new CasillasRepositorio(); //Con esto vamos a añadir y actualizar las casillas disponibles
         
         
         static IPosicionRepositorio<PosicionJ1> posJ1 = new PosicionJ1Repositorio(); 
         static IPosicionRepositorio<PosicionJ2> posJ2 = new PosicionJ2Repositorio(); 
+   
     
     
     
@@ -111,9 +91,9 @@ public class MenuPanelP2 extends JPanel implements Runnable
     private String userInput = ""; 
     
     // Contructor de la clase 
-    public MenuPanelP2(ClaseComun c) 
+    public MenuPanelP2() 
     {
-        this.c = c; 
+        
                 
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
@@ -166,12 +146,16 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
     
     
-
+    Thread comprobarP2; // Declaramos la comprobación de nuestro turno desde un Thread externo y lo declaramos a la vez con el menu
+    ClaseComunP2 cls = new ClaseComunP2(); 
+    ComprobarP2 comprueba = new ComprobarP2(cls); 
     
     public void startMenuThread()
     {
         menuThread = new Thread(this); 
+        comprobarP2 = new Thread(comprueba); 
         menuThread.start(); 
+        comprobarP2.start(); 
     }
     
 
@@ -180,84 +164,83 @@ public class MenuPanelP2 extends JPanel implements Runnable
     public void run() {
         
         try{
-            
-                /*!!!!!!!!!!!!    REGISTRO DE USUARIO   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-                    /*
-                    System.out.print("Dime tu nombre: ");
-                    String nombre1 = sc.nextLine(); 
-                    System.out.print("Dime tus apellidos: ");
-                    String apellido1 = sc.nextLine(); 
-                    System.out.println("Registra un usuario");
-                    String user1 = sc.nextLine(); 
-                    System.out.println("Registra una contraseña");
-                    String pass1 = sc.nextLine(); 
+          
 
+                                /*!!!!!!!!!!!!    REGISTRO DE USUARIO   !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+                     /*
+                   
 
-                    
+                     System.out.print("Dime tu nombre: ");
+                     String nombre2 = sc.nextLine(); 
+                     System.out.print("Dime tus apellidos: ");
+                     String apellido2 = sc.nextLine();
+                     System.out.println("Registra un usuario");
+                     String user2 = sc.nextLine(); 
+                     System.out.println("Registra una contraseña");
+                     String pass3 = sc.nextLine(); 
 
-                    */
+                     */
 
-                    /*Se llama a la BBDD para insertar los dos usuarios*/
-                    /*
-                    usuarios.insertar(new Usuario(nombre1, apellido1, user1, pass1));
-                    
-                    */
-                    /*****************************************************************/
+                     /*Se llama a la BBDD para insertar los dos usuarios*/
+                     /*
 
-
-
-                    /*!!!!!!!!!!!!!!!!!!!    INICIO DE SESIÓN DE LOS DOS JUGADORES    !!!!!!!!!!!!!!!!!!!!!!!*/
-
-                    display.append("Inicio de sesión, Dime un nombre: ");
-                    String name1 = this.getUserInput(); 
-                    
-                    
-                    
-                    //String name1 = ; // Que aquí se espere 
-                    display.append("\nDime la contraseña: ");
-                    String contra = this.getUserInput(); 
-                    //String contra1 = ;  
-
-
-                    /*Se llama a la BBDD para iniciar sesión con los dos jugadores*/
-
-                    //u.inicioSesion(name1, contra1, 1);
-
-
-                    UsuarioI usuario1 =  u.porUser(name1); //Estoy obetiendo los valores de ambos usuarios 
-
-                    /**************************************************************************/
-
-                    //En base a "usuario1 y usuario2" vamos a obtener los id necesarios para poder 
-                    //realizar las cuatro consultas básicas de nuestro servidor. 
-
-                       //Esta un poco más abajo donde instanciamos el "Tablero" 
-
-
-                    /**************************************************************************/
+                     usuarios.insertar(new Usuario(nombre2, apellido2, user2, pass3));
+                     */
+                     /*****************************************************************/
 
 
 
-                    /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
-
-                    UsuarioI u1 = u.porUser("pablongo03"); 
-
-                    Long idJ1 = u1.getUI_Id(); //Con esto asignamos el "J1_IdUser" y "J2_IdUser" en la base de datos 
-
-                    //System.out.println("id "+ idJ1);
-
-                    Jugador1 jug1 = j1.porId(idJ1); //Metemos un objeto jugador el cual buscamos los valores mediante el select 
-
-                    //System.out.println("jug 1 "+jug1);
-                    /****************************************************************************/
+                     /*!!!!!!!!!!!!!!!!!!!    INICIO DE SESIÓN DE LOS DOS JUGADORES    !!!!!!!!!!!!!!!!!!!!!!!*/
 
 
-                    Tablero t = new Tablero(jug1,null); 
+                     display.append("\nInicio de sesión, Dime un nombre: ");
+                     String name2 = this.getUserInput(); 
+                     display.append("\nDime la contraseña: ");
+                     String contra2 = this.getUserInput();
+                     display.setText(""); 
 
-                    t.inicioPartida(usuario1.getUI_Id(),1); //Borra todos los datos de la partida anterior
+                     /*Se llama a la BBDD para iniciar sesión con los dos jugadores*/
 
 
-            
+                     //u.inicioSesion(name2, contra2, 2);
+
+
+                     UsuarioI usuario2 = u.porUser(name2); 
+                     /**************************************************************************/
+
+                     //En base a "usuario1 y usuario2" vamos a obtener los id necesarios para poder 
+                     //realizar las cuatro consultas básicas de nuestro servidor. 
+
+                        //Esta un poco más abajo donde instanciamos el "Tablero" 
+
+
+                     /**************************************************************************/
+
+
+
+                     /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
+
+
+                     UsuarioI u2 = u.porUser("rufian"); 
+
+                     Long idJ2 = u2.getUI_Id(); 
+                     //System.out.println("id "+ idJ1);
+
+
+                     Jugador2 jug2 = j2.porId(idJ2); // por "idJ1 y idJ2" para poder tener los datos de los jugadores en físico
+
+                     /****************************************************************************/
+
+                     
+                     Tablero t = new Tablero( null, jug2); 
+                     
+                     t.inicioPartida(usuario2.getUI_Id(),2); //Borra todos los datos de la partida anterior
+                     
+
+
+
+                    /*!!!!!!!!!!!!!!!!!!!!    PARTE DEL JUEGO CON EL TABLERO    !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
                     String[][] tableroPlantilla = new String[11][11]; 
                     for (int i = 0; i < tableroPlantilla.length; i++) {
                         for (int j = 0; j < tableroPlantilla[0].length; j++) {
@@ -369,7 +352,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                     tablero[x2][y2] = " 2 ";
                     String respuesta;
 
-                    int vueltaJ1 = 0; //Ambos atributos van a contar las respectivas vueltas de los jugadores 
+                    int vueltaJ2 = 0; // jugador 1 y jugador 2
 
 
 
@@ -381,238 +364,247 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
 
 
-                    int carcelJ1 = 0; 
-                       
+                    int carcelJ2 = 0; 
+                
+
                     do 
                             /*A partir de aquí empieza el tablero del juego donde los jugadores van
                             a ir turnandose entre ellos para ir tirando el dado */
 
                     {
 
-                        //synchronized(c){
+                        
+                            
+                            synchronized(cls){
+                                try{
+                            
+                                    display.append("\nMe pongo en modo espera...");
+                                    comprueba.setESTADO_DE_TURNO(0);
+                                    cls.wait(); 
+                                }catch(InterruptedException e4){
+                                                
+                                }
+                                            
+                                            
+                            }
+                        comprueba.setESTADO_DE_TURNO(1);
 
-                                    display.setText("");
-                                    display.append("\n¿Seguir jugando? (no para salir): ");
-                                    respuesta = this.getUserInput();
+                        display.setText(""); 
+                        display.append("\n======================");
+                        display.append("\n¿Seguir jugando? (no para salir): ");
+                        respuesta = this.getUserInput();
 
-                                    if (respuesta.equalsIgnoreCase("no")) {
-                                        System.exit(0); 
-                                        //break;
+                        if (respuesta.equalsIgnoreCase("no")) {
+                            break;
+                        }
+
+
+
+
+
+
+
+
+                        /*=====================================================================*/
+                        /*=====================================================================*/
+                        /*A partir de aquí juega el jugador 2 ---------------------------------*/
+                        /*=====================================================================*/
+                        /*=====================================================================*/
+
+
+
+                        display.setText(""); 
+                        display.append("\n==============Jugador 2==================");
+
+
+                        display.append("\nTira el dado...");
+                        int pasos2 = dado();
+                        display.append("\nEl dado mostró: " + pasos2);
+
+                        // Actualizar la posición del jugador en sentido de las agujas del reloj 
+
+                        String eleccionJ2; 
+                        
+                        do{
+                            
+                            display.setText(""); 
+                            display.append("\n==============Jugador 2==================");
+                            eleccionJ2 = menuJugador(); 
+                            
+                            if(carcelJ2 == 0){
+                                switch(eleccionJ2){
+
+                                    case "1": {
+                                        for (int i = 0; i < pasos2; i++) {
+                                            if (x2 == 0 && y2 < 10) { // Va hacia la derecha
+                                                y2++;
+                                                if(tablero[x2][y2].equals(" S ")){
+                                                    display.append("\nvueltaaaaaaaa");
+                                                    t.vueltaCompletada(idJ2, jug2,2);
+
+                                                    ++vueltaJ2; 
+                                                }
+                                            } else if (y2 == 10 && x2 < 10) { // Baja
+                                                x2++;
+                                            } else if (x2 == 10 && y2 > 0) { // Va hacia la izquierda
+                                                y2--;
+                                            } else if (y2 == 0 && x2 > 0) { // Sube
+                                                x2--;
+                                                if(tablero[x2][y2].equals(" S ")){
+                                                    display.append("\nvueltaaaaaaaa");
+                                                    t.vueltaCompletada(idJ2, jug2,2);
+                                                    ++vueltaJ2; 
+                                                }
+                                            }
+                                        }
+
+                                        resetearJugador(tablero);
+
+
+                                        tablero[x2][y2] = " 2 "; // x2 = posI del jugador2 , y2 = posJ del jugador2 
+
+
+
+                                        for(int i = 0; i < tablero.length ; i++){
+                                            for(int j = 0 ; j< tablero[0].length ; j++){
+
+                                                if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
+                                                    //continue; 
+                                                }else {
+                                                    tablero[i][j] = tableroPlantilla[i][j]; 
+                                                }
+
+                                            }
+                                        }
+                                        /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
+                                        posJ2.obtenerPosActual(idJ2,x2,y2); 
+
+
+                                        tablero[posJ1.obtenerX()][posJ1.obtenerY()] = " 1 "; 
+
+                                        listarTablero(tablero);
+
+
+                                        display.append("\nPosicion J2 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
+                                        display.append("\nPosicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
+
+
+                                        /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+
+                                        
+                                        /*En caso de que caiga en la carcel*/
+                                        if(tablero[0][10].equals(" 2 ")||tablero[10][0].equals(" 2 ")){
+                                            display.setText(""); 
+                                            display.append("\nEntra a la carcel...");
+                                            carcelJ2 = 2; 
+                                            PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                                            pt.executeUpdate(); 
+                                            
+                                            break; 
+                                        }
+
+                                        /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
+                                        display.setText(""); 
+                                        Long id2 = cas.obtenerIdCasilla(x2, y2); 
+                                        display.append("\nid "+id2);
+                                        //System.out.println("jug1 "+ jug1);
+                                        if(id2 != null){
+                                            Casilla casilla = cas.porId(id2); 
+                                            t.actualizarSaldoJ2(id2, jug2,4);
+                                            display.append("\nDinero disponible -> "+ jug2.getJ2_Dinero());
+
+
+                                            if(casilla.getCAS_Propietario() == null){
+                                                if(casilla.getCAS_Tipo().equals("Propiedad")){
+                                                    display.append("\nQuiere comprar la propiedad "+ cas.porId(id2)+ " [Y/N]");
+                                                    String respuesta2 = this.getUserInput();
+                                                    if(respuesta2.equalsIgnoreCase("y")){
+                                                        casilla.setCAS_Disponibilidad(1);
+                                                        t.CargarCasillaJ2(id2, jug2); //11
+                                                        //System.out.println(t.casillasJugador2());
+                                                        //casilla.setCAS_Disponibilidad(1);
+                                                    }
+                                                }else if(casilla.getCAS_Tipo().equals("Suerte")){
+                                                    t.suerte2(jug2); 
+                                                }
+                                            }else if(casilla.getCAS_Propietario().equals("jugador1")|| casilla.getCAS_Propietario().equals("jugador2")){
+                                                //System.out.println("dentro de comprobacion");
+                                                t.actualizarSaldoJ2(id2, jug2,1);
+
+                                            }
+                                            //System.out.println("Cuanto dinero le queda"+ jug1.getJ1_Dinero());
+                                        }
+
+                                        break; //Muy necesario ya que si no salta al siguiente "case" 
                                     }
 
+                                    case "2": 
+                                            /*Se encarga de mostrar las casillas que quedan disponibles para comprar
+                                        para los dos jugadores, es decir, aquellas que no tienen dueño aún.*/
+                                    {
+                                        t.ActualizarCasillasDisponibles();
+                                        cas.cargarCasillasCasilla(t);
+                                        System.out.println(t.casillasDisponibles());
 
+                                        break; 
+                                    }
 
-                                    /*En esta parte juega el jugador 1-------------------*/
+                                    case "3": {
+                                        t.limiparCasillasJugador2();
+                                        System.out.println(t.addCasillasJugador2());
+                                        break; 
+                                    }
 
-
-                                    String eleccionJ1; 
-                                    do{
-                                        display.setText("");
-                                        display.append("\n==============Jugador 1=============");
-                                        eleccionJ1 = menuJugador(); 
-                                    //System.out.println("eleccion "+eleccion);
-
-                                        if(carcelJ1 == 0){
-                                            switch(eleccionJ1){
-                                                case "1": {
-                                                    listarTablero(tablero);
-                                                    display.setText("");
-                                                    display.append("\n==============Jugador 1=============");
-                                                    display.append("\nTira el dado...");
-                                                    int pasos = dado();
-                                                    display.append("\nEl dado mostró: " + pasos);
-
-                                                    // Actualizar la posición del jugador en sentido horario
-                                                    resetearJugador(tablero);
-
-                                                    for (int i = 0; i < pasos; i++) {
-                                                        if (x1 == 0 && y1 < 10) { // Va hacia la derecha
-
-                                                            y1++;
-                                                            if(tablero[x1][y1].equals(" S ")){
-                                                                display.append("\nvueltaaaaaaaa");
-                                                                t.vueltaCompletada(idJ1, jug1,1);
-                                                                ++vueltaJ1; 
-                                                            }
-                                                        } else if (y1 == 10 && x1 < 10) { // Baja
-                                                            x1++;
-
-                                                        } else if (x1 == 10 && y1 > 0) { // Va hacia la izquierda
-                                                            y1--;
-
-                                                        } else if (y1 == 0 && x1 > 0) { // Sube
-                                                            x1--;
-                                                            if(tablero[x1][y1].equals(" S ")){
-                                                                display.append("\nvueltaaaaaaaa");
-                                                                t.vueltaCompletada(idJ1, jug1,1);
-                                                                ++vueltaJ1; 
-                                                            }
-                                                        }
-                                                    }
-
-
-
-
-                                                    tablero[x1][y1] = " 1 ";
-
-                                                    for(int i = 0; i < tablero.length ; i++){
-                                                        for(int j = 0 ; j< tablero[0].length ; j++){
-
-                                                            if(tablero[i][j].equals(" 1 ") ||tablero[i][j].equals(" 2 ")){
-                                                                //continue; 
-                                                            }else {
-                                                                tablero[i][j] = tableroPlantilla[i][j]; 
-                                                            }
-
-                                                        }
-                                                    }
-
-                                                    /*!!!!!!!!!Enviamos las posiciones de el Jugador1!!!!!!!!!*/
-                                                    posJ1.obtenerPosActual(idJ1,x1,y1); 
-                                                    //posJ2.obtenerPosActual(idJ2, x2, y2);
-
-
-                                                    //Prueba sobre la posición del jugador2 en el tablero de jugador1 
-                                                    tablero[posJ2.obtenerX()][posJ2.obtenerY()] = " 2 "; 
-
-                                                    listarTablero(tablero);
-
-
-                                                    display.append("\nPosicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
-                                                    display.append("\nPosicion J2 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
-                                                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-
-
-                                                    /*En caso de que caiga en la carcel*/
-                                                    if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
-                                                        System.out.println("A la carcellll");
-                                                        carcelJ1 = 2; 
-                                                        PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
-                                                        pt.executeUpdate(); 
-                                                        break; 
-                                                    }   
-
-
-                                                    /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
-
-                                                    Long id = cas.obtenerIdCasilla(x1, y1); 
-                                                    display.append("\nid "+id);
-                                                    //System.out.println("jug1 "+ jug1);
-
-                                                    if(id != null){
-                                                        Casilla casilla = cas.porId(id); 
-                                                        t.actualizarSaldoJ1(id, jug1,4); // Actualizamos el dinero que tiene disponible 
-                                                        display.append("\nDinero disponible -> "+ jug1.getJ1_Dinero());
-                                                        display.append("\npropietario de la casilla" + casilla.getCAS_Propietario()+ " Disponibilidad "+casilla.isCAS_Disponibilidad() );
-
-                                                        if(casilla.getCAS_Propietario() == null){
-                                                            if(casilla.getCAS_Tipo().equals("Propiedad")){
-                                                                display.append("\nQuiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
-                                                                String respuesta2 = this.getUserInput(); 
-                                                                if(respuesta2.equalsIgnoreCase("y")){
-                                                                    casilla.setCAS_Disponibilidad(1);
-                                                                    t.CargarCasillaJ1(id, jug1); // Esta es la función que se encarga de cambiar el dinero del jugador 
-
-                                                                }
-                                                            }else if(casilla.getCAS_Tipo().equals("Suerte")){
-                                                                t.suerte1(jug1); 
-                                                            }
-                                                        }else if(casilla.getCAS_Propietario().equals("jugador1")|| casilla.getCAS_Propietario().equals("jugador2") ){
-                                                            
-                                                            t.actualizarSaldoJ1(id, jug1,1);
-
-                                                        }
-                                                        
-                                                    }
-
-                                                    /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-                                                    break; 
-                                                }
-
-                                                case "2": 
-                                                        /*Vamos a mostrar las casillas que quedan disponibles sin 
-                                                    propietario en el tablero*/
-                                                {
-                                                    t.ActualizarCasillasDisponibles(); // Borra todas las casillas dentro del Array "casillasDisponibles"
-                                                    cas.cargarCasillasCasilla(t);
-                                                    System.out.println(t.casillasDisponibles());
-
-                                                    break; 
-                                                }
-
-
-                                                case "3": {
-                                                    t.limiparCasillasJugador1();
-                                                    System.out.println(t.addCasillasJugador1());
-                                                    break; 
-                                                }
-
-
-                                                case "4": {
-                                                    t.actualizarSaldoJ1(100L, jug1,4); //Este método respecto a conseguir el valor de nuestro jugador si funciona
-                                                    display.append("\nDinero Actual -> "+ jug1.getJ1_Dinero());
-                                                    break; 
-                                                }
-                                                
-                                                
-                                                case "5": {
-                                                    synchronized(c){
-                                                        while(true){
-                                                            try{
-
-                                                                c.wait();
-
-                                                            }catch(InterruptedException e3){
-
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                
-                                                
-                                                
-                                                
-                                                case "6" : {
-                                                    System.exit(0); 
-                                                }
-
-                                            }
-                                        }else {
-                                            display.append("\nNo puede hacer nada, está en la carcel!!!");
-                                            carcelJ1--; 
-                                            /*  (En caso de que vuelva a dar error la carcel quitar el comentario de estas líneas)
-                                            PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
-                                            pt.executeUpdate(); 
-                                            */
-                                        }
-
-                                        
-                                        ganador(jug1); 
-                                        
-                                        if(eleccionJ1.equals("1")){
-                                            ESTADO_DE_TURNO = 1; 
-                                            synchronized(c){
+                                    case "4": {
+                                        t.actualizarSaldoJ2(100L, jug2,4);
+                                        display.append("\nDinero Actual -> "+ jug2.getJ2_Dinero());
+                                        break; 
+                                    }
+                                    
+                                    case "5": {
+                                        synchronized(cls){
+                                            while(true){
                                                 try{
-                                                    PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
-                                                    pt.executeUpdate(); 
-                                                    display.append("\nMe pongo en modo espera...");
-                                                    c.wait(); 
-                                                }catch(InterruptedException e4){
-
+                                                    
+                                                    cls.wait();
+                                                    
+                                                }catch(InterruptedException e3){
+                                                    
                                                 }
-
-
                                             }
                                         }
-                                        
-                                        ESTADO_DE_TURNO = 0; 
-                                        
-                                    }while(!(eleccionJ1.equals("1"))); 
+                                    }
                                     
-                                    
-                               
+                                    case "6" : {
+                                        System.exit(0); 
+                                    }
 
+                                }
+                            }else{
+                                display.setText(""); 
+                                display.append("\nNo puede hacer nada, está en la carcel!!!!!!!!!");
+                                carcelJ2--; 
+                                /*
+                                PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                                pt.executeUpdate(); 
+                                */
+                            }
+                            
+                           
+                            
+                            ganador(jug2); 
+                        
+                            if(eleccionJ2.equals("1")){
+                                PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
+                                pt.executeUpdate(); 
+                            }
+                            
+                        }while(!(eleccionJ2.equals("1"))); 
+                          
+                        
+                        
                     } while (!respuesta.equalsIgnoreCase("no"));
+
 
 
                     System.exit(0); 
@@ -685,7 +677,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
     
     
     
-    public void ganador(Jugador1 jug1) throws SQLException, Exception{
+    public static void ganador( Jugador2 jug2) throws SQLException, Exception{
         String ganador = ""; 
         PreparedStatement pt = getConnection().prepareStatement("CALL ganador()"); 
         ResultSet rs = pt.executeQuery(); 
@@ -695,12 +687,11 @@ public class MenuPanelP2 extends JPanel implements Runnable
         
         
         if(!(ganador.equals("Se Bugeo"))){
-            display.append("\nEl ganador es "+ganador);
+            System.exit(0); 
+            System.out.println("El ganador es "+ganador);
             pt.close(); 
             rs.close(); 
-            System.exit(0); 
         }
-        
     }
     
     

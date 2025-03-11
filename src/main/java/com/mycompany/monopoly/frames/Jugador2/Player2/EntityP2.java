@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany.monopoly.frames.Player;
+package com.mycompany.monopoly.frames.Jugador2.Player2;
 
+import com.mycompany.monopoly.frames.Jugador2.Player2.*;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
@@ -11,7 +12,7 @@ import java.awt.image.BufferedImage;
  *
  * @author pablo
  */
-public class Entity {
+public class EntityP2 {
     public int x, y; // Se encarga de representar la posición de nuestro muñeco en el tablero. 
     public int speed; 
 
