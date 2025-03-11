@@ -78,8 +78,7 @@ public class MenuPanel extends JPanel implements Runnable
     ES DECIR, voy a tratar esta clase como una especie de lienzo para poder poner TODA la lógica 
     de el programa final. */
     
-    Display display = new Display(); 
-    Boton boton = new Boton(); 
+    Display display = new Display();
     //JScrollPane scrollPane = new JScrollPane(display); 
     IntroducirVariables texto = new IntroducirVariables("Escribe...", 20); 
     
@@ -102,17 +101,11 @@ public class MenuPanel extends JPanel implements Runnable
         display.setBounds(20, 20, 300, 350);
         this.add(display); 
 
-        texto.setBounds(20, 400, 185, 30); 
+        texto.setBounds(20, 400, 285, 30); 
         this.add(texto); 
 
-   
         
-        boton.setBounds(220,400,100,30);
-        boton.setText("Enviar");
-        this.add(boton); 
-        
-        
-        boton.addActionListener(e -> {
+        texto.addActionListener(e -> {
             synchronized (this) {
                 userInput = texto.getText();
                 texto.setText("");
@@ -122,11 +115,7 @@ public class MenuPanel extends JPanel implements Runnable
         });
         
     }
-    
-    public void appendText(String text) {
-        display.append(text + "\n");
-        display.setCaretPosition(display.getDocument().getLength()); 
-    }
+ 
     public synchronized String getUserInput() {
         inputReady = false;
         while (!inputReady) {
@@ -361,7 +350,7 @@ public class MenuPanel extends JPanel implements Runnable
 
 
                     int carcelJ1 = 0; 
-                       
+                    display.setText("");
                     do 
                             /*A partir de aquí empieza el tablero del juego donde los jugadores van
                             a ir turnandose entre ellos para ir tirando el dado */
@@ -370,7 +359,7 @@ public class MenuPanel extends JPanel implements Runnable
 
                         //synchronized(c){
 
-                                    display.setText("");
+                                    
                                     display.append("\n¿Seguir jugando? (no para salir): ");
                                     respuesta = this.getUserInput();
 
@@ -392,10 +381,11 @@ public class MenuPanel extends JPanel implements Runnable
                                     //System.out.println("eleccion "+eleccion);
 
                                         if(carcelJ1 == 0){
+                                            display.setText(""); 
                                             switch(eleccionJ1){
                                                 case "1": {
                                                     listarTablero(tablero);
-                                                    display.setText("");
+                                                    
                                                     display.append("\n==============Jugador 1=============");
                                                     display.append("\nTira el dado...");
                                                     int pasos = dado();
@@ -530,6 +520,8 @@ public class MenuPanel extends JPanel implements Runnable
                                                 case "4": {
                                                     t.actualizarSaldoJ1(100L, jug1,4); //Este método respecto a conseguir el valor de nuestro jugador si funciona
                                                     display.append("\nDinero Actual -> "+ jug1.getJ1_Dinero());
+                                                    display.append("\nPulsa 'Enviar'"); 
+                                                    String estado = this.getUserInput(); 
                                                     break; 
                                                 }
                                                 

@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.Jugador2.Player2.PlayerP2;
 import com.mycompany.monopoly.frames.JugadorUno.Boton;
 import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
@@ -34,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable{
     KeyHandler keyH = new KeyHandler(); 
     Thread gameThread; 
     public Player player = new Player(this, keyH); 
+    public PlayerP2 player2 = new PlayerP2(this, keyH); 
     
     
     
@@ -97,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     public void update(){
         player.update(); 
+        player2.update();
     }
     
     
@@ -108,6 +111,7 @@ public class GamePanel extends JPanel implements Runnable{
   
         tileM.draw(g2); 
         player.draw(g2); 
+        player2.draw(g2);
         
         g2.dispose(); 
     }

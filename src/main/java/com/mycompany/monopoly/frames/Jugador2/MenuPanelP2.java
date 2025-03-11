@@ -379,7 +379,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                 try{
                             
                                     display.append("\nMe pongo en modo espera...");
-                                    comprueba.setESTADO_DE_TURNO(0);
+                                    cls.setESTADO_DE_TURNO(0);
                                     cls.wait(); 
                                 }catch(InterruptedException e4){
                                                 
@@ -387,7 +387,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                             
                                             
                             }
-                        comprueba.setESTADO_DE_TURNO(1);
+                        cls.setESTADO_DE_TURNO(1);
 
                         display.setText(""); 
                         display.append("\n======================");
