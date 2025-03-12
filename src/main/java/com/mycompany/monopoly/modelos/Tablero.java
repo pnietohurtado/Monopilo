@@ -268,6 +268,16 @@ public class Tablero {
     public List<Casilla> casillasDisponibles() throws SQLException,Exception{
         return this.casillasDisponibles; 
     }
+    /*
+    public String recorrerCasillasDisponibles() throws SQLException,Exception{
+        Iterator<Casilla> it = casillasDisponibles.iterator(); 
+        String linea = ""; 
+        while(it.hasNext()){
+            Casilla c = it.next(); 
+            
+        
+        }
+    }*/
     
 
  

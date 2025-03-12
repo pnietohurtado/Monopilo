@@ -29,6 +29,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 
 /**
@@ -79,7 +80,7 @@ public class MenuPanel extends JPanel implements Runnable
     de el programa final. */
     
     Display display = new Display();
-    //JScrollPane scrollPane = new JScrollPane(display); 
+    JScrollPane scrollPane = new JScrollPane(display); 
     IntroducirVariables texto = new IntroducirVariables("Escribe...", 20); 
     
     private boolean inputReady = false; 
@@ -98,8 +99,8 @@ public class MenuPanel extends JPanel implements Runnable
         
         //scrollPane.setPreferredSize(new Dimension(50,50));
         
-        display.setBounds(20, 20, 300, 350);
-        this.add(display); 
+        scrollPane.setBounds(20, 20, 300, 350);
+        this.add(scrollPane); 
 
         texto.setBounds(20, 400, 285, 30); 
         this.add(texto); 
@@ -447,8 +448,6 @@ public class MenuPanel extends JPanel implements Runnable
                                                     listarTablero(tablero);
 
 
-                                                    display.append("\nPosicion J1 "+posJ1.obtenerX() + " "+posJ1.obtenerY());
-                                                    display.append("\nPosicion J2 "+posJ2.obtenerX() + " "+posJ2.obtenerY());
                                                     /*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
@@ -465,8 +464,8 @@ public class MenuPanel extends JPanel implements Runnable
                                                     /*!!!!!!!!En caso de que caiga en una casilla comprable!!!!!!!!!!!!!!*/
 
                                                     Long id = cas.obtenerIdCasilla(x1, y1); 
-                                                    display.append("\nid "+id);
-                                                    //System.out.println("jug1 "+ jug1);
+                                                    
+                                                    
 
                                                     if(id != null){
                                                         Casilla casilla = cas.porId(id); 
@@ -504,15 +503,18 @@ public class MenuPanel extends JPanel implements Runnable
                                                 {
                                                     t.ActualizarCasillasDisponibles(); // Borra todas las casillas dentro del Array "casillasDisponibles"
                                                     cas.cargarCasillasCasilla(t);
-                                                    System.out.println(t.casillasDisponibles());
-
+                                                    display.append(t.casillasDisponibles().toString() + "\n");
+                                                    display.append("\nPulsa 'Enter' para salir..."); 
+                                                    String estado = this.getUserInput(); 
                                                     break; 
                                                 }
 
 
                                                 case "3": {
                                                     t.limiparCasillasJugador1();
-                                                    System.out.println(t.addCasillasJugador1());
+                                                    display.append(t.addCasillasJugador1().toString()); 
+                                                    display.append("\nPulsa 'Enter' para salir..."); 
+                                                    String estado = this.getUserInput(); 
                                                     break; 
                                                 }
 
@@ -520,7 +522,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                 case "4": {
                                                     t.actualizarSaldoJ1(100L, jug1,4); //Este método respecto a conseguir el valor de nuestro jugador si funciona
                                                     display.append("\nDinero Actual -> "+ jug1.getJ1_Dinero());
-                                                    display.append("\nPulsa 'Enviar'"); 
+                                                    display.append("\nPulsa 'Enter' para salir..."); 
                                                     String estado = this.getUserInput(); 
                                                     break; 
                                                 }

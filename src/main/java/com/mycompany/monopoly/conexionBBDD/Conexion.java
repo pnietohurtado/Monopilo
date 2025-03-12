@@ -4,6 +4,8 @@
  */
 package com.mycompany.monopoly.conexionBBDD;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.sql.Connection;
@@ -59,7 +61,7 @@ public class Conexion {
     }
     
     public static String leer(String url)throws IOException, Exception{
-        RandomAccessFile file = new RandomAccessFile("Encriptado.txt", "rw"); 
+        BufferedReader file = new BufferedReader(new FileReader("Encriptado.txt")); 
         String linea; 
         while((linea = file.readLine()) != null){
             String partes[] = linea.split(" "); 

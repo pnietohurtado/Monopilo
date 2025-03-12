@@ -33,11 +33,10 @@ public class GamePanel extends JPanel implements Runnable{
     // Instanciamos
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(); 
-    Thread gameThread; 
     public Player player = new Player(this, keyH); 
     public PlayerP2 player2 = new PlayerP2(this, keyH); 
-    
-    
+    public Sound sound = new Sound(); 
+    Thread gameThread; 
     
     int playerX = 100; 
     int playerY = 100; 
@@ -60,6 +59,11 @@ public class GamePanel extends JPanel implements Runnable{
         
     }
     
+    public void setUpGame()
+            /*To print the object in the map*/
+    {
+        playMusic(0); 
+    }
     
     public void startThread(){
         gameThread = new Thread(this); 
@@ -116,4 +120,20 @@ public class GamePanel extends JPanel implements Runnable{
         g2.dispose(); 
     }
     
+    
+    public void playMusic(int i){
+        sound.setFile(i); 
+        System.out.println(sound.clip);
+        sound.play(); 
+        sound.loop();
+    }
+    
+    public void stopMusic(){
+        sound.stop(); 
+    }
+    
+    public void playSE(int i){
+        sound.setFile(i); 
+        sound.play(); 
+    }
 }
