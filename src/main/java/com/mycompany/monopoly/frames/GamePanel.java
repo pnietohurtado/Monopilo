@@ -62,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void setUpGame()
             /*To print the object in the map*/
     {
-        playMusic(0); 
+        
     }
     
     public void startThread(){

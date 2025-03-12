@@ -83,7 +83,6 @@ public class MenuPanelP2 extends JPanel implements Runnable
     de el programa final. */
     
     Display display = new Display(); 
-    Boton boton = new Boton(); 
     //JScrollPane scrollPane = new JScrollPane(display); 
     IntroducirVariables texto = new IntroducirVariables("Escribe...", 20); 
     
@@ -111,13 +110,9 @@ public class MenuPanelP2 extends JPanel implements Runnable
         this.add(texto); 
 
    
+ 
         
-        boton.setBounds(220,400,100,30);
-        boton.setText("Enviar");
-        this.add(boton); 
-        
-        
-        boton.addActionListener(e -> {
+        texto.addActionListener(e -> {
             synchronized (this) {
                 userInput = texto.getText();
                 texto.setText("");
@@ -127,11 +122,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
         });
         
     }
-    
-    public void appendText(String text) {
-        display.append(text + "\n");
-        display.setCaretPosition(display.getDocument().getLength()); 
-    }
+  
     public synchronized String getUserInput() {
         inputReady = false;
         while (!inputReady) {
@@ -195,8 +186,12 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
                      display.append("\nInicio de sesión, Dime un nombre: ");
                      String name2 = this.getUserInput(); 
+                     display.append(" "+ name2); 
+                     
                      display.append("\nDime la contraseña: ");
                      String contra2 = this.getUserInput();
+                     display.append(" "+ contra2); 
+                     
                      display.setText(""); 
 
                      /*Se llama a la BBDD para iniciar sesión con los dos jugadores*/
@@ -365,7 +360,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
 
                     int carcelJ2 = 0; 
-                
+                    display.setText(""); 
 
                     do 
                             /*A partir de aquí empieza el tablero del juego donde los jugadores van
@@ -378,7 +373,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                             synchronized(cls){
                                 try{
                             
-                                    display.append("\nMe pongo en modo espera...");
+                                    display.append("\nEsperando al jugador1...");
                                     cls.setESTADO_DE_TURNO(0);
                                     cls.wait(); 
                                 }catch(InterruptedException e4){
@@ -393,6 +388,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                         display.append("\n======================");
                         display.append("\n¿Seguir jugando? (no para salir): ");
                         respuesta = this.getUserInput();
+                        display.append(" "+respuesta); 
 
                         if (respuesta.equalsIgnoreCase("no")) {
                             break;
@@ -412,7 +408,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                         /*=====================================================================*/
 
 
-
+                        
                         display.setText(""); 
                         display.append("\n==============Jugador 2==================");
 
@@ -435,6 +431,10 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                 switch(eleccionJ2){
 
                                     case "1": {
+                                        display.append("\nPulsa Enter para tirar el dado..."); 
+                                        String dado = this.getUserInput(); 
+                                        display.append("\nEl número es "+pasos2); 
+                                        
                                         for (int i = 0; i < pasos2; i++) {
                                             if (x2 == 0 && y2 < 10) { // Va hacia la derecha
                                                 y2++;
@@ -518,6 +518,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                                 if(casilla.getCAS_Tipo().equals("Propiedad")){
                                                     display.append("\nQuiere comprar la propiedad "+ cas.porId(id2)+ " [Y/N]");
                                                     String respuesta2 = this.getUserInput();
+                                                    display.append("\nRespuesta -> "+respuesta2); 
                                                     if(respuesta2.equalsIgnoreCase("y")){
                                                         casilla.setCAS_Disponibilidad(1);
                                                         t.CargarCasillaJ2(id2, jug2); //11
@@ -544,20 +545,26 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                     {
                                         t.ActualizarCasillasDisponibles();
                                         cas.cargarCasillasCasilla(t);
-                                        System.out.println(t.casillasDisponibles());
+                                        display.append(t.casillasDisponibles().toString() + "\n");
+                                        display.append("\nPulsa 'Enter' para salir..."); 
+                                        String estado = this.getUserInput();
 
                                         break; 
                                     }
 
                                     case "3": {
                                         t.limiparCasillasJugador2();
-                                        System.out.println(t.addCasillasJugador2());
+                                        display.append(t.addCasillasJugador2().toString()); 
+                                        display.append("\nPulsa 'Enter' para salir..."); 
+                                        String estado = this.getUserInput(); 
                                         break; 
                                     }
 
                                     case "4": {
                                         t.actualizarSaldoJ2(100L, jug2,4);
                                         display.append("\nDinero Actual -> "+ jug2.getJ2_Dinero());
+                                        display.append("\nPulsa 'Enter' para salir..."); 
+                                        String estado = this.getUserInput(); 
                                         break; 
                                     }
                                     
@@ -624,24 +631,6 @@ public class MenuPanelP2 extends JPanel implements Runnable
         
         
     }
-    
-   /*
-    
-    public void paintComponent(Graphics g)
-    {
-        super.paintComponent(g); 
-        
-        Graphics2D g2 = (Graphics2D)g; 
-        
-        g.setColor(Color.red);
-        //g.drawString("Hola que tal", FPS, FPS);
-        
-        
-        
-        //tileManager.draw(g2);
-        g2.dispose(); 
-    }
-    */
     
     
     /*Funciones del player1*/

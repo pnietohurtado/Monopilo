@@ -179,13 +179,14 @@ public class MenuPanel extends JPanel implements Runnable
 
                     display.append("Inicio de sesión, Dime un nombre: ");
                     String name1 = this.getUserInput(); 
+                    display.append(" "+ name1); 
                     
                     
                     
-                    //String name1 = ; // Que aquí se espere 
                     display.append("\nDime la contraseña: ");
                     String contra = this.getUserInput(); 
-                    //String contra1 = ;  
+                    display.append(" "+ contra); 
+                    
 
 
                     /*Se llama a la BBDD para iniciar sesión con los dos jugadores*/
@@ -358,12 +359,13 @@ public class MenuPanel extends JPanel implements Runnable
 
                     {
 
-                        //synchronized(c){
-
-                                    
+                        
+                                    display.setText("");
+                                        
                                     display.append("\n¿Seguir jugando? (no para salir): ");
                                     respuesta = this.getUserInput();
-
+                                    display.append(" "+ respuesta); 
+                                    
                                     if (respuesta.equalsIgnoreCase("no")) {
                                         System.exit(0); 
                                         //break;
@@ -388,7 +390,8 @@ public class MenuPanel extends JPanel implements Runnable
                                                     listarTablero(tablero);
                                                     
                                                     display.append("\n==============Jugador 1=============");
-                                                    display.append("\nTira el dado...");
+                                                    display.append("\nPulsa Enter para tirar el dado...");
+                                                    String dado = this.getUserInput(); 
                                                     int pasos = dado();
                                                     display.append("\nEl dado mostró: " + pasos);
 
@@ -453,7 +456,7 @@ public class MenuPanel extends JPanel implements Runnable
 
                                                     /*En caso de que caiga en la carcel*/
                                                     if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
-                                                        System.out.println("A la carcellll");
+                                                        display.append("\nA la carcellll");
                                                         carcelJ1 = 2; 
                                                         PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
                                                         pt.executeUpdate(); 
@@ -477,6 +480,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                             if(casilla.getCAS_Tipo().equals("Propiedad")){
                                                                 display.append("\nQuiere comprar la propiedad "+ cas.porId(id)+ " [Y/N]");
                                                                 String respuesta2 = this.getUserInput(); 
+                                                                display.append("\nRespuesta -> "+respuesta2); 
                                                                 if(respuesta2.equalsIgnoreCase("y")){
                                                                     casilla.setCAS_Disponibilidad(1);
                                                                     t.CargarCasillaJ1(id, jug1); // Esta es la función que se encarga de cambiar el dinero del jugador 
@@ -569,7 +573,8 @@ public class MenuPanel extends JPanel implements Runnable
                                                     PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
                                                     pt.executeUpdate(); 
                                                     System.out.println("Estado de turno -> " +cls.getESTADO_DE_TURNO());
-                                                    display.append("\nMe pongo en modo espera...");
+                                                    display.setText(""); 
+                                                    display.append("\nEsperando al jugador 2...");
                                                     cls.wait(); 
                                                 }catch(InterruptedException e4){
 
