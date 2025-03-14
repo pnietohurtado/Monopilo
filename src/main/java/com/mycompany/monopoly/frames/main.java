@@ -6,15 +6,9 @@ package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.JugadorUno.ClaseComun;
 import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
-import com.mycompany.monopoly.Player1;
-import com.mycompany.monopoly.conexionBBDD.Conexion;
-import static com.sun.java.accessibility.util.AWTEventMonitor.addWindowListener;
-import java.awt.Image;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;

@@ -216,7 +216,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                      /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
 
 
-                     UsuarioI u2 = u.porUser("rufian"); 
+                     UsuarioI u2 = u.porUser("ninut"); 
 
                      Long idJ2 = u2.getUI_Id(); 
                      //System.out.println("id "+ idJ1);
