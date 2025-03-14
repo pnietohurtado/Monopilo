@@ -4,11 +4,18 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.conexionBBDD.Conexion;
+import com.mycompany.monopoly.frames.JugadorUno.Display;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
@@ -37,28 +44,69 @@ public class CMD extends JPanel implements Runnable{
     private final int titleState = 0; 
     
     
+    JTextArea campo = new JTextArea(); 
+    
+    private boolean inputReady = false; 
+    private String userInput = ""; 
     
     // Contructor de la clase 
     public CMD() 
     {
-        this.setLayout(new BorderLayout()); 
-        
-        JTextArea campo = new JTextArea(10,20); 
-        
-        campo.setLineWrap(true); 
-        campo.setWrapStyleWord(true); 
-        
-        campo.setBackground(Color.black);
-        campo.setForeground(Color.green);
-        campo.setPreferredSize(new Dimension(342, 513)); 
-        
-        add(campo, BorderLayout.NORTH);
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
         this.setDoubleBuffered(true); 
         this.setFocusable(true); 
+        this.setLayout(null); 
+        
+        campo.setFocusable(true);
+        campo.setDoubleBuffered(true); 
+        campo.setLineWrap(true);
+        campo.setWrapStyleWord(true);
+        
+        campo.setBackground(Color.black);
+        campo.setForeground(Color.green);
+        
+        campo.setBounds(20, 20, 300, 350);
+        this.add(campo); 
+
+        campo.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    e.consume(); // Evitar doble salto de línea
+
+                    // Obtener el texto completo y dividirlo en líneas
+                    String[] lineas = campo.getText().split("\n");
+                    userInput = lineas[lineas.length - 1]; // Última línea escrita
+
+                    synchronized (CMD.this) { 
+                        inputReady = true;
+                        CMD.this.notify(); 
+                    }
+
+                    campo.append("\n"); // Agregar nueva línea manualmente
+                    campo.append("root@monopolyMaster>");
+                    campo.setCaretPosition(campo.getDocument().getLength());
+                }
+            }
+        });
+        
         
     }
+    
+    public synchronized String getUserInput() {
+        inputReady = false;
+        while (!inputReady) {
+            try {
+                wait(); // Esperar hasta que el usuario introduzca algo
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return userInput;
+    }
+    
+    
     
     final int FPS = 60; 
     
@@ -75,9 +123,36 @@ public class CMD extends JPanel implements Runnable{
         cmdThread.start(); 
     }
     
+    
+    private Connection getConnection() throws SQLException{
+        return Conexion.getConnection(); 
+    }
+    
     @Override
     public void run() {
-        
+        while(true) {
+             
+            String comando = this.getUserInput(); 
+            System.out.println(comando);
+            try{
+                switch(comando){
+                    case "root@monopolyMaster>clear": {
+                        campo.setText("");
+                        break; 
+                    }
+                    
+                    case "root@monopolyMaster>stillmoney 100": {
+                        PreparedStatement pt = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = 100 WHERE J1_Id = 1"); 
+                        pt.executeUpdate(); 
+                        break; 
+                    }
+                }
+                
+            }catch(SQLException e) {
+                e.printStackTrace();
+            }
+                
+        }
     }
     
     

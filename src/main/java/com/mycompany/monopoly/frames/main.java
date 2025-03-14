@@ -128,6 +128,7 @@ public class main {
         gamePanel.setUpGame();
         m.startMenuThread();
         //Activar el Thread de Comprobación sobre el turno
+        cm.startGameThread();
         gamePanel.startThread(); 
         
      
