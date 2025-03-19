@@ -141,10 +141,32 @@ public class CMD extends JPanel implements Runnable{
                         break; 
                     }
                     
-                    case "root@monopolyMaster>stillmoney 100": {
-                        PreparedStatement pt = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = 100 WHERE J1_Id = 1"); 
+                    case "root@monopolyMaster>stillmoney 20": {
+                        PreparedStatement pt = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = 20 WHERE J1_Id = 1"); 
                         pt.executeUpdate(); 
+                        pt.close(); 
+                        PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = J2_Dinero - 20 WHERE J2_Id = 1");  
+                        pt2.executeUpdate(); 
+                        pt2.close();
                         break; 
+                    }
+                    
+                    case "root@monopolyMaster>stillmoney 50": {
+                        PreparedStatement pt = getConnection().prepareStatement("UPDATE jugador1 SET J1_Dinero = 50 WHERE J1_Id = 1"); 
+                        pt.executeUpdate(); 
+                        pt.close(); 
+                        PreparedStatement pt2 = getConnection().prepareStatement("UPDATE jugador2 SET J2_Dinero = J2_Dinero - 50 WHERE J2_Id = 1");  
+                        pt2.executeUpdate(); 
+                        pt2.close();
+                        break; 
+                    }
+                    
+                    case "root@monopolyMaster>cheat": {
+                        campo.append("Dime la Query a ejecutar: ");
+                        String sql = this.getUserInput(); 
+                        PreparedStatement pt = getConnection().prepareStatement(sql); 
+                        pt.executeUpdate(); 
+                        pt.close(); 
                     }
                 }
                 
