@@ -46,8 +46,8 @@ public class Player extends Entity{
             
     {
         
-        x = 117 ; // Cuidado con este
-        y = 57; 
+        worldX = 117 ; // Cuidado con este
+        worldY = 57; 
         speed = 4; 
         direction = "down"; 
     }
@@ -114,8 +114,8 @@ public class Player extends Entity{
             ResultSet rs = pt.executeQuery(); 
             
             if(rs.next()){
-                x = ((rs.getInt("Pos_PosJ")) * 57)+114; 
-                y = ((rs.getInt("Pos_PosI")) * 57)+57; 
+                worldX = ((rs.getInt("Pos_PosJ")) * 57)+114; 
+                worldY = ((rs.getInt("Pos_PosI")) * 57)+57; 
             }
         }catch(SQLException e){
            
@@ -162,12 +162,12 @@ public class Player extends Entity{
                 break;
         }
         
-            g2.drawImage(image,x,y,gamePanel.tileSize, gamePanel.tileSize,null); 
+            g2.drawImage(image,worldX,worldY,gamePanel.tileSize, gamePanel.tileSize,null); 
     }
     
     
     
-    public int getX ( ){return this.x; }
-    public int getY ( ){return this.y; }
+    public int getX ( ){return this.worldX; }
+    public int getY ( ){return this.worldY; }
     
 }

@@ -40,7 +40,7 @@ public class main {
         public static void confirmarSalida(){
             int valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres cerrar el juego?","Advertencia", JOptionPane.YES_NO_OPTION ); 
             if(valor==JOptionPane.YES_OPTION){
-                JOptionPane.showMessageDialog(null, "Gracias Puta!", "Gracias", JOptionPane.INFORMATION_MESSAGE);
+                
                 System.exit(0);
             }
         }
@@ -70,59 +70,14 @@ public class main {
         
         window.setLocationRelativeTo(null); 
         window.setVisible(true); 
-        
-        //----------
-        
-        //Segunda Ventana
-        JFrame windowMenu = new JFrame(); 
-        windowMenu.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        windowMenu.setResizable(false);
-        windowMenu.setTitle("Menú");
-        
-        
-        windowMenu.setIconImage(ImageIO.read(main.class.getResource("/Tile/Logo.png")));
-        
-
-        
-        MenuPanel m = new MenuPanel(); 
-        windowMenu.add(m); 
-        
-        cerrar(windowMenu); // Verificación de cierre de ventana
-        
-        windowMenu.pack(); 
-        
-        windowMenu.setLocation(1000,150); 
-        windowMenu.setVisible(true); 
-        
-        //-----------
-        
-        
-        
-        //Tercera ventana exclusiva de el jugador1
-        JFrame cmd = new JFrame(); 
-        cmd.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        cmd.setResizable(false);
-        cmd.setTitle("CMD");
-        
-        cmd.setIconImage(ImageIO.read(main.class.getResource("/Tile/Logo.png")));
-        
-        CMD cm = new CMD(); 
-        cmd.add(cm); 
-        
-        cerrar(cmd); // Verificación de cierre de ventana
-        
-        cmd.pack(); 
-        
-        cmd.setLocation(1000,150); 
-        cmd.setVisible(true); 
-        
+       
         //-----------
         
         
         gamePanel.setUpGame();
-        m.startMenuThread();
+
         //Activar el Thread de Comprobación sobre el turno
-        cm.startGameThread();
+
         gamePanel.startThread(); 
         
      

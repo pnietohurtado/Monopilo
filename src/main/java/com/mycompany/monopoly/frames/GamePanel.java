@@ -31,12 +31,25 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenHeight = tileSize * maxScreenRow; // NO TOCAR 
     
     // Instanciamos
-    TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(); 
+    TileManager tileManager = new TileManager(this);
+    KeyHandler keyH = new KeyHandler(this); 
     public Player player = new Player(this, keyH); 
     public PlayerP2 player2 = new PlayerP2(this, keyH); 
     public Sound sound = new Sound(); 
     Thread gameThread; 
+    public CollisionChecker cH = new CollisionChecker(this); 
+    public UI ui = new UI(this); 
+    
+    
+    public String playerName = ""; 
+    
+    
+    // Las distintas pantallas del juego 
+    public int gameState; 
+    public final int titleState = 0; // 0 : title 1 : Pre-jugar 2 : Inicio de Sesion 3 : Registro 
+    public final int playState = 1; 
+    public final int pauseState = 2; 
+    
     
     int playerX = 100; 
     int playerY = 100; 
@@ -60,9 +73,9 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void setUpGame()
-            /*To print the object in the map*/
+            
     {
-        
+        gameState = titleState; 
     }
     
     public void startThread(){
@@ -102,21 +115,37 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public void update(){
-        player.update(); 
-        player2.update();
+        
+        if(gameState == playState){
+            
+            player.update(); 
+            player2.update(); 
+            
+        }else if(gameState == pauseState){
+            // El juego se queda pausado
+        }
+        
     }
     
     
     public void paintComponent(Graphics g){
     
+        // NO TOCAR 
         super.paintComponent(g);
-        
         Graphics2D g2 = (Graphics2D) g; 
-  
-        tileM.draw(g2); 
-        player.draw(g2); 
-        player2.draw(g2);
+        // ---------
         
+        if(gameState == titleState){
+            ui.draw(g2); 
+        }else{
+            
+            tileManager.draw(g2); 
+            player.draw(g2); 
+            player2.draw(g2);
+            ui.draw(g2); 
+            
+        }
+  
         g2.dispose(); 
     }
     

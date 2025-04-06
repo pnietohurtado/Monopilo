@@ -12,7 +12,16 @@ import java.awt.event.KeyListener;
  * @author pablo
  */
 public class KeyHandler implements KeyListener{
-     public boolean upPressed, downPressed, leftPressed, rightPressed; 
+
+    public boolean upPressed, downPressed, leftPressed, rightPressed, showCollisions, drawTime;
+    public boolean showFPS; 
+    public boolean catchObject; 
+    
+    public GamePanel gp; 
+    
+    public KeyHandler(GamePanel gp){
+        this.gp = gp; 
+    }
     
     @Override
     public void keyTyped(KeyEvent e) {
@@ -23,6 +32,7 @@ public class KeyHandler implements KeyListener{
     public void keyPressed(KeyEvent e) {
         
         int code = e.getKeyCode(); 
+        
         
         if(code == KeyEvent.VK_W)
         {
@@ -35,10 +45,159 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_A)
         {
             this.leftPressed = true; 
+            /* Tried to make the player sprint when the key "SHIFT" is pressed
+            if(code == KeyEvent.VK_SHIFT){
+                System.out.println("FIUMMMMMM");
+                gp.player.speed = 17; 
+            }
+            */
         }
         if(code == KeyEvent.VK_D)
         {
             this.rightPressed = true; 
+        }if(code == KeyEvent.VK_K)
+        {
+            if(showCollisions == false){
+                this.showCollisions = true; 
+            }else if(showCollisions == true){
+                this.showCollisions = false; 
+            }
+        }
+        if(code == KeyEvent.VK_ESCAPE) // In order to pause the game
+        {
+            if(gp.gameState == gp.playState){
+                gp.gameState = gp.pauseState; 
+            }else if(gp.gameState == gp.pauseState){
+                gp.gameState = gp.playState; 
+            }
+        }
+        
+        if(code  == KeyEvent.VK_T)
+        {
+            if(drawTime == false){
+                drawTime = true; 
+            }else if(drawTime == true){
+                drawTime = false; 
+            }
+        }
+        
+        if(code  == KeyEvent.VK_P)
+        {
+            if(showFPS == false){
+                showFPS = true; 
+            }else if(showFPS == true){
+                showFPS = false; 
+            }
+        }
+        
+        if(code == KeyEvent.VK_E){ // To catch any object on the floor 
+            this.catchObject = true; 
+        }
+        
+        // In order to enter the menu State 
+        if(code == KeyEvent.VK_CONTROL){
+            gp.gameState = gp.titleState; 
+        }
+        
+        
+        
+        
+        // Title statement 
+        
+        if(gp.gameState == gp.titleState){
+            if(gp.ui.titleScreenState == 0){
+
+                if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+                {
+                    gp.ui.commandNumber--; 
+                    if(gp.ui.commandNumber < 0){
+                        gp.ui.commandNumber = 2; 
+                    }
+                }
+                if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+                {
+                    gp.ui.commandNumber++; 
+                    if(gp.ui.commandNumber > 2){
+                        gp.ui.commandNumber = 0; 
+                    }
+
+                }
+
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.ui.commandNumber == 0){
+                        gp.ui.titleScreenState = 1; 
+                    }else if(gp.ui.commandNumber == 1){
+                        gp.gameState = gp.playState; 
+                    }else if(gp.ui.commandNumber == 2){
+                        System.exit(0); 
+                    }
+                }
+            }else if(gp.ui.titleScreenState == 1){
+                if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+                {
+                    gp.ui.commandNumber--; 
+                    if(gp.ui.commandNumber < 0){
+                        gp.ui.commandNumber = 2; 
+                    }
+                }
+                if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+                {
+                    gp.ui.commandNumber++; 
+                    if(gp.ui.commandNumber > 2){
+                        gp.ui.commandNumber = 0; 
+                    }
+
+                }
+
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.ui.commandNumber == 0){
+                        
+                        gp.ui.titleScreenState = 2; 
+                    }else if(gp.ui.commandNumber == 1){
+                        gp.gameState = gp.playState; 
+                    }else if(gp.ui.commandNumber == 2){
+                        gp.ui.titleScreenState = 0; 
+                    }
+                }
+                
+                
+                
+            }else if(gp.ui.titleScreenState == 2){
+                if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+                {
+                    gp.ui.commandNumber--; 
+                    if(gp.ui.commandNumber < 0){
+                        gp.ui.commandNumber = 2; 
+                    }
+                }
+                if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+                {
+                    gp.ui.commandNumber++; 
+                    if(gp.ui.commandNumber > 2){
+                        gp.ui.commandNumber = 0; 
+                    }
+
+                }
+
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.ui.commandNumber == 0){
+                        
+                        char keyChar = e.getKeyChar();
+
+                        if (Character.isLetterOrDigit(keyChar) && gp.playerName.length() < 12) {
+                            gp.playerName += keyChar;
+                        } else if (keyChar == '\b' && gp.playerName.length() > 0) {
+                            gp.playerName = gp.playerName.substring(0, gp.playerName.length() - 1);
+                        }
+                        
+                    }else if(gp.ui.commandNumber == 1){
+                        gp.gameState = gp.playState; 
+                    }else if(gp.ui.commandNumber == 2){
+                        gp.ui.commandNumber = 0; 
+                        gp.ui.titleScreenState = 1; 
+                    }
+                }
+            }
         }
         
     }
@@ -65,7 +224,11 @@ public class KeyHandler implements KeyListener{
         {
             this.rightPressed = false; 
         }
+        if(code == KeyEvent.VK_E){
+            this.catchObject = false; 
+        }
     }
+    
     
     
 }

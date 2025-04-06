@@ -550,7 +550,16 @@ public class MenuPanel extends JPanel implements Runnable
                                                 
                                                 
                                                 case "6" : {
-                                                    System.exit(0); 
+                                                    try {
+                                                        // Esperar un tiempo antes de iniciar el segundo proyecto (opcional)
+                                                        Thread.sleep(2000); 
+
+                                                        // Ejecutar el segundo proyecto
+                                                        Process proceso = Runtime.getRuntime().exec("java -jar G:/PrimerJuego2D/target/PrimerJuego2D-1.0-SNAPSHOT.jar");
+                                                        proceso.waitFor(); // Espera a que el segundo proyecto termine antes de continuar
+                                                    } catch (Exception e) {
+                                                        e.printStackTrace();
+                                                    }
                                                 }
 
                                             }
@@ -611,27 +620,7 @@ public class MenuPanel extends JPanel implements Runnable
         
         
     }
-    
-   /*
-    
-    public void paintComponent(Graphics g)
-    {
-        super.paintComponent(g); 
-        
-        Graphics2D g2 = (Graphics2D)g; 
-        
-        g.setColor(Color.red);
-        //g.drawString("Hola que tal", FPS, FPS);
-        
-        
-        
-        //tileManager.draw(g2);
-        g2.dispose(); 
-    }
-    */
-    
-    
-    /*Funciones del player1*/
+  
     
     public  String menuJugador(){
         
