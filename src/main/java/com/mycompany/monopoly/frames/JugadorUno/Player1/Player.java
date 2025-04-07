@@ -27,9 +27,26 @@ public class Player extends Entity{
     GamePanel gamePanel; 
     KeyHandler keyHandler; 
     
+    public final int screenX;
+    public final int screenY;
+    
     public Player(GamePanel gp, KeyHandler kh){
+         
         this.gamePanel = gp; 
         this.keyHandler = kh; 
+        
+        screenX = gp.screenWidth/2 - (gp.tileSize / 2); 
+        screenY = gp.screenHeight/2 - (gp.tileSize /2); 
+        
+        solidArea = new Rectangle();
+        solidArea.x = 8; 
+        solidArea.y = 16; 
+        
+        solidAreaDefaultX = solidArea.x; 
+        solidAreaDefaultY = solidArea.y; 
+        
+        solidArea.width = 32; 
+        solidArea.height = 32; 
         
         setDefaultValues(); 
         getPlayerImage(); 
@@ -48,7 +65,7 @@ public class Player extends Entity{
         
         worldX = 117 ; // Cuidado con este
         worldY = 57; 
-        speed = 4; 
+        speed = 7; 
         direction = "down"; 
     }
     
@@ -70,29 +87,51 @@ public class Player extends Entity{
     
     public void update()
     {
-        /*
+        
         if(keyHandler.upPressed == true || keyHandler.downPressed == true ||
                 keyHandler.leftPressed == true || keyHandler.rightPressed == true ){
             
             if(keyHandler.upPressed == true)
             {
                 direction = "up"; 
-                y -= speed; 
+                
             }
             else if(keyHandler.downPressed == true)
             {
                 direction = "down"; 
-                y += speed; 
+                
             }
             else if(keyHandler.leftPressed == true)
             {
                 direction="left"; 
-                x -= speed;
+                
             }
             else if(keyHandler.rightPressed == true)
             {
                 direction="right";     
-                x += speed; 
+                
+            }
+            
+   
+            collision = false; 
+            gamePanel.cH.checkTile(this);
+            
+            
+            if(collision == false){
+                switch(direction ){
+                    case "up": 
+                        worldY -= speed;  
+                        break; 
+                    case "down": 
+                        worldY += speed; 
+                        break; 
+                    case "left": 
+                        worldX -= speed;
+                        break; 
+                    case "right": 
+                        worldX += speed; 
+                        break; 
+                }
             }
 
 
@@ -106,10 +145,11 @@ public class Player extends Entity{
                 spriteCounter = 0; 
             }
         }
-        */
         
         
+        /*
         try{
+            
             PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM posJ1"); 
             ResultSet rs = pt.executeQuery(); 
             
@@ -120,6 +160,7 @@ public class Player extends Entity{
         }catch(SQLException e){
            
         }
+        */
         
     }
     

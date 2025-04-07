@@ -6,6 +6,7 @@ package com.mycompany.monopoly.frames;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.Scanner;
 
 /**
  *
@@ -13,6 +14,7 @@ import java.awt.event.KeyListener;
  */
 public class KeyHandler implements KeyListener{
 
+    Scanner sc = new Scanner(System.in); // Me sirve para poder leer el inicio de sesión al principio del usuario.
     public boolean upPressed, downPressed, leftPressed, rightPressed, showCollisions, drawTime;
     public boolean showFPS; 
     public boolean catchObject; 
@@ -45,7 +47,7 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_A)
         {
             this.leftPressed = true; 
-            /* Tried to make the player sprint when the key "SHIFT" is pressed
+            /* 
             if(code == KeyEvent.VK_SHIFT){
                 System.out.println("FIUMMMMMM");
                 gp.player.speed = 17; 
@@ -90,11 +92,11 @@ public class KeyHandler implements KeyListener{
             }
         }
         
-        if(code == KeyEvent.VK_E){ // To catch any object on the floor 
+        if(code == KeyEvent.VK_E){ // Coger un objeto del suelo
             this.catchObject = true; 
         }
         
-        // In order to enter the menu State 
+        // Para entrar al menu de juego
         if(code == KeyEvent.VK_CONTROL){
             gp.gameState = gp.titleState; 
         }
@@ -102,7 +104,7 @@ public class KeyHandler implements KeyListener{
         
         
         
-        // Title statement 
+        // Titulo
         
         if(gp.gameState == gp.titleState){
             if(gp.ui.titleScreenState == 0){
@@ -181,16 +183,12 @@ public class KeyHandler implements KeyListener{
 
                 if(code == KeyEvent.VK_ENTER){
                     if(gp.ui.commandNumber == 0){
-                        
-                        char keyChar = e.getKeyChar();
-
-                        if (Character.isLetterOrDigit(keyChar) && gp.playerName.length() < 12) {
-                            gp.playerName += keyChar;
-                        } else if (keyChar == '\b' && gp.playerName.length() > 0) {
-                            gp.playerName = gp.playerName.substring(0, gp.playerName.length() - 1);
-                        }
+                        System.out.print("Dime tu nombre: ");
+                        gp.playerName = sc.nextLine(); 
                         
                     }else if(gp.ui.commandNumber == 1){
+                        System.out.print("Dime tu contraseña: ");
+                        gp.playerPass = sc.nextLine(); 
                         gp.gameState = gp.playState; 
                     }else if(gp.ui.commandNumber == 2){
                         gp.ui.commandNumber = 0; 
@@ -201,6 +199,12 @@ public class KeyHandler implements KeyListener{
         }
         
     }
+    
+    
+    
+    
+    
+    
 
     @Override
     public void keyReleased(KeyEvent e) {

@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import javax.swing.JTextField;
 
 /**
  *
@@ -185,8 +186,10 @@ public class UI {
             g2.drawString(text,x,y); 
             
             g2.drawString(text,x+2,y+2); 
-            g2.setColor(Color.red); // Set the text color 
+            g2.setColor(Color.red); // Poner el color de la fuente  
             g2.drawString(text,x,y); 
+            
+            g2.setColor(Color.WHITE); // Color para las opciones
             
             
             
@@ -197,10 +200,16 @@ public class UI {
             if(commandNumber == 0){
                 g2.drawString(">", x - gp.tileSize, y); 
             }
-            g2.setColor(Color.white); 
-            g2.setFont(g2.getFont().deriveFont(28F)); 
-            g2.drawString(gp.playerName, x, y + gp.tileSize); 
             
+            
+            /* De momento voy a dejarlo así hasta que se me ocurra algo
+            JTextField textField = new JTextField("Hola que tal estamos"); 
+            textField.setBounds(getXForCenteredText(textField.getText()), gp.tileSize * 4, 25,25);
+            //textField.setSize(150,25); 
+            textField.paint(g2); 
+            */
+            //gp.playerName = "Pepe"; 
+  
             
             
             
@@ -214,6 +223,12 @@ public class UI {
                 g2.drawString(">", x - gp.tileSize, y); 
             }
             
+            /*
+            JTextField textField2 = new JTextField("Hola que tal estamos"); 
+            textField2.setSize(150,25); 
+            textField2.setLocation(getXForCenteredText(textField.getText()), gp.tileSize * 4);
+            textField2.paint(g2); 
+            */
             
             
             text = "GO BACK"; 

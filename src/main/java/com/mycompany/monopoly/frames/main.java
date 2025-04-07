@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class main {
     
     
-        // ¿QUÉ ES UN POP UP?
+  
         
         public static void cerrar(JFrame w) {
             try {
@@ -89,7 +89,7 @@ public class main {
         Thread t2 = new Thread(new Player1.Comprobar(cls)); 
         
         t.start();
-        t2.start();
+        t2.start();Pa
         */
     
         
