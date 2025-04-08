@@ -28,7 +28,6 @@ public class UI {
     int messageCounter = 0; 
     public int commandNumber = 0; 
     
-    
     public int titleScreenState = 0; // 0 : First Screen 
     
     public UI(GamePanel gp){
@@ -73,6 +72,13 @@ public class UI {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.screenWidth/2 - length/2; 
         return x; 
+    }
+    
+    public int getXForCenteredImage(BufferedImage image){
+         
+        int imageWidth = image.getWidth();
+        int x = gp.screenWidth / 2 - imageWidth / 2;
+        return x;
     }
     
     public void drawTitleScreen(){
@@ -226,6 +232,7 @@ public class UI {
             }
         }else if(titleScreenState == 3){
             
+            
             g2.setColor(Color.black);  // Cambiar el color del fondo
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
             
@@ -235,54 +242,61 @@ public class UI {
            
             String text = "Registro!"; 
             int x = getXForCenteredText(text); 
-            int y = gp.tileSize * 2; 
-            g2.drawString(text,x,y); 
+            int y = gp.tileSize ; 
+            g2.drawImage(gp.botonManager.boton[4].image,  x - (gp.tileSize * 2), y , gp.tileSize*7, gp.tileSize*2, null); 
+            //g2.drawString(text,x,y); 
             
-            g2.drawString(text,x+2,y+2); 
-            g2.setColor(Color.red); // Poner el color de la fuente  
-            g2.drawString(text,x,y); 
-            
+           
             g2.setColor(Color.WHITE); // Color para las opciones
             
             
             
             text = "NOMBRE"; 
-            x = getXForCenteredText(text); 
+            x = getXForCenteredImage(gp.botonManager.boton[1].image); 
             y += gp.tileSize * 2; 
-            g2.drawString(text,x,y); 
+            g2.drawImage(gp.botonManager.boton[1].image,  x - (gp.tileSize * 2), y, gp.tileSize*5, gp.tileSize, null); 
+            //g2.drawString(text,x,y); 
             if(commandNumber == 0){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[8].image,  x - (gp.tileSize * 2), y, gp.tileSize*5, gp.tileSize, null); 
             }
             
             text = "APELLIDO"; 
-            x = getXForCenteredText(text); 
-            y += gp.tileSize ; 
-            g2.drawString(text,x,y); 
+            x = getXForCenteredImage(gp.botonManager.boton[2].image); 
+            y += gp.tileSize  ; 
+            g2.drawImage(gp.botonManager.boton[2].image, x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
+            //g2.drawString(text,x,y); 
             if(commandNumber == 1){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[7].image, x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
             
             text = "USUARIO"; 
-            x = getXForCenteredText(text); 
-            y += gp.tileSize ; 
-            g2.drawString(text,x,y); 
+            x =  getXForCenteredImage(gp.botonManager.boton[3].image);  
+            y += gp.tileSize *1; 
+            g2.drawImage(gp.botonManager.boton[3].image,  x - (gp.tileSize * 2), y + (gp.tileSize * 2), gp.tileSize*5, gp.tileSize, null); 
+            //g2.drawString(text,x,y); 
             if(commandNumber == 2){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[9].image,  x - (gp.tileSize * 2), y + (gp.tileSize * 2), gp.tileSize*5, gp.tileSize, null); 
             }
             
-            BufferedImage image = null; 
-            try{
-                image = ImageIO.read(getClass().getResourceAsStream("/Botones/Pass.png"));
-            }catch(IOException e){
-                    
-            }
+            
             text = "CONTRASEÑA"; 
-            x = getXForCenteredText(text); 
+            x =  getXForCenteredImage(gp.botonManager.boton[0].image); 
             y += gp.tileSize ; 
-            g2.drawImage(image, x, y, gp.tileSize*2, gp.tileSize * 2, null); 
+            g2.drawImage(gp.botonManager.boton[0].image,  x - (gp.tileSize * 2), y + (gp.tileSize * 3) , gp.tileSize*5, gp.tileSize, null); 
             //g2.drawString(text,x,y); 
             if(commandNumber == 3){
-                g2.drawString(">", x -( gp.tileSize * 4), y * 2); 
+                g2.drawImage(gp.botonManager.boton[10].image,  x - (gp.tileSize * 2), y + (gp.tileSize * 3) , gp.tileSize*5, gp.tileSize, null); 
+            }
+            
+            //g2.setColor(Color.BLUE); 
+            
+            text = "ARROW"; 
+            x =  gp.tileSize * 14; 
+            y = 0 ; 
+            g2.drawImage(gp.botonManager.boton[5].image,  x , y , gp.tileSize, gp.tileSize, null); 
+            //g2.drawString(text,x,y); 
+            if(commandNumber == 4){
+                g2.drawImage(gp.botonManager.boton[6].image,  x , y , gp.tileSize, gp.tileSize, null); 
             }
             
             

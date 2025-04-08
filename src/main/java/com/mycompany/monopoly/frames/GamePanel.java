@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.Botones.BotonManager;
 import com.mycompany.monopoly.frames.Jugador2.Player2.PlayerP2;
 import com.mycompany.monopoly.frames.JugadorUno.Boton;
 import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
@@ -32,6 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     // Instanciamos
     TileManager tileManager = new TileManager(this);
+    BotonManager botonManager = new BotonManager(this); 
     KeyHandler keyH = new KeyHandler(this); 
     public Player player = new Player(this, keyH); 
     public PlayerP2 player2 = new PlayerP2(this, keyH); 
@@ -43,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable{
     // Parámetros de inicio de sesión necesario para cargar el juego.
     public String playerName = ""; 
     public String playerPass = ""; 
+    public String playerNombre = ""; 
+    public String playerApellido = ""; 
     
     
     // Las distintas pantallas del juego 

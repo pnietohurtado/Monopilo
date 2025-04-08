@@ -194,9 +194,10 @@ public class KeyHandler implements KeyListener{
                         
                     }else if(gp.ui.commandNumber == 1){
                         
-                        System.out.print("Dime tu nombre: ");
+                        System.out.print("Dime tu pass: ");
                         gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
                         System.out.println(gp.playerPass);
+                        
                         gp.gameState = gp.playState; 
                     }else if(gp.ui.commandNumber == 2){
                         gp.ui.commandNumber = 0; 
@@ -230,19 +231,33 @@ public class KeyHandler implements KeyListener{
                     if(gp.ui.commandNumber == 0) {
                         
                         System.out.print("Dime tu nombre: ");
-                        gp.playerName = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerName);
-                        System.out.println(gp.playerName);
+                        gp.playerNombre = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerNombre);
+                        System.out.println(gp.playerNombre);
                         
                     }else if(gp.ui.commandNumber == 1){
                         
-                        System.out.print("Dime tu nombre: ");
+                        System.out.print("Dime tu apellido: ");
+                        gp.playerApellido = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerApellido);
+                        System.out.println( gp.playerApellido);
+                        
+                    }else if(gp.ui.commandNumber == 2){
+                        
+                        System.out.print("Dime tu user: ");
+                        gp.playerName = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerName);
+                        System.out.println(gp.playerName);
+                        
+                    }else if(gp.ui.commandNumber == 3){
+                        
+                        System.out.print("Dime tu pass: ");
                         gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
                         System.out.println(gp.playerPass);
                         gp.gameState = gp.playState; 
-                    }else if(gp.ui.commandNumber == 2){
-                        gp.ui.commandNumber = 0; 
+                        
+                    }else if(gp.ui.commandNumber == 4){
                         gp.ui.titleScreenState = 1; 
                     }
+                    
+                    
                     }
                     
                     
