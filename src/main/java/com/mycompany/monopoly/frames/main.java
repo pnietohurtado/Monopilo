@@ -1,4 +1,4 @@
-/*
+   /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
@@ -73,25 +73,14 @@ public class main {
        
         //-----------
         
+        MenuPanel mp = new MenuPanel(gamePanel); 
+        
         
         gamePanel.setUpGame();
-
-        //Activar el Thread de Comprobación sobre el turno
-
         gamePanel.startThread(); 
-        
+        mp.startMenuThread();
      
-        
-        
-        /*
-        Player1.ClaseComun cls = new Player1.ClaseComun(); 
-        Thread t = new Thread(new Player1.HiloJugador1(cls)); 
-        Thread t2 = new Thread(new Player1.Comprobar(cls)); 
-        
-        t.start();
-        t2.start();Pa
-        */
-    
+       
         
         
         

@@ -7,6 +7,7 @@ package com.mycompany.monopoly.frames;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -134,7 +135,7 @@ public class KeyHandler implements KeyListener{
                         System.exit(0); 
                     }
                 }
-            }else if(gp.ui.titleScreenState == 1){
+            }else if(gp.ui.titleScreenState == 1){ // Pantalla de (Inicio de Sesión, Registrarse, Go Back) 
                 if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
                 {
                     gp.ui.commandNumber--; 
@@ -156,7 +157,7 @@ public class KeyHandler implements KeyListener{
                         
                         gp.ui.titleScreenState = 2; 
                     }else if(gp.ui.commandNumber == 1){
-                        gp.gameState = gp.playState; 
+                        gp.ui.titleScreenState = 3;  
                     }else if(gp.ui.commandNumber == 2){
                         gp.ui.titleScreenState = 0; 
                     }
@@ -164,7 +165,7 @@ public class KeyHandler implements KeyListener{
                 
                 
                 
-            }else if(gp.ui.titleScreenState == 2){
+            }else if(gp.ui.titleScreenState == 2){ // Pantalla de inicio de Sesión 
                 if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
                 {
                     gp.ui.commandNumber--; 
@@ -181,20 +182,71 @@ public class KeyHandler implements KeyListener{
 
                 }
 
-                if(code == KeyEvent.VK_ENTER){
-                    if(gp.ui.commandNumber == 0){
+                if(code == KeyEvent.VK_ENTER)
+                    /*En el caso de que se encuentre en la sección de "Inicio de sesión" vamos a tener que introducir el usuario 
+                    el cual vamos a pasar luego al MenuPanel*/
+                {
+                    if(gp.ui.commandNumber == 0) {
+                        
                         System.out.print("Dime tu nombre: ");
-                        gp.playerName = sc.nextLine(); 
+                        gp.playerName = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerName);
+                        System.out.println(gp.playerName);
                         
                     }else if(gp.ui.commandNumber == 1){
-                        System.out.print("Dime tu contraseña: ");
-                        gp.playerPass = sc.nextLine(); 
+                        
+                        System.out.print("Dime tu nombre: ");
+                        gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
+                        System.out.println(gp.playerPass);
                         gp.gameState = gp.playState; 
                     }else if(gp.ui.commandNumber == 2){
                         gp.ui.commandNumber = 0; 
                         gp.ui.titleScreenState = 1; 
                     }
                 }
+                    
+                
+                
+                
+                }else if( gp.ui.titleScreenState == 3){ // Pantalla de registro 
+                        if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+                    {
+                        gp.ui.commandNumber--; 
+                        if(gp.ui.commandNumber < 0){
+                            gp.ui.commandNumber = 4; 
+                        }
+                    }
+                    if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+                    {
+                        gp.ui.commandNumber++; 
+                        if(gp.ui.commandNumber > 4){
+                            gp.ui.commandNumber = 0; 
+                        }
+
+                    }
+                    
+                    if(code == KeyEvent.VK_ENTER)
+                    
+                    {
+                    if(gp.ui.commandNumber == 0) {
+                        
+                        System.out.print("Dime tu nombre: ");
+                        gp.playerName = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerName);
+                        System.out.println(gp.playerName);
+                        
+                    }else if(gp.ui.commandNumber == 1){
+                        
+                        System.out.print("Dime tu nombre: ");
+                        gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
+                        System.out.println(gp.playerPass);
+                        gp.gameState = gp.playState; 
+                    }else if(gp.ui.commandNumber == 2){
+                        gp.ui.commandNumber = 0; 
+                        gp.ui.titleScreenState = 1; 
+                    }
+                    }
+                    
+                    
+                    
             }
         }
         

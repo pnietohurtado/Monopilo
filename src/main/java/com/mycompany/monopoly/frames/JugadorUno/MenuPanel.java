@@ -15,6 +15,7 @@ import com.mycompany.monopoly.conexionBBDD.ropositorios.Jugador1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ1Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.PosicionJ2Repositorio;
 import com.mycompany.monopoly.conexionBBDD.ropositorios.UsuarioIRepositorio;
+import com.mycompany.monopoly.frames.GamePanel;
 import com.mycompany.monopoly.modelos.Casilla;
 import com.mycompany.monopoly.modelos.Jugador1;
 import com.mycompany.monopoly.modelos.PosicionJ1;
@@ -86,10 +87,14 @@ public class MenuPanel extends JPanel implements Runnable
     private boolean inputReady = false; 
     private String userInput = ""; 
     
+    // Tenemos que declarar una variable "GamePanel", para poder acceder a los elementos que pidamos por el juego 
+    GamePanel gp = new GamePanel(); 
+    
     // Contructor de la clase 
-    public MenuPanel() 
+    public MenuPanel(GamePanel gp) 
     {
-                
+        this.gp = gp;         
+        
         this.setPreferredSize(new Dimension(this.screenWidth, this.screenHeight)); 
         this.setBackground(Color.black); 
         this.setDoubleBuffered(true); 
@@ -141,6 +146,14 @@ public class MenuPanel extends JPanel implements Runnable
         comprobar = new Thread(comprueba); 
         menuThread.start(); 
         comprobar.start(); 
+        
+    }
+    
+    public void stopThread()
+            // Me gustaría que parase el hilo cuando uno de los dos usuarios se quede en 0 euros 
+    {
+        
+        
     }
     
 
@@ -176,25 +189,13 @@ public class MenuPanel extends JPanel implements Runnable
 
 
                     /*!!!!!!!!!!!!!!!!!!!    INICIO DE SESIÓN DE LOS DOS JUGADORES    !!!!!!!!!!!!!!!!!!!!!!!*/
-
-                    display.append("Inicio de sesión, Dime un nombre: ");
-                    String name1 = this.getUserInput(); 
-                    display.append(" "+ name1); 
                     
+                    /*  Pequeña prueba para comprobar si puedo cambiar el curso de la partida mientras este se está ejecutando 
+                    Thread.sleep(30000); 
+                    gp.gameState = gp.pauseState; 
                     
+                    */
                     
-                    display.append("\nDime la contraseña: ");
-                    String contra = this.getUserInput(); 
-                    display.append(" "+ contra); 
-                    
-
-
-                    /*Se llama a la BBDD para iniciar sesión con los dos jugadores*/
-
-                    //u.inicioSesion(name1, contra1, 1);
-
-
-                    UsuarioI usuario1 =  u.porUser(name1); //Estoy obetiendo los valores de ambos usuarios 
 
                     /**************************************************************************/
 
@@ -210,7 +211,7 @@ public class MenuPanel extends JPanel implements Runnable
 
                     /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
 
-                    UsuarioI u1 = u.porUser("pablongo03"); 
+                    UsuarioI u1 = u.porUser(gp.playerName); 
 
                     Long idJ1 = u1.getUI_Id(); //Con esto asignamos el "J1_IdUser" y "J2_IdUser" en la base de datos 
 
@@ -224,7 +225,7 @@ public class MenuPanel extends JPanel implements Runnable
 
                     Tablero t = new Tablero(jug1,null); 
 
-                    t.inicioPartida(usuario1.getUI_Id(),1); //Borra todos los datos de la partida anterior
+                    t.inicioPartida(u1.getUI_Id(),1); //Borra todos los datos de la partida anterior
 
 
             

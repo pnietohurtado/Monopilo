@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JTextField;
 
 /**
@@ -180,7 +182,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(42F));
             
            
-            String text = "Select your class!"; 
+            String text = "INICIO DE SESIÓN!"; 
             int x = getXForCenteredText(text); 
             int y = gp.tileSize * 3; 
             g2.drawString(text,x,y); 
@@ -201,16 +203,7 @@ public class UI {
                 g2.drawString(">", x - gp.tileSize, y); 
             }
             
-            
-            /* De momento voy a dejarlo así hasta que se me ocurra algo
-            JTextField textField = new JTextField("Hola que tal estamos"); 
-            textField.setBounds(getXForCenteredText(textField.getText()), gp.tileSize * 4, 25,25);
-            //textField.setSize(150,25); 
-            textField.paint(g2); 
-            */
-            //gp.playerName = "Pepe"; 
   
-            
             
             
             
@@ -222,14 +215,7 @@ public class UI {
             if(commandNumber == 1){
                 g2.drawString(">", x - gp.tileSize, y); 
             }
-            
-            /*
-            JTextField textField2 = new JTextField("Hola que tal estamos"); 
-            textField2.setSize(150,25); 
-            textField2.setLocation(getXForCenteredText(textField.getText()), gp.tileSize * 4);
-            textField2.paint(g2); 
-            */
-            
+
             
             text = "GO BACK"; 
             x = getXForCenteredText(text); 
@@ -238,6 +224,68 @@ public class UI {
             if(commandNumber == 2){
                 g2.drawString(">", x - gp.tileSize, y); 
             }
+        }else if(titleScreenState == 3){
+            
+            g2.setColor(Color.black);  // Cambiar el color del fondo
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            
+            g2.setColor(Color.red); 
+            g2.setFont(g2.getFont().deriveFont(42F));
+            
+           
+            String text = "Registro!"; 
+            int x = getXForCenteredText(text); 
+            int y = gp.tileSize * 2; 
+            g2.drawString(text,x,y); 
+            
+            g2.drawString(text,x+2,y+2); 
+            g2.setColor(Color.red); // Poner el color de la fuente  
+            g2.drawString(text,x,y); 
+            
+            g2.setColor(Color.WHITE); // Color para las opciones
+            
+            
+            
+            text = "NOMBRE"; 
+            x = getXForCenteredText(text); 
+            y += gp.tileSize * 2; 
+            g2.drawString(text,x,y); 
+            if(commandNumber == 0){
+                g2.drawString(">", x - gp.tileSize, y); 
+            }
+            
+            text = "APELLIDO"; 
+            x = getXForCenteredText(text); 
+            y += gp.tileSize ; 
+            g2.drawString(text,x,y); 
+            if(commandNumber == 1){
+                g2.drawString(">", x - gp.tileSize, y); 
+            }
+            
+            text = "USUARIO"; 
+            x = getXForCenteredText(text); 
+            y += gp.tileSize ; 
+            g2.drawString(text,x,y); 
+            if(commandNumber == 2){
+                g2.drawString(">", x - gp.tileSize, y); 
+            }
+            
+            BufferedImage image = null; 
+            try{
+                image = ImageIO.read(getClass().getResourceAsStream("/Botones/Pass.png"));
+            }catch(IOException e){
+                    
+            }
+            text = "CONTRASEÑA"; 
+            x = getXForCenteredText(text); 
+            y += gp.tileSize ; 
+            g2.drawImage(image, x, y, gp.tileSize*2, gp.tileSize * 2, null); 
+            //g2.drawString(text,x,y); 
+            if(commandNumber == 3){
+                g2.drawString(">", x -( gp.tileSize * 4), y * 2); 
+            }
+            
+            
         }
         
     }
