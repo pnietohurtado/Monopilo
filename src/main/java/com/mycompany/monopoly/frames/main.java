@@ -73,12 +73,12 @@ public class main {
        
         //-----------
         
-        MenuPanel mp = new MenuPanel(gamePanel); 
+
         
         
         gamePanel.setUpGame();
         gamePanel.startThread(); 
-        mp.startMenuThread();
+
      
        
         

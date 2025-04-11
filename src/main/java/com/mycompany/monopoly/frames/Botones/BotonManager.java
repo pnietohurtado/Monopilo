@@ -63,6 +63,37 @@ public class BotonManager extends Boton{
             boton[10] = new Boton(); 
             boton[10].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Pass2.png")); 
             
+            boton[13] = new Boton(); 
+            boton[13].image = ImageIO.read(getClass().getResourceAsStream("/Botones/OK1.png")); 
+            
+            boton[14] = new Boton(); 
+            boton[14].image = ImageIO.read(getClass().getResourceAsStream("/Botones/OK2.png")); 
+            
+            
+            // Menu del MenuPanel 
+            boton[11] = new Boton(); 
+            boton[11].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Dado1.png")); 
+            
+            boton[12] = new Boton(); 
+            boton[12].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Dado2.png")); 
+            
+            boton[15] = new Boton(); 
+            boton[15].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Cdisp1.png")); 
+            
+            boton[16] = new Boton(); 
+            boton[16].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Cdisp2.png")); 
+            
+            boton[17] = new Boton(); 
+            boton[17].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Cpro1.png")); 
+            
+            boton[18] = new Boton(); 
+            boton[18].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Cpro2.png")); 
+            
+            boton[19] = new Boton(); 
+            boton[19].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Mdin1.png")); 
+            
+            boton[20] = new Boton(); 
+            boton[20].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Mdin2.png")); 
             
         }catch(IOException e){
             

@@ -6,7 +6,6 @@ package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.Botones.BotonManager;
 import com.mycompany.monopoly.frames.Jugador2.Player2.PlayerP2;
-import com.mycompany.monopoly.frames.JugadorUno.Boton;
 import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
 import java.awt.Color;
@@ -14,7 +13,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 
 /**
  *
@@ -34,7 +32,7 @@ public class GamePanel extends JPanel implements Runnable{
     // Instanciamos
     TileManager tileManager = new TileManager(this);
     BotonManager botonManager = new BotonManager(this); 
-    KeyHandler keyH = new KeyHandler(this); 
+    public KeyHandler keyH = new KeyHandler(this); 
     public Player player = new Player(this, keyH); 
     public PlayerP2 player2 = new PlayerP2(this, keyH); 
     public Sound sound = new Sound(); 
@@ -47,6 +45,16 @@ public class GamePanel extends JPanel implements Runnable{
     public String playerPass = ""; 
     public String playerNombre = ""; 
     public String playerApellido = ""; 
+    public String eleccionJ1 = ""; 
+    
+    
+    // Empezar el juego 
+    public boolean confirmar = false; 
+    public int menuSelection = 0; 
+    
+    
+    // Dado 
+    public int dado = dado(); 
     
     
     // Las distintas pantallas del juego 
@@ -54,6 +62,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int titleState = 0; // 0 : title 1 : Pre-jugar 2 : Inicio de Sesion 3 : Registro 
     public final int playState = 1; 
     public final int pauseState = 2; 
+    public final int ingameState = 3; 
     
     
     public final int maxWorldCol = 168; 
@@ -66,7 +75,6 @@ public class GamePanel extends JPanel implements Runnable{
     int playerY = 100; 
     int playerSpeed = 4; 
     
-    Boton b = new Boton(); 
     
     public GamePanel()
     {
@@ -124,7 +132,7 @@ public class GamePanel extends JPanel implements Runnable{
             
             if(timer >= 1000000000){
                 if(keyH.showFPS == true){
-                    System.out.println("FPS:"+drawCount);
+                    //System.out.println("FPS:"+drawCount);
                 }
                 drawCount = 0; 
                 timer = 0; 
@@ -156,6 +164,8 @@ public class GamePanel extends JPanel implements Runnable{
         
         if(gameState == titleState){
             ui.draw(g2); 
+        }else if(gameState == ingameState){
+            ui.draw(g2); 
         }else{
             
             tileManager.draw(g2); 
@@ -183,5 +193,10 @@ public class GamePanel extends JPanel implements Runnable{
     public void playSE(int i){
         sound.setFile(i); 
         sound.play(); 
+    }
+    
+    
+    public static int dado() {
+        return (int) (Math.random() * 6) + 1;
     }
 }

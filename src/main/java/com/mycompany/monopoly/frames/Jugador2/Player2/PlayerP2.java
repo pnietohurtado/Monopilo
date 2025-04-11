@@ -55,7 +55,7 @@ public class PlayerP2 extends EntityP2{
     public void getPlayerImage()
     {
         try{
-            f1 = ImageIO.read(getClass().getResourceAsStream("/Player2/CocheFront.png"));
+            f1 = ImageIO.read(getClass().getResourceAsStream("/Player2/P2.png"));
             
         }catch(IOException e){
             e.printStackTrace(); 

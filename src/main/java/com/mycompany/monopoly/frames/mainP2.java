@@ -5,7 +5,6 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.JugadorUno.ClaseComun;
-import com.mycompany.monopoly.frames.Jugador2.MenuPanelP2;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -82,22 +81,12 @@ public class mainP2 {
         windowMenu.setIconImage(ImageIO.read(mainP2.class.getResource("/Tile/Logo.png")));
         
 
-        
-        MenuPanelP2 m = new MenuPanelP2(); 
-        windowMenu.add(m); 
-        
-        cerrar(windowMenu); // Verificación de cierre de ventana
-        
-        windowMenu.pack(); 
-        
-        windowMenu.setLocation(1000,150); 
-        windowMenu.setVisible(true); 
      
         
         //-----------
         
      
-        m.startMenuThread();
+        //m.startMenuThread();
         //Activar el Thread de Comprobación sobre el turno
         gamePanel.startThread(); 
         

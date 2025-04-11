@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.Scanner;
@@ -19,6 +20,7 @@ public class KeyHandler implements KeyListener{
     public boolean upPressed, downPressed, leftPressed, rightPressed, showCollisions, drawTime;
     public boolean showFPS; 
     public boolean catchObject; 
+    public boolean menu; 
     
     public GamePanel gp; 
     
@@ -75,6 +77,7 @@ public class KeyHandler implements KeyListener{
             }
         }
         
+        
         if(code  == KeyEvent.VK_T)
         {
             if(drawTime == false){
@@ -102,7 +105,50 @@ public class KeyHandler implements KeyListener{
             gp.gameState = gp.titleState; 
         }
         
+        // Menu de juego
         
+        if(gp.gameState == gp.ingameState){
+            if(gp.ui.ingameScreenState == 0){
+                if(code == KeyEvent.VK_W || code == KeyEvent.VK_UP)
+                {
+                    gp.ui.commandNumber--; 
+                    if(gp.ui.commandNumber < 0){
+                        gp.ui.commandNumber = 5; 
+                    }
+                }
+                if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
+                {
+                    gp.ui.commandNumber++; 
+                    if(gp.ui.commandNumber > 5){
+                        gp.ui.commandNumber = 0; 
+                    }
+
+                }
+                
+                if(code == KeyEvent.VK_ENTER){
+                    if(gp.ui.commandNumber == 0){
+                        
+                        gp.gameState = gp.playState; 
+                        gp.confirmar = true; 
+                        gp.menuSelection = 1;  
+                        
+                    }else if(gp.ui.commandNumber == 1){
+                        gp.gameState = gp.playState; 
+                    }else if(gp.ui.commandNumber == 2){
+                        System.exit(0); 
+                    }
+                }
+            }
+        }
+        
+        // Mostrar el menu de juego 
+        if(code == KeyEvent.VK_I){
+            if(menu == false){
+                menu = true; 
+            }else if(menu == true){
+                menu = false; 
+            }
+        }
         
         
         // Titulo
@@ -213,13 +259,13 @@ public class KeyHandler implements KeyListener{
                     {
                         gp.ui.commandNumber--; 
                         if(gp.ui.commandNumber < 0){
-                            gp.ui.commandNumber = 4; 
+                            gp.ui.commandNumber = 5; 
                         }
                     }
                     if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
                     {
                         gp.ui.commandNumber++; 
-                        if(gp.ui.commandNumber > 4){
+                        if(gp.ui.commandNumber > 5){
                             gp.ui.commandNumber = 0; 
                         }
 
@@ -251,9 +297,15 @@ public class KeyHandler implements KeyListener{
                         System.out.print("Dime tu pass: ");
                         gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
                         System.out.println(gp.playerPass);
-                        gp.gameState = gp.playState; 
+                        
                         
                     }else if(gp.ui.commandNumber == 4){
+                        gp.confirmar = true; 
+                        MenuPanel mp = new MenuPanel(gp); 
+                        mp.startMenuThread();
+                        gp.gameState = gp.playState; 
+                    
+                    }else if(gp.ui.commandNumber == 5){
                         gp.ui.titleScreenState = 1; 
                     }
                     

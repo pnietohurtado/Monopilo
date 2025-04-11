@@ -5,8 +5,6 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.conexionBBDD.Conexion;
-import com.mycompany.monopoly.frames.JugadorUno.Display;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -18,7 +16,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
 
 /**
  *
