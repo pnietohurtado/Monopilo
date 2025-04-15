@@ -49,7 +49,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     
     // Empezar el juego 
-    public boolean confirmar = false; 
+    
     public int menuSelection = 0; 
     
     
@@ -62,7 +62,8 @@ public class GamePanel extends JPanel implements Runnable{
     public final int titleState = 0; // 0 : title 1 : Pre-jugar 2 : Inicio de Sesion 3 : Registro 
     public final int playState = 1; 
     public final int pauseState = 2; 
-    public final int ingameState = 3; 
+    public final int ingameState = 3; // Carga la pantalla del menú
+    public final int dialogueState = 4; 
     
     
     public final int maxWorldCol = 168; 
@@ -198,5 +199,9 @@ public class GamePanel extends JPanel implements Runnable{
     
     public static int dado() {
         return (int) (Math.random() * 6) + 1;
+    }
+    
+    public void volverJuego(){
+        this.gameState = this.playState; 
     }
 }

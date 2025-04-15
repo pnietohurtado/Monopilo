@@ -22,6 +22,8 @@ public class KeyHandler implements KeyListener{
     public boolean catchObject; 
     public boolean menu; 
     
+    public boolean confirmar = false; 
+    
     public GamePanel gp; 
     
     public KeyHandler(GamePanel gp){
@@ -38,6 +40,11 @@ public class KeyHandler implements KeyListener{
         
         int code = e.getKeyCode(); 
         
+        if(gp.gameState == gp.dialogueState){
+            if(code == KeyEvent.VK_ENTER){
+                gp.gameState = gp.playState; 
+            }
+        }
         
         if(code == KeyEvent.VK_W)
         {
@@ -126,11 +133,14 @@ public class KeyHandler implements KeyListener{
                 }
                 
                 if(code == KeyEvent.VK_ENTER){
-                    if(gp.ui.commandNumber == 0){
+                    if(gp.ui.commandNumber == 0){ // Tirar el dado 
                         
-                        gp.gameState = gp.playState; 
-                        gp.confirmar = true; 
-                        gp.menuSelection = 1;  
+                        //menu = false; 
+                        confirmar = true; 
+                        
+                        gp.volverJuego();  // Vuelve al juego 
+                        gp.gameState = gp.dialogueState; // Va a aparecer la ventana de dialogo 
+                        gp.menuSelection = 1;  // En forma de ayuda para poder identificar la opción seleccionada
                         
                     }else if(gp.ui.commandNumber == 1){
                         gp.gameState = gp.playState; 
@@ -138,6 +148,8 @@ public class KeyHandler implements KeyListener{
                         System.exit(0); 
                     }
                 }
+                
+                
             }
         }
         
@@ -300,7 +312,7 @@ public class KeyHandler implements KeyListener{
                         
                         
                     }else if(gp.ui.commandNumber == 4){
-                        gp.confirmar = true; 
+                        confirmar = true; 
                         MenuPanel mp = new MenuPanel(gp); 
                         mp.startMenuThread();
                         gp.gameState = gp.playState; 
@@ -320,7 +332,9 @@ public class KeyHandler implements KeyListener{
     }
     
     
-    
+    public void ordenarTurno(){
+        confirmar = true; 
+    }
     
     
     

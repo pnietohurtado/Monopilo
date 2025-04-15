@@ -104,7 +104,7 @@ public class PlayerP2 extends EntityP2{
         
         
         try{
-            PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM posJ2"); 
+            PreparedStatement pt = getConnection().prepareStatement("SELECT * FROM posJ1"); 
             ResultSet rs = pt.executeQuery(); 
             
             if(rs.next()){
