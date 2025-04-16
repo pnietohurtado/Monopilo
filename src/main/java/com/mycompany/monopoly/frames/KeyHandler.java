@@ -22,7 +22,7 @@ public class KeyHandler implements KeyListener{
     public boolean catchObject; 
     public boolean menu; 
     
-    public boolean confirmar = false; 
+    
     
     public GamePanel gp; 
     
@@ -135,8 +135,8 @@ public class KeyHandler implements KeyListener{
                 if(code == KeyEvent.VK_ENTER){
                     if(gp.ui.commandNumber == 0){ // Tirar el dado 
                         
-                        //menu = false; 
-                        confirmar = true; 
+                        
+                        gp.confirmar =  true; 
                         
                         gp.volverJuego();  // Vuelve al juego 
                         gp.gameState = gp.dialogueState; // Va a aparecer la ventana de dialogo 
@@ -312,7 +312,7 @@ public class KeyHandler implements KeyListener{
                         
                         
                     }else if(gp.ui.commandNumber == 4){
-                        confirmar = true; 
+                        gp.confirmar = true; 
                         MenuPanel mp = new MenuPanel(gp); 
                         mp.startMenuThread();
                         gp.gameState = gp.playState; 
@@ -331,11 +331,11 @@ public class KeyHandler implements KeyListener{
         
     }
     
-    
+    /*
     public void ordenarTurno(){
         confirmar = true; 
     }
-    
+    */
     
     
 

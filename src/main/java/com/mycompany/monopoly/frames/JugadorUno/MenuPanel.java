@@ -186,7 +186,7 @@ public class MenuPanel extends JPanel implements Runnable
 
                     /**************************************************************************/
 
-                    gp.keyH.confirmar = false; 
+                    gp.confirmar = false; 
 
                     /*!!!!!!!!!!!!!!!!!!!!    ASIGNANDO LOS JUGADORES CON SUS PERFILES !!!!!!!!!!!!!!!!!!!!!!!!*/
                     
@@ -359,8 +359,9 @@ public class MenuPanel extends JPanel implements Runnable
                                     
                                     do{
                                         
-                                        if(gp.keyH.confirmar == true){
-                                            gp.keyH.confirmar = true; 
+                                        if(gp.confirmar == true){
+                                            
+                                            gp.confirmar = false; 
                                             gp.gameState = gp.playState; // Por esto el mensaje del dado dura tan poco, pero cuando esté terminado la parte Player2 no debería de ser un problema 
                                             
                                         }else {
@@ -368,16 +369,22 @@ public class MenuPanel extends JPanel implements Runnable
                                             menuJugador(); 
                                         }
                                         
-                                        System.out.println(gp.gameState + "  " + gp.keyH.confirmar + " "+ gp.menuSelection);
+                                        //System.out.println(gp.gameState + "  " + gp.keyH.confirmar + " "+ gp.menuSelection);
                                         
-                                        //System.out.println(gp.confirmar);
-                                        System.out.println("Menu: " + gp.menuSelection);
-                                        while(gp.keyH.confirmar == true){
+                                        
+                                        
+                                        while(gp.confirmar == false){
+                                            
+                                            System.out.println(gp.menuSelection);
+                                            
+                                            //System.out.println(gp.gameState + "  " + gp.confirmar + " "+ gp.menuSelection);
                                             if(carcelJ1 == 0){
                                                 
 
                                                 switch(gp.menuSelection){
+                                                    
                                                     case 1: {
+                                                        
                                                         listarTablero(tablero);
 
                                                         System.out.println("\n==============Jugador 1=============");
@@ -555,6 +562,11 @@ public class MenuPanel extends JPanel implements Runnable
                                                             e.printStackTrace();
                                                         }
                                                     }
+                                                    
+                                                    default: {
+                                                        //System.out.println("Hola desde el default!"); 
+                                                        break; 
+                                                    }
 
                                                 }
                                             }else {
@@ -569,9 +581,12 @@ public class MenuPanel extends JPanel implements Runnable
                                         }
                                         ganador(jug1); 
                                         
+                                        
+                                        
+                                        
                                         if(gp.menuSelection == 1){
                                             cls.setESTADO_DE_TURNO(1); 
-                                            System.out.println("hola");
+                                            
                                             synchronized(cls){
                                                 try{
                                                     PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 

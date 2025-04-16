@@ -5,6 +5,7 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.Botones.BotonManager;
+import com.mycompany.monopoly.frames.Jugador2.Player2.Player3;
 import com.mycompany.monopoly.frames.Jugador2.Player2.PlayerP2;
 import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
@@ -40,6 +41,8 @@ public class GamePanel extends JPanel implements Runnable{
     public CollisionChecker cH = new CollisionChecker(this); 
     public UI ui = new UI(this); 
     
+    public Player3 zapato = new Player3(this, keyH); 
+    
     // Parámetros de inicio de sesión necesario para cargar el juego.
     public String playerName = ""; 
     public String playerPass = ""; 
@@ -49,7 +52,7 @@ public class GamePanel extends JPanel implements Runnable{
     
     
     // Empezar el juego 
-    
+    public boolean confirmar = false; 
     public int menuSelection = 0; 
     
     
@@ -147,7 +150,8 @@ public class GamePanel extends JPanel implements Runnable{
         if(gameState == playState){
             
             player.update(); 
-            player2.update(); 
+            player2.update(); // Peón (Movimiento del jugador1) 
+            zapato.update(); // Zapato (Movimiento del jugador2) 
             
         }else if(gameState == pauseState){
             // El juego se queda pausado
@@ -172,6 +176,7 @@ public class GamePanel extends JPanel implements Runnable{
             tileManager.draw(g2); 
             player.draw(g2); 
             player2.draw(g2);
+            zapato.draw(g2);
             ui.draw(g2); 
             
         }
