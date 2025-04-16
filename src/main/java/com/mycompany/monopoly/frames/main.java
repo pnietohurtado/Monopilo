@@ -51,6 +51,7 @@ public class main {
     public static void main(String[] args) throws IOException{
         
         
+        
         ClaseComun c = new ClaseComun(); 
         
         //Primera Ventana 
@@ -62,6 +63,7 @@ public class main {
         window.setIconImage(ImageIO.read(main.class.getResource("/Tile/Logo.png")));
         
         GamePanel gamePanel = new GamePanel(); 
+        gamePanel.jugador = 1; 
         window.add(gamePanel); 
         
         cerrar(window);  // Verificación de cierre de ventana

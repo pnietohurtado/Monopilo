@@ -39,7 +39,7 @@ public class mainP2 {
         public static void confirmarSalida(){
             int valor = JOptionPane.showConfirmDialog(null, "¿Estás seguro que quieres cerrar el juego?","Advertencia", JOptionPane.YES_NO_OPTION ); 
             if(valor==JOptionPane.YES_OPTION){
-                JOptionPane.showMessageDialog(null, "Gracias Puta!", "Gracias", JOptionPane.INFORMATION_MESSAGE);
+               
                 System.exit(0);
             }
         }
@@ -60,6 +60,7 @@ public class mainP2 {
         window.setIconImage(ImageIO.read(mainP2.class.getResource("/Tile/Logo.png")));
         
         GamePanel gamePanel = new GamePanel(); 
+        gamePanel.jugador = 2; 
         window.add(gamePanel); 
         
         cerrar(window);  // Verificación de cierre de ventana

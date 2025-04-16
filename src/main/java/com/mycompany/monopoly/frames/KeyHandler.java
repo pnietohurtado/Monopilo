@@ -4,6 +4,7 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.frames.Jugador2.MenuPanelP2;
 import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -313,8 +314,14 @@ public class KeyHandler implements KeyListener{
                         
                     }else if(gp.ui.commandNumber == 4){
                         gp.confirmar = true; 
-                        MenuPanel mp = new MenuPanel(gp); 
-                        mp.startMenuThread();
+                        if(gp.jugador == 1){
+                            MenuPanel mp = new MenuPanel(gp); 
+                            mp.startMenuThread();
+                        }else if(gp.jugador == 2){
+                            MenuPanelP2 mp = new MenuPanelP2(gp); 
+                            mp.startMenuThread();
+                        }
+                        
                         gp.gameState = gp.playState; 
                     
                     }else if(gp.ui.commandNumber == 5){
