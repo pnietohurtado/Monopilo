@@ -101,18 +101,7 @@ public class MenuPanel extends JPanel implements Runnable
        
     }
  
-    public synchronized String getUserInput() {
-        inputReady = false;
-        while (!inputReady) {
-            try {
-                wait(); // Esperar hasta que el usuario introduzca algo
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        return userInput;
-    }
-
+  
     
     
     Thread comprobar; // Declaramos la comprobación de nuestro turno desde un Thread externo y lo declaramos a la vez con el menu
@@ -510,7 +499,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                         cas.cargarCasillasCasilla(t);
                                                         System.out.println(t.casillasDisponibles().toString() + "\n");
                                                         System.out.println("\nPulsa 'Enter' para salir..."); 
-                                                        String estado = this.getUserInput(); 
+                                                        
                                                         break; 
                                                     }
 
@@ -519,7 +508,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                         t.limiparCasillasJugador1();
                                                         System.out.println(t.addCasillasJugador1().toString()); 
                                                         System.out.println("\nPulsa 'Enter' para salir..."); 
-                                                        String estado = this.getUserInput(); 
+                                                       
                                                         break; 
                                                     }
 
@@ -528,7 +517,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                         t.actualizarSaldoJ1(100L, jug1,4); //Este método respecto a conseguir el valor de nuestro jugador si funciona
                                                         System.out.println("\nDinero Actual -> "+ jug1.getJ1_Dinero());
                                                         System.out.println("\nPulsa 'Enter' para salir..."); 
-                                                        String estado = this.getUserInput(); 
+                                                        
                                                         break; 
                                                     }
 
@@ -594,7 +583,10 @@ public class MenuPanel extends JPanel implements Runnable
                                                     System.out.println("Estado de turno -> " +cls.getESTADO_DE_TURNO());
                                                     
                                                     System.out.println("\nEsperando al jugador 2...");
-                                                    cls.wait(); 
+                                                    cls.wait();  // Aquí se queda congelado el programa 
+                                                    
+                                                    gp.confirmar = false; 
+                                                    gp.menuSelection = 0; 
                                                 }catch(InterruptedException e4){
 
                                                 }

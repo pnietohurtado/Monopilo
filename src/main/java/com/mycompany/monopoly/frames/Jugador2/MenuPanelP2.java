@@ -333,6 +333,8 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                     System.out.println("\nEsperando al jugador1...");
                                     cls.setESTADO_DE_TURNO(0);
                                     cls.wait(); 
+                                    gp.confirmar = false; 
+                                    gp.menuSelection = 0; 
                                 }catch(InterruptedException e4){
                                                 
                                 }
@@ -356,7 +358,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                         // Para controlar el menú del jugador vamos a hacer lo siguiente 
                         
                         if(gp.confirmar == true){
-                            gp.confirmar = true; 
+                            gp.confirmar = false; 
                             gp.gameState = gp.playState; 
                         }else {
                             menuJugador(); 
@@ -527,19 +529,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                             break; 
                                         }
 
-                                        case 5: {
-                                            synchronized(cls){
-                                                while(true){
-                                                    try{
-
-                                                        cls.wait();
-
-                                                    }catch(InterruptedException e3){
-
-                                                    }
-                                                }
-                                            }
-                                        }
+                                        
 
                                         case 6 : {
                                             System.exit(0); 
