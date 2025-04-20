@@ -95,6 +95,24 @@ public class BotonManager extends Boton{
             boton[20] = new Boton(); 
             boton[20].image = ImageIO.read(getClass().getResourceAsStream("/Menu/Mdin2.png")); 
             
+            boton[21] = new Boton(); 
+            boton[21].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Jugar.png")); 
+            
+            boton[22] = new Boton(); 
+            boton[22].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Jugar2.png")); 
+            
+            boton[23] = new Boton(); 
+            boton[23].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Creditos1.png")); 
+            
+            boton[24] = new Boton(); 
+            boton[24].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Creditos2.png")); 
+            
+            boton[25] = new Boton(); 
+            boton[25].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Salir1.png")); 
+            
+            boton[26] = new Boton(); 
+            boton[26].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Salir2.png"));
+            
         }catch(IOException e){
             
         }

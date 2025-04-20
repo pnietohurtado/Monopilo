@@ -30,6 +30,9 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     
+    public int posicionDefaultX = 117; 
+    public int posicionDefaultY = 57; 
+    
     public Player(GamePanel gp, KeyHandler kh){
          
         this.gamePanel = gp; 
@@ -63,8 +66,8 @@ public class Player extends Entity{
             
     {
         
-        worldX = 117 ; // Cuidado con este
-        worldY = 57; 
+        worldX = posicionDefaultX ; // Cuidado con este
+        worldY = posicionDefaultY; 
         speed = 7; 
         direction = "down"; 
     }

@@ -364,7 +364,7 @@ public class MenuPanel extends JPanel implements Runnable
                                         
                                         while(gp.confirmar == false){
                                             
-                                            System.out.println(gp.menuSelection);
+                                            System.out.println(gp.menuSelection + " " + carcelJ1);
                                             
                                             //System.out.println(gp.gameState + "  " + gp.confirmar + " "+ gp.menuSelection);
                                             if(carcelJ1 == 0){
@@ -380,7 +380,8 @@ public class MenuPanel extends JPanel implements Runnable
 
                                               
 
-                                                        int pasos = gp.dado;
+                                                        int pasos = gp.dado();
+                                                        gp.dado = pasos; 
                                                         System.out.println("\nEl dado mostró: " + pasos);
 
                                                         // Actualizar la posición del jugador en sentido horario

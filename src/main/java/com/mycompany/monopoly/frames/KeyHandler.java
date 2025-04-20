@@ -154,13 +154,18 @@ public class KeyHandler implements KeyListener{
             }
         }
         
+        // Comprobación para poder cambiar la posición de el personaje en el momento 
         // Mostrar el menu de juego 
         if(code == KeyEvent.VK_I){
-            if(menu == false){
-                menu = true; 
-            }else if(menu == true){
-                menu = false; 
-            }
+            gp.tileManager.i = 1; 
+            gp.tileManager.loadMap("/Map/"+gp.tileManager.mapas[1]+".txt");
+            /*
+            gp.player.worldX= gp.tileSize * 35; 
+            gp.player.worldY = gp.tileSize * 410; 
+            */
+            //gp.player.screenX = gp.player.worldX; 
+            //gp.player.screenY = gp.player.worldY; 
+            System.out.println(gp.player.worldX + " " + gp.player.worldY);
         }
         
         

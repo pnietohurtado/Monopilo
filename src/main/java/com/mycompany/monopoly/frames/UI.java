@@ -129,7 +129,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 56F));
             String text = "MONOPILO"; 
             int x = getXForCenteredText(text); 
-            int y = gp.tileSize * 3; 
+            int y = gp.tileSize ; // Altura del el letrero "Monopilo" 
 
             g2.setColor(Color.white); 
             g2.drawString(text,x+2,y+2); 
@@ -146,30 +146,31 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 
             g2.setColor(Color.white);
-            text = "LOAD GAME"; 
-            x = getXForCenteredText(text); 
-            y = gp.tileSize * 8; 
-            g2.drawString(text, x, y); 
+            text = "JUGAR"; 
+            x = getXForCenteredImage(gp.botonManager.boton[21].image); 
+            y += gp.tileSize * 2; 
+            g2.drawImage(gp.botonManager.boton[21].image, x - (gp.tileSize * 2), y + gp.tileSize , gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 0){
-                g2.drawString(">",x - gp.tileSize,y); 
+                g2.drawImage(gp.botonManager.boton[22].image, x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
 
             text = "CRÉDITOS"; 
-            x = getXForCenteredText(text); 
-            y = gp.tileSize * 9; 
-            g2.drawString(text, x, y); 
+            x = getXForCenteredImage(gp.botonManager.boton[23].image); 
+            y += gp.tileSize * 2; 
+            g2.drawImage(gp.botonManager.boton[23].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 1){
-                g2.drawString(">",x - gp.tileSize,y); 
+                g2.drawImage(gp.botonManager.boton[24].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null);  
             }
 
             text = "QUIT GAME"; 
-            x = getXForCenteredText(text); 
-            y = gp.tileSize * 10; 
-            g2.drawString(text, x, y); 
+            x = getXForCenteredImage(gp.botonManager.boton[23].image); 
+            y += gp.tileSize * 2;  
+            g2.drawImage(gp.botonManager.boton[25].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 2){
-                g2.drawString(">",x - gp.tileSize,y); 
+                g2.drawImage(gp.botonManager.boton[26].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null); 
             }
-        
+            
+            
         
         }else if(titleScreenState == 1){
             

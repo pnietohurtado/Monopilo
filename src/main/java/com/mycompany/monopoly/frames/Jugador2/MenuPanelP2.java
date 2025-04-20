@@ -380,7 +380,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
 
                         System.out.println("\nTira el dado...");
-                        int pasos2 = dado();
+                        int pasos2 = gp.dado();
                         System.out.println("\nEl dado mostró: " + pasos2);
 
                         // Actualizar la posición del jugador en sentido de las agujas del reloj 
@@ -398,7 +398,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
                                         case 1: {
 
-                                            pasos2 = gp.dado; 
+                                            gp.dado = pasos2; 
 
                                             for (int i = 0; i < pasos2; i++) {
                                                 if (x2 == 0 && y2 < 10) { // Va hacia la derecha
