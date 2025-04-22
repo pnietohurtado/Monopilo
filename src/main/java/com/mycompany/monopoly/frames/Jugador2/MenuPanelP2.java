@@ -544,6 +544,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                     PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
                                     pt.executeUpdate(); 
                                     */
+                                    gp.confirmar = true; 
                                 }
                             
                            

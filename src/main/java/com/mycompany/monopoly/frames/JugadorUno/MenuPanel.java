@@ -447,6 +447,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                         if(tablero[0][10].equals(" 1 ")||tablero[10][0].equals(" 1 ")){
                                                             System.out.println("\nA la carcellll");
                                                             carcelJ1 = 2; 
+                                                            System.out.println("Carcel : " + carcelJ1);
                                                             PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
                                                             pt.executeUpdate(); 
                                                             break; 
@@ -566,6 +567,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                 PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
                                                 pt.executeUpdate(); 
                                                 */
+                                                gp.confirmar = true; 
                                             }
 
                                         }
