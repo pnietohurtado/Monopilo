@@ -373,7 +373,7 @@ public class MenuPanel extends JPanel implements Runnable
                                                 switch(gp.menuSelection){
                                                     
                                                     case 1: {
-                                                        
+                                                        System.out.println(gp.menuSelection + " " + carcelJ1);
                                                         listarTablero(tablero);
 
                                                         System.out.println("\n==============Jugador 1=============");
