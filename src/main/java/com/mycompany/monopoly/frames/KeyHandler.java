@@ -144,7 +144,9 @@ public class KeyHandler implements KeyListener{
                         gp.menuSelection = 1;  // En forma de ayuda para poder identificar la opción seleccionada
                         
                     }else if(gp.ui.commandNumber == 1){
-                        gp.gameState = gp.playState; 
+                        gp.confirmar = true; 
+                        gp.volverJuego();
+                        gp.menuSelection = 2; 
                     }else if(gp.ui.commandNumber == 2){
                         System.exit(0); 
                     }
@@ -234,13 +236,13 @@ public class KeyHandler implements KeyListener{
                 {
                     gp.ui.commandNumber--; 
                     if(gp.ui.commandNumber < 0){
-                        gp.ui.commandNumber = 2; 
+                        gp.ui.commandNumber = 3; 
                     }
                 }
                 if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
                 {
                     gp.ui.commandNumber++; 
-                    if(gp.ui.commandNumber > 2){
+                    if(gp.ui.commandNumber > 3){
                         gp.ui.commandNumber = 0; 
                     }
 
@@ -264,6 +266,8 @@ public class KeyHandler implements KeyListener{
                         
                         gp.gameState = gp.playState; 
                     }else if(gp.ui.commandNumber == 2){
+                        
+                    }else if(gp.ui.commandNumber == 3){
                         gp.ui.commandNumber = 0; 
                         gp.ui.titleScreenState = 1; 
                     }
@@ -322,11 +326,12 @@ public class KeyHandler implements KeyListener{
                         if(gp.jugador == 1){
                             MenuPanel mp = new MenuPanel(gp); 
                             mp.startMenuThread();
+                            
                         }else if(gp.jugador == 2){
                             MenuPanelP2 mp = new MenuPanelP2(gp); 
                             mp.startMenuThread();
                         }
-                        
+                        gp.ui.commandNumber = 0; 
                         gp.gameState = gp.playState; 
                     
                     }else if(gp.ui.commandNumber == 5){

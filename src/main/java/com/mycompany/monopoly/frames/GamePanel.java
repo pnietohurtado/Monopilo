@@ -5,12 +5,15 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.Botones.BotonManager;
+import com.mycompany.monopoly.frames.Jugador2.MenuPanelP2;
 import com.mycompany.monopoly.frames.Jugador2.Player2.Player3;
 import com.mycompany.monopoly.frames.Jugador2.Player2.PlayerP2;
+import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
 import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
@@ -161,6 +164,7 @@ public class GamePanel extends JPanel implements Runnable{
         
     }
     
+    public String ganador = ""; 
     
     public void paintComponent(Graphics g){
     
@@ -180,6 +184,12 @@ public class GamePanel extends JPanel implements Runnable{
             player2.draw(g2);
             zapato.draw(g2);
             ui.draw(g2); 
+            if(ganador.equals("jugador2") ||ganador.equals("jugador1")){
+                g2.setColor(Color.yellow);
+                g2.setFont(new Font("Arial", Font.PLAIN, 100));
+                g2.drawString("Perdiste Boludo", tileSize , tileSize * 7); 
+                //pruebaFinHilo(); 
+            }
             
         }
   
@@ -211,4 +221,22 @@ public class GamePanel extends JPanel implements Runnable{
     public void volverJuego(){
         this.gameState = this.playState; 
     }
+    /*
+    MenuPanel mp = new MenuPanel(this); 
+    MenuPanelP2 mp2 = new MenuPanelP2(this); 
+    
+    public void pruebaIniciarHilo(){
+        if(this.jugador == 1){
+            
+            mp.startMenuThread();
+                        
+        }else if(this.jugador == 2){
+            
+            mp2.startMenuThread();
+        }
+    }
+    
+    public void pruebaFinHilo(){
+        mp.stopThread();
+    }*/
 }

@@ -606,7 +606,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
     
     
     
-    public static void ganador( Jugador2 jug2) throws SQLException, Exception{
+    public  void ganador( Jugador2 jug2) throws SQLException, Exception{
         String ganador = ""; 
         PreparedStatement pt = getConnection().prepareStatement("CALL ganador()"); 
         ResultSet rs = pt.executeQuery(); 
@@ -615,11 +615,12 @@ public class MenuPanelP2 extends JPanel implements Runnable
         }
         
         
-        if(!(ganador.equals("Se Bugeo"))){
-            System.exit(0); 
+        if(ganador.equals("jugador1")){
+            gp.ganador = "jugador1"; 
             System.out.println("El ganador es "+ganador);
             pt.close(); 
             rs.close(); 
+            gp.gameState = gp.pauseState; 
         }
     }
     

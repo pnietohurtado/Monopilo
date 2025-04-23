@@ -499,9 +499,11 @@ public class MenuPanel extends JPanel implements Runnable
                                                     {
                                                         t.ActualizarCasillasDisponibles(); // Borra todas las casillas dentro del Array "casillasDisponibles"
                                                         cas.cargarCasillasCasilla(t);
+                                                        System.out.println("============Casillas disponibles======================");
                                                         System.out.println(t.casillasDisponibles().toString() + "\n");
-                                                        System.out.println("\nPulsa 'Enter' para salir..."); 
                                                         
+                                                        gp.menuSelection = 0; 
+                                                        gp.confirmar = false; 
                                                         break; 
                                                     }
 
@@ -669,11 +671,13 @@ public class MenuPanel extends JPanel implements Runnable
         }
         
         
-        if(!(ganador.equals("Se Bugeo"))){
+        if(ganador.equals("jugador2")){
+            gp.ganador = "jugador2"; 
             System.out.println("\nEl ganador es "+ganador);
             pt.close(); 
             rs.close(); 
-            System.exit(0); 
+            gp.gameState = gp.pauseState; 
+            //System.exit(0); 
         }
         
     }

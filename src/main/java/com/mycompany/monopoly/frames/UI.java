@@ -181,7 +181,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(42F));
             
            
-            String text = "Select your class!"; 
+            String text = "SIGUIENTE!!!!"; 
             int x = getXForCenteredText(text); 
             int y = gp.tileSize * 3; 
             g2.drawString(text,x,y); 
@@ -260,13 +260,22 @@ public class UI {
             if(commandNumber == 1){
                 g2.drawString(">", x - gp.tileSize, y); 
             }
+            
+            
+            text = "OK"; 
+            x = getXForCenteredText(text); 
+            y += gp.tileSize  ; 
+            g2.drawString(text,x,y); 
+            if(commandNumber == 2){
+                g2.drawString(">", x - gp.tileSize, y); 
+            }
 
             
             text = "GO BACK"; 
             x = getXForCenteredText(text); 
             y += gp.tileSize; 
             g2.drawString(text,x,y); 
-            if(commandNumber == 2){
+            if(commandNumber == 3){
                 g2.drawString(">", x - gp.tileSize, y); 
             }
         }else if(titleScreenState == 3){
