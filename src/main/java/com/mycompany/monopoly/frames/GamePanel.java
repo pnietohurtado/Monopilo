@@ -5,10 +5,8 @@
 package com.mycompany.monopoly.frames;
 
 import com.mycompany.monopoly.frames.Botones.BotonManager;
-import com.mycompany.monopoly.frames.Jugador2.MenuPanelP2;
 import com.mycompany.monopoly.frames.Jugador2.Player2.Player3;
 import com.mycompany.monopoly.frames.Jugador2.Player2.PlayerP2;
-import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
 import com.mycompany.monopoly.frames.JugadorUno.Player1.Player;
 import com.mycompany.monopoly.frames.TileManager.TileManager;
 import java.awt.Color;
@@ -16,6 +14,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JPanel;
 
 /**
@@ -196,6 +196,14 @@ public class GamePanel extends JPanel implements Runnable{
                 g2.setColor(Color.yellow);
                 g2.setFont(new Font("Arial", Font.PLAIN, 100));
                 g2.drawString("Perdiste Boludo", tileSize , tileSize * 7); 
+                
+                try{
+                    Thread.sleep(10000); 
+                    
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(GamePanel.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
                 //pruebaFinHilo(); 
             }else if(ganador.equals("2jugador2") || ganador.equals("1jugador1")){
                 

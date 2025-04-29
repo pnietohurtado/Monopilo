@@ -29,7 +29,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -60,7 +59,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
     Thread menuThread; 
     
     /*------------------------Instanciaciones necesarias para que el programa funcione correctamente------------------------------------*/
-       static Scanner sc = new Scanner(System.in); 
+       
         //static IUsuarioRepositorio usuarios =  new UsuarioRepositorio(); //Nos encargamos de poder registrar los usuarios
         //y que con ayuda del trigger dentro de la BBDD se añadan a la tabla "usuarioI". 
         static IUsuarioRepositorio<UsuarioI> u  = new UsuarioIRepositorio(); //Necesario para confirmar el registro de los usuarios 
@@ -661,7 +660,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
         }
         
         
-        if(ganador.equals("jugador2")){
+        if(ganador.equals("jugador1")){
             gp.ganador = "2jugador1"; 
             System.out.println("\nEl ganador es "+ganador);
             pt.close(); 
@@ -669,7 +668,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
             gp.gameState = gp.pauseState; 
             
             //System.exit(0); 
-        }else if(ganador.equals("jugador1")){ // Ganamos 
+        }else if(ganador.equals("jugador2")){ // Ganamos 
             gp.ganador = "2jugador2"; 
             System.out.println("\n El ganador es "+ganador);
             
