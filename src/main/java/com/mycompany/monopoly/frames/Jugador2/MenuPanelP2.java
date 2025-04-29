@@ -591,6 +591,12 @@ public class MenuPanelP2 extends JPanel implements Runnable
                             }
                             ganador(jug2); 
                         
+                            if(gp.ganador.equals("2jugador2")){
+                                gp.menuSelection = 1; 
+                                respuesta = "no"; 
+                                break; 
+                            }
+                            
                             if(gp.menuSelection == 1){
                                 PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 0 WHERE J_Turno = 1; "); 
                                 pt.executeUpdate(); 
@@ -604,8 +610,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
 
 
-                    System.exit(0); 
-            
+                                
             
             
             
@@ -655,12 +660,23 @@ public class MenuPanelP2 extends JPanel implements Runnable
         }
         
         
-        if(ganador.equals("jugador1")){
-            gp.ganador = "jugador1"; 
-            System.out.println("El ganador es "+ganador);
+        if(ganador.equals("jugador2")){
+            gp.ganador = "2jugador1"; 
+            System.out.println("\nEl ganador es "+ganador);
             pt.close(); 
             rs.close(); 
             gp.gameState = gp.pauseState; 
+            
+            //System.exit(0); 
+        }else if(ganador.equals("jugador1")){ // Ganamos 
+            gp.ganador = "2jugador2"; 
+            System.out.println("\n El ganador es "+ganador);
+            
+            pt.close(); 
+            rs.close(); 
+            
+            gp.tileManager.i = 1;
+            gp.tileManager.loadMap("/Map/"+gp.tileManager.mapas[1]+".txt");
         }
     }
     

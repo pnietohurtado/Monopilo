@@ -621,9 +621,19 @@ public class MenuPanel extends JPanel implements Runnable
                                         
                                         if(gp.menuSelection == 1){
                                             cls.setESTADO_DE_TURNO(1); 
+                                            System.out.println("Esto sigue");
+                                            
+                                            if(gp.ganador.equals("1jugador1")){
+                                                gp.menuSelection = 1; 
+                                                respuesta = "no"; 
+                                                break; 
+                                            }
                                             
                                             synchronized(cls){
                                                 try{
+                                                    
+                                                   
+                                                    
                                                     PreparedStatement pt = getConnection().prepareStatement("UPDATE turno SET J_Turno = 1 WHERE J_Turno = 0; "); 
                                                     pt.executeUpdate(); 
                                                     System.out.println("Estado de turno -> " +cls.getESTADO_DE_TURNO());
@@ -633,6 +643,8 @@ public class MenuPanel extends JPanel implements Runnable
                                                     
                                                     gp.confirmar = false; 
                                                     gp.menuSelection = 0; 
+                                                    
+                                                    
                                                 }catch(InterruptedException e4){
 
                                                 }
@@ -643,16 +655,17 @@ public class MenuPanel extends JPanel implements Runnable
                                         
                                         
                                         cls.setESTADO_DE_TURNO(0);
+                                        //System.out.println("Fuera");
                                         
                                     }while(gp.menuSelection != 1); 
                                     
-                                    //System.out.println("Fuera");
+                                    
                                
 
                     } while (!respuesta.equalsIgnoreCase("no"));
 
-
-                    System.exit(0); 
+                    
+                    //System.exit(0); 
             
             
             
