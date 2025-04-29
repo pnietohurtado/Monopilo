@@ -404,6 +404,7 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                 
                                 
                                 if(carcelJ2 == 0){
+                                    System.out.println("menuSelection "+gp.menuSelection);
                                     switch(gp.menuSelection){
 
                                         case 1: {
