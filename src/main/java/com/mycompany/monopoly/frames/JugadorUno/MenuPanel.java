@@ -347,7 +347,7 @@ public class MenuPanel extends JPanel implements Runnable
 
                                     
                                     do{
-                                        
+                                        /*
                                         if(gp.confirmar == true){
                                             
                                             gp.confirmar = false; 
@@ -357,12 +357,23 @@ public class MenuPanel extends JPanel implements Runnable
                                             
                                             menuJugador(); 
                                         }
+                                        */
                                         
                                         //System.out.println(gp.gameState + "  " + gp.keyH.confirmar + " "+ gp.menuSelection);
                                         
                                         
                                         
                                         while(gp.confirmar == false){
+                                            
+                                            if(gp.confirmar == true){
+
+                                               gp.confirmar = false; 
+                                               gp.gameState = gp.playState; // Por esto el mensaje del dado dura tan poco, pero cuando esté terminado la parte Player2 no debería de ser un problema 
+
+                                            }else {
+
+                                                menuJugador(); 
+                                            }
                                             
                                             System.out.println(gp.menuSelection + " " + carcelJ1);
                                             
@@ -502,25 +513,55 @@ public class MenuPanel extends JPanel implements Runnable
                                                         System.out.println("============Casillas disponibles======================");
                                                         System.out.println(t.casillasDisponibles().toString() + "\n");
                                                         
-                                                        gp.menuSelection = 0; 
-                                                        gp.confirmar = false; 
+                                                        try{
+                                                            
+                                                            Thread.sleep(5000); 
+                                                            gp.menuSelection = 0; 
+                                                            gp.confirmar = false; 
+                                                        }catch(Exception e){
+                                                            
+                                                        }
+                                                        
                                                         break; 
                                                     }
 
 
                                                     case 3: {
                                                         t.limiparCasillasJugador1();
+                                                        
+                                                        System.out.println("============Casillas Jugador1======================");
+                                                        
                                                         System.out.println(t.addCasillasJugador1().toString()); 
                                                         System.out.println("\nPulsa 'Enter' para salir..."); 
                                                        
+                                                        try{
+                                                            
+                                                            Thread.sleep(5000); 
+                                                            gp.menuSelection = 0; 
+                                                            gp.confirmar = false; 
+                                                        }catch(Exception e){
+                                                            
+                                                        }
+                                                        
                                                         break; 
                                                     }
 
 
                                                     case 4: {
                                                         t.actualizarSaldoJ1(100L, jug1,4); //Este método respecto a conseguir el valor de nuestro jugador si funciona
+                                                        System.out.println("============Dinero disponible======================");
                                                         System.out.println("\nDinero Actual -> "+ jug1.getJ1_Dinero());
                                                         System.out.println("\nPulsa 'Enter' para salir..."); 
+                                                        
+                                                        
+                                                        try{
+                                                            
+                                                            Thread.sleep(5000); 
+                                                            gp.menuSelection = 0; 
+                                                            gp.confirmar = false; 
+                                                        }catch(Exception e){
+                                                            
+                                                        }
                                                         
                                                         break; 
                                                     }
@@ -672,12 +713,21 @@ public class MenuPanel extends JPanel implements Runnable
         
         
         if(ganador.equals("jugador2")){
-            gp.ganador = "jugador2"; 
+            gp.ganador = "1jugador2"; 
             System.out.println("\nEl ganador es "+ganador);
             pt.close(); 
             rs.close(); 
             gp.gameState = gp.pauseState; 
             //System.exit(0); 
+        }else if(ganador.equals("jugador1")){ // Ganamos 
+            gp.ganador = "1jugador1"; 
+            System.out.println("\n El ganador es "+ganador);
+            
+            pt.close(); 
+            rs.close(); 
+            
+            gp.tileManager.i = 1;
+            gp.tileManager.loadMap("/Map/"+gp.tileManager.mapas[1]+".txt");
         }
         
     }

@@ -191,35 +191,37 @@ public class UI {
             g2.drawString(text,x,y); 
             
             text = "INICIAR SESIÓN"; 
-            x = getXForCenteredText(text); 
+            x = getXForCenteredImage(gp.botonManager.boton[27].image); 
             y += gp.tileSize * 3; 
-            g2.drawString(text,x,y); 
+            //g2.drawString(text,x,y); 
+            g2.drawImage(gp.botonManager.boton[27].image,  x - (gp.tileSize * 2), y - gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 0){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[28].image,  x - (gp.tileSize * 2), y - gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
+                //g2.drawString(">", x - gp.tileSize, y); 
             }
             
             
             text = "REGISTRARSE"; 
-            x = getXForCenteredText(text); 
+            x = getXForCenteredImage(gp.botonManager.boton[30].image); 
             y += gp.tileSize  ; 
-            g2.drawString(text,x,y); 
+            g2.drawImage(gp.botonManager.boton[30].image, x - (gp.tileSize * 2), y, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 1){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[29].image, x - (gp.tileSize * 2), y, gp.tileSize*5, gp.tileSize, null); 
             }
             
             
             
             text = "GO BACK"; 
-            x = getXForCenteredText(text); 
+            x = getXForCenteredImage(gp.botonManager.boton[25].image); 
             y += gp.tileSize; 
-            g2.drawString(text,x,y); 
+            g2.drawImage(gp.botonManager.boton[25].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 2){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[26].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
           
             
         }else if(titleScreenState == 2){
-            
+            //commandNumber = 0; 
             g2.setColor(Color.black);  // Cambiar el color del fondo
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
             
@@ -241,11 +243,11 @@ public class UI {
             
             
             text = "NOMBRE"; 
-            x = getXForCenteredText(text); 
-            y += gp.tileSize * 3; 
-            g2.drawString(text,x,y); 
+            x = getXForCenteredImage(gp.botonManager.boton[1].image); 
+            y += gp.tileSize ; 
+            g2.drawImage(gp.botonManager.boton[1].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 0){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[8].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
             
   
@@ -254,29 +256,29 @@ public class UI {
             
             
             text = "CONTRASEÑA"; 
-            x = getXForCenteredText(text); 
-            y += gp.tileSize  ; 
-            g2.drawString(text,x,y); 
+            x = getXForCenteredImage(gp.botonManager.boton[0].image);
+            y += gp.tileSize *2 ; 
+            g2.drawImage(gp.botonManager.boton[0].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 1){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[10].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null);  
             }
             
             
             text = "OK"; 
-            x = getXForCenteredText(text); 
-            y += gp.tileSize  ; 
-            g2.drawString(text,x,y); 
+            x = getXForCenteredImage(gp.botonManager.boton[14].image);
+            y += gp.tileSize  * 2; 
+            g2.drawImage(gp.botonManager.boton[14].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 2){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[13].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
 
             
             text = "GO BACK"; 
-            x = getXForCenteredText(text); 
-            y += gp.tileSize; 
-            g2.drawString(text,x,y); 
+            x = getXForCenteredImage(gp.botonManager.boton[25].image);
+            y += gp.tileSize * 2; 
+            g2.drawImage(gp.botonManager.boton[25].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             if(commandNumber == 3){
-                g2.drawString(">", x - gp.tileSize, y); 
+                g2.drawImage(gp.botonManager.boton[26].image,  x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
         }else if(titleScreenState == 3){
             

@@ -356,14 +356,14 @@ public class MenuPanelP2 extends JPanel implements Runnable
 
 
                         // Para controlar el menú del jugador vamos a hacer lo siguiente 
-                        
+                        /*
                         if(gp.confirmar == true){
                             gp.confirmar = false; 
                             gp.gameState = gp.playState; 
                         }else {
                             menuJugador(); 
                         }
-
+                        */    
 
 
 
@@ -393,6 +393,16 @@ public class MenuPanelP2 extends JPanel implements Runnable
                             System.out.println("\n==============Jugador 2==================");
                             
                             while(gp.confirmar == false){
+                                
+
+                                if(gp.confirmar == true){
+                                    gp.confirmar = false; 
+                                    gp.gameState = gp.playState; 
+                                }else {
+                                    menuJugador(); 
+                                }
+                                
+                                
                                 if(carcelJ2 == 0){
                                     switch(gp.menuSelection){
 
@@ -509,23 +519,53 @@ public class MenuPanelP2 extends JPanel implements Runnable
                                         {
                                             t.ActualizarCasillasDisponibles();
                                             cas.cargarCasillasCasilla(t);
+                                            System.out.println("============Casillas disponibles======================");
                                             System.out.println(t.casillasDisponibles().toString() + "\n");
-
+                                            
+                                            
+                                            try{
+                                                            
+                                                Thread.sleep(5000); 
+                                                gp.menuSelection = 0; 
+                                                gp.confirmar = false; 
+                                            }catch(Exception e){
+                                                            
+                                            }
 
                                             break; 
                                         }
 
                                         case 3: {
                                             t.limiparCasillasJugador2();
+                                            System.out.println("============Casillas Jugador2======================");
                                             System.out.println(t.addCasillasJugador2().toString()); 
 
+                                            try{
+                                                            
+                                                Thread.sleep(5000); 
+                                                gp.menuSelection = 0; 
+                                                gp.confirmar = false; 
+                                            }catch(Exception e){
+                                                            
+                                            }
+                                            
                                             break; 
                                         }
 
                                         case 4: {
                                             t.actualizarSaldoJ2(100L, jug2,4);
+                                            System.out.println("============Dinero Actual======================");
                                             System.out.println("\nDinero Actual -> "+ jug2.getJ2_Dinero());
-
+                                            
+                                            try{
+                                                            
+                                                Thread.sleep(5000); 
+                                                gp.menuSelection = 0; 
+                                                gp.confirmar = false; 
+                                            }catch(Exception e){
+                                                            
+                                            }
+                                            
                                             break; 
                                         }
 

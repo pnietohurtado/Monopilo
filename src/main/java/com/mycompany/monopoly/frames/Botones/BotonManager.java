@@ -20,7 +20,7 @@ public class BotonManager extends Boton{
     
     public BotonManager(GamePanel gp){
         this.gp = gp; 
-        boton = new Boton[30]; 
+        boton = new Boton[50]; 
         
         getBotonImage(); 
     }
@@ -112,6 +112,23 @@ public class BotonManager extends Boton{
             
             boton[26] = new Boton(); 
             boton[26].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Salir2.png"));
+            
+            
+            
+            
+            boton[27] = new Boton(); 
+            boton[27].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Inicio.png")); 
+            
+            boton[28] = new Boton(); 
+            boton[28].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Inicio2.png"));
+            
+            
+            boton[29] = new Boton(); 
+            boton[29].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Regis1.png")); 
+            
+            boton[30] = new Boton(); 
+            boton[30].image = ImageIO.read(getClass().getResourceAsStream("/Botones/Regis2.png"));
+            
             
         }catch(IOException e){
             

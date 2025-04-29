@@ -148,7 +148,13 @@ public class KeyHandler implements KeyListener{
                         gp.volverJuego();
                         gp.menuSelection = 2; 
                     }else if(gp.ui.commandNumber == 2){
-                        System.exit(0); 
+                        gp.confirmar = true; 
+                        gp.volverJuego(); 
+                        gp.menuSelection = 3; 
+                    }else if(gp.ui.commandNumber == 3){
+                        gp.confirmar = true; 
+                        gp.volverJuego(); 
+                        gp.menuSelection = 4; 
                     }
                 }
                 
@@ -264,11 +270,21 @@ public class KeyHandler implements KeyListener{
                         gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
                         System.out.println(gp.playerPass);
                         
-                        gp.gameState = gp.playState; 
+                        //gp.gameState = gp.playState; 
                     }else if(gp.ui.commandNumber == 2){
-                        
+                         gp.confirmar = true; 
+                        if(gp.jugador == 1){
+                            MenuPanel mp = new MenuPanel(gp); 
+                            mp.startMenuThread();
+                            
+                        }else if(gp.jugador == 2){
+                            MenuPanelP2 mp = new MenuPanelP2(gp); 
+                            mp.startMenuThread();
+                        }
+                        //gp.ui.commandNumber = 0; 
+                        gp.gameState = gp.playState;
                     }else if(gp.ui.commandNumber == 3){
-                        gp.ui.commandNumber = 0; 
+                        //gp.ui.commandNumber = 0; 
                         gp.ui.titleScreenState = 1; 
                     }
                 }
@@ -322,17 +338,7 @@ public class KeyHandler implements KeyListener{
                         
                         
                     }else if(gp.ui.commandNumber == 4){
-                        gp.confirmar = true; 
-                        if(gp.jugador == 1){
-                            MenuPanel mp = new MenuPanel(gp); 
-                            mp.startMenuThread();
-                            
-                        }else if(gp.jugador == 2){
-                            MenuPanelP2 mp = new MenuPanelP2(gp); 
-                            mp.startMenuThread();
-                        }
-                        gp.ui.commandNumber = 0; 
-                        gp.gameState = gp.playState; 
+                        
                     
                     }else if(gp.ui.commandNumber == 5){
                         gp.ui.titleScreenState = 1; 

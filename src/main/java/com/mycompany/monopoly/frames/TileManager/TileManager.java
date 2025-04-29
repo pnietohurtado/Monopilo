@@ -85,7 +85,7 @@ public class TileManager {
             
             tile[10] = new Tile(); 
             tile[10].image = ImageIO.read(getClass().getResourceAsStream("/Entorno/Cesped.png")); 
-            tile[10].collision = true;
+            tile[10].collision = false;
             
             tile[11] = new Tile(); 
             tile[11].image = ImageIO.read(getClass().getResourceAsStream("/Entorno/ArbolNormal.png")); 
@@ -232,6 +232,28 @@ public class TileManager {
 
             /*Ambiente*/
             
+            
+            
+            
+            
+            
+            /*Medac*/
+            
+            tile[44] = new Tile(); 
+            tile[44].image = ImageIO.read(getClass().getResourceAsStream("/Medac/Ladrillo1.png"));
+            tile[44].collision = false; 
+            
+            tile[45] = new Tile(); 
+            tile[45].image = ImageIO.read(getClass().getResourceAsStream("/Medac/Ladrillo2.png"));
+            tile[45].collision = false; 
+            
+            tile[46] = new Tile(); 
+            tile[46].image = ImageIO.read(getClass().getResourceAsStream("/Medac/PuertaA.png"));
+            tile[46].collision = false; 
+            
+            tile[47] = new Tile(); 
+            tile[47].image = ImageIO.read(getClass().getResourceAsStream("/Medac/PuertaD.png"));
+            tile[47].collision = false; 
             
         }catch(IOException e){
             

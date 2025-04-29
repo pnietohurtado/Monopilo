@@ -34,7 +34,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int screenHeight = tileSize * maxScreenRow; // NO TOCAR 
     
     // Instanciamos
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     BotonManager botonManager = new BotonManager(this); 
     public KeyHandler keyH = new KeyHandler(this); 
     public Player player = new Player(this, keyH); 
@@ -155,8 +155,11 @@ public class GamePanel extends JPanel implements Runnable{
         if(gameState == playState){
             
             player.update(); 
-            player2.update(); // Peón (Movimiento del jugador1) 
-            zapato.update(); // Zapato (Movimiento del jugador2) 
+            
+            if(!(ganador.equals("2jugador2")) || !(ganador.equals("1jugador1"))){
+                player2.update(); // Peón (Movimiento del jugador1) 
+                zapato.update(); // Zapato (Movimiento del jugador2) 
+            }
             
         }else if(gameState == pauseState){
             // El juego se queda pausado
@@ -181,14 +184,28 @@ public class GamePanel extends JPanel implements Runnable{
             
             tileManager.draw(g2); 
             player.draw(g2); 
-            player2.draw(g2);
-            zapato.draw(g2);
+            
+            if(!(ganador.equals("2jugador2")) || !(ganador.equals("1jugador1"))){
+                player2.draw(g2);
+                zapato.draw(g2);
+            }
+            
             ui.draw(g2); 
-            if(ganador.equals("jugador2") ||ganador.equals("jugador1")){
+            if(ganador.equals("1jugador2") ||ganador.equals("2jugador1")){ // Pierde el jugador1 o pierde el jugador2 en respectivos menu
                 g2.setColor(Color.yellow);
                 g2.setFont(new Font("Arial", Font.PLAIN, 100));
                 g2.drawString("Perdiste Boludo", tileSize , tileSize * 7); 
                 //pruebaFinHilo(); 
+            }else if(ganador.equals("2jugador2") || ganador.equals("1jugador1")){
+                player2.x = tileSize * 30; 
+                player2.x = tileSize * 30; 
+                
+                zapato.x = tileSize * 30; 
+                zapato.x = tileSize * 30; 
+                
+                player.worldX = tileSize * 6; 
+                player.worldY = tileSize * 11; 
+               
             }
             
         }
