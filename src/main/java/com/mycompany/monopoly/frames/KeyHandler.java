@@ -4,10 +4,14 @@
  */
 package com.mycompany.monopoly.frames;
 
+import com.mycompany.monopoly.conexionBBDD.Conexion;
 import com.mycompany.monopoly.frames.Jugador2.MenuPanelP2;
 import com.mycompany.monopoly.frames.JugadorUno.MenuPanel;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
 
@@ -23,7 +27,10 @@ public class KeyHandler implements KeyListener{
     public boolean catchObject; 
     public boolean menu; 
     
-    
+    public String nombre; 
+    public String apellido; 
+    public String usuario; 
+    public String password; 
     
     public GamePanel gp; 
     
@@ -31,12 +38,13 @@ public class KeyHandler implements KeyListener{
         this.gp = gp; 
     }
     
-    @Override
-    public void keyTyped(KeyEvent e) {
-        
+    private Connection getConnection() throws SQLException{
+        return Conexion.getConnection(); 
     }
-
-    @Override
+    
+    
+    
+        @Override
     public void keyPressed(KeyEvent e) {
         
         int code = e.getKeyCode(); 
@@ -315,30 +323,42 @@ public class KeyHandler implements KeyListener{
                     if(gp.ui.commandNumber == 0) {
                         
                         System.out.print("Dime tu nombre: ");
-                        gp.playerNombre = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerNombre);
+                        this.nombre = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerNombre);
                         System.out.println(gp.playerNombre);
                         
                     }else if(gp.ui.commandNumber == 1){
                         
                         System.out.print("Dime tu apellido: ");
-                        gp.playerApellido = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerApellido);
+                        this.apellido = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerApellido);
                         System.out.println( gp.playerApellido);
                         
                     }else if(gp.ui.commandNumber == 2){
                         
                         System.out.print("Dime tu user: ");
-                        gp.playerName = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerName);
+                        this.usuario = JOptionPane.showInputDialog(null, "Introduce tu usuario", gp.playerName);
                         System.out.println(gp.playerName);
                         
                     }else if(gp.ui.commandNumber == 3){
                         
                         System.out.print("Dime tu pass: ");
-                        gp.playerPass = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
+                        this.password = JOptionPane.showInputDialog(null, "Introduce tu contraseña", gp.playerPass);
                         System.out.println(gp.playerPass);
                         
                         
                     }else if(gp.ui.commandNumber == 4){
-                        
+                        try{
+                            PreparedStatement pt = getConnection().prepareStatement("insert into usuarioR(UR_Nombre, UR_Apellidos, UR_User, UR_Pass) values(?,?,?,?)"); 
+                            pt.setString(1, nombre);
+                            pt.setString(2, apellido);
+                            pt.setString(3, usuario);
+                            pt.setString(4, password);
+                            pt.executeUpdate(); 
+                            
+                            gp.ui.titleScreenState = 1; 
+                            
+                        }catch(SQLException es){
+                            
+                        }
                     
                     }else if(gp.ui.commandNumber == 5){
                         gp.ui.titleScreenState = 1; 
@@ -387,6 +407,11 @@ public class KeyHandler implements KeyListener{
         if(code == KeyEvent.VK_E){
             this.catchObject = false; 
         }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+       
     }
     
     

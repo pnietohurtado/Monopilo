@@ -718,6 +718,7 @@ public class MenuPanel extends JPanel implements Runnable
             pt.close(); 
             rs.close(); 
             gp.gameState = gp.pauseState; 
+            
             //System.exit(0); 
         }else if(ganador.equals("jugador1")){ // Ganamos 
             gp.ganador = "1jugador1"; 

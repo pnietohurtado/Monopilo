@@ -107,6 +107,7 @@ public class GamePanel extends JPanel implements Runnable{
     public void startThread(){
         gameThread = new Thread(this); 
         gameThread.start(); 
+        
     }
     
     public final int FPS = 60; 
@@ -168,7 +169,7 @@ public class GamePanel extends JPanel implements Runnable{
     }
     
     public String ganador = ""; 
-    
+    int contador = 1; 
     public void paintComponent(Graphics g){
     
         // NO TOCAR 
@@ -185,7 +186,7 @@ public class GamePanel extends JPanel implements Runnable{
             tileManager.draw(g2); 
             player.draw(g2); 
             
-            if(!(ganador.equals("2jugador2")) || !(ganador.equals("1jugador1"))){
+            if(!(ganador.equals("2jugador2") || ganador.equals("1jugador1"))){
                 player2.draw(g2);
                 zapato.draw(g2);
             }
@@ -197,14 +198,14 @@ public class GamePanel extends JPanel implements Runnable{
                 g2.drawString("Perdiste Boludo", tileSize , tileSize * 7); 
                 //pruebaFinHilo(); 
             }else if(ganador.equals("2jugador2") || ganador.equals("1jugador1")){
-                player2.x = tileSize * 30; 
-                player2.x = tileSize * 30; 
                 
-                zapato.x = tileSize * 30; 
-                zapato.x = tileSize * 30; 
-                
-                player.worldX = tileSize * 6; 
-                player.worldY = tileSize * 11; 
+                if(contador == 1){
+                    gameThread.interrupt();
+                    player.worldX = tileSize * 6; 
+                    player.worldY = tileSize * 11; 
+                    contador--; 
+                    
+                }
                
             }
             
