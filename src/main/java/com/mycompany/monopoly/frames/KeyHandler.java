@@ -13,6 +13,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.Scanner;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -26,6 +28,9 @@ public class KeyHandler implements KeyListener{
     public boolean showFPS; 
     public boolean catchObject; 
     public boolean menu; 
+    
+    //Icono 
+    ImageIcon icono = new ImageIcon("/Tile/Logo.png"); 
     
     public String nombre; 
     public String apellido; 
@@ -194,13 +199,13 @@ public class KeyHandler implements KeyListener{
                 {
                     gp.ui.commandNumber--; 
                     if(gp.ui.commandNumber < 0){
-                        gp.ui.commandNumber = 2; 
+                        gp.ui.commandNumber = 3; 
                     }
                 }
                 if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
                 {
                     gp.ui.commandNumber++; 
-                    if(gp.ui.commandNumber > 2){
+                    if(gp.ui.commandNumber > 3){
                         gp.ui.commandNumber = 0; 
                     }
 
@@ -208,10 +213,23 @@ public class KeyHandler implements KeyListener{
 
                 if(code == KeyEvent.VK_ENTER){
                     if(gp.ui.commandNumber == 0){
-                        gp.ui.titleScreenState = 1; 
+                        if(code == KeyEvent.VK_A ||code == KeyEvent.VK_LEFT){
+                            gp.ui.character--; 
+                            if(gp.ui.commandNumber < 0){
+                                gp.ui.commandNumber = 1; 
+                            }
+                        }
+                        if(code == KeyEvent.VK_A ||code == KeyEvent.VK_LEFT){
+                            gp.ui.character--; 
+                            if(gp.ui.commandNumber < 0){
+                                gp.ui.commandNumber = 1; 
+                            }
+                        }
                     }else if(gp.ui.commandNumber == 1){
-                        gp.gameState = gp.playState; 
+                        gp.ui.titleScreenState = 1; 
                     }else if(gp.ui.commandNumber == 2){
+                        gp.gameState = gp.playState; 
+                    }else if(gp.ui.commandNumber == 3){
                         System.exit(0); 
                     }
                 }

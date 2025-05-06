@@ -26,6 +26,7 @@ public class UI {
     public String message = ""; 
     int messageCounter = 0; 
     public int commandNumber = 0; 
+    public int character = 0; 
     
     public int titleScreenState = 0; // 0 : First Screen 
     public int ingameScreenState = 0; 
@@ -140,8 +141,17 @@ public class UI {
 
             x = gp.screenWidth/2 - (gp.tileSize*2)/2 ; 
             y += gp.tileSize*2; 
-            g2.drawImage(gp.player.f1, x, y, gp.tileSize*2, gp.tileSize * 2, null); 
-
+            g2.setColor(Color.WHITE); 
+            if(commandNumber == 0){
+                g2.drawString("<", x -gp.tileSize, y + gp.tileSize + 23);
+                g2.drawString(">", x + (2 * gp.tileSize) + 23, y + gp.tileSize + 23); 
+            }
+            if(character == 0){
+                g2.drawImage(gp.player.f1, x, y, gp.tileSize*2, gp.tileSize * 2, null);
+            }else if(character == 1){
+                //g2.drawImage
+            }
+            
 
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
 
@@ -150,7 +160,7 @@ public class UI {
             x = getXForCenteredImage(gp.botonManager.boton[21].image); 
             y += gp.tileSize * 2; 
             g2.drawImage(gp.botonManager.boton[21].image, x - (gp.tileSize * 2), y + gp.tileSize , gp.tileSize*5, gp.tileSize, null); 
-            if(commandNumber == 0){
+            if(commandNumber == 1){
                 g2.drawImage(gp.botonManager.boton[22].image, x - (gp.tileSize * 2), y + gp.tileSize, gp.tileSize*5, gp.tileSize, null); 
             }
 
@@ -158,7 +168,7 @@ public class UI {
             x = getXForCenteredImage(gp.botonManager.boton[23].image); 
             y += gp.tileSize * 2; 
             g2.drawImage(gp.botonManager.boton[23].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null); 
-            if(commandNumber == 1){
+            if(commandNumber == 2){
                 g2.drawImage(gp.botonManager.boton[24].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null);  
             }
 
@@ -166,7 +176,7 @@ public class UI {
             x = getXForCenteredImage(gp.botonManager.boton[23].image); 
             y += gp.tileSize * 2;  
             g2.drawImage(gp.botonManager.boton[25].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null); 
-            if(commandNumber == 2){
+            if(commandNumber == 3){
                 g2.drawImage(gp.botonManager.boton[26].image, x - (gp.tileSize * 2), y + (gp.tileSize ) , gp.tileSize*5, gp.tileSize, null); 
             }
             

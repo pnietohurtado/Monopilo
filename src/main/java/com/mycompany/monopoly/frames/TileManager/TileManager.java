@@ -255,6 +255,35 @@ public class TileManager {
             tile[47].image = ImageIO.read(getClass().getResourceAsStream("/Medac/PuertaD.png"));
             tile[47].collision = true; 
             
+            tile[48] = new Tile(); 
+            tile[48].image = ImageIO.read(getClass().getResourceAsStream("/Medac/ParedBlanca.png"));
+            tile[48].collision = true; 
+            
+            
+            tile[49] = new Tile(); 
+            tile[49].image = ImageIO.read(getClass().getResourceAsStream("/Medac/M.png"));
+            tile[49].collision = true; 
+            
+            tile[50] = new Tile(); 
+            tile[50].image = ImageIO.read(getClass().getResourceAsStream("/Medac/E.png"));
+            tile[50].collision = true; 
+            
+            tile[51] = new Tile(); 
+            tile[51].image = ImageIO.read(getClass().getResourceAsStream("/Medac/D.png"));
+            tile[51].collision = true; 
+            
+            tile[52] = new Tile(); 
+            tile[52].image = ImageIO.read(getClass().getResourceAsStream("/Medac/A.png"));
+            tile[52].collision = true; 
+            
+            tile[53] = new Tile(); 
+            tile[53].image = ImageIO.read(getClass().getResourceAsStream("/Medac/C.png"));
+            tile[53].collision = true; 
+            
+            tile[54] = new Tile(); 
+            tile[54].image = ImageIO.read(getClass().getResourceAsStream("/Medac/Azul.png"));
+            tile[54].collision = true; 
+            
         }catch(IOException e){
             
         }

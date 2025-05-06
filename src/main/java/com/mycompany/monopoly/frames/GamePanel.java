@@ -83,7 +83,7 @@ public class GamePanel extends JPanel implements Runnable{
     int playerSpeed = 4; 
     
     public int jugador = 0; 
-    
+
     public GamePanel()
     {
         
