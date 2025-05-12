@@ -70,6 +70,7 @@ public class GamePanel extends JPanel implements Runnable{
     public final int pauseState = 2; 
     public final int ingameState = 3; // Carga la pantalla del menú
     public final int dialogueState = 4; 
+    public final int ranking = 5; 
     
     
     public final int maxWorldCol = 168; 
@@ -180,6 +181,8 @@ public class GamePanel extends JPanel implements Runnable{
         if(gameState == titleState){
             ui.draw(g2); 
         }else if(gameState == ingameState){
+            ui.draw(g2); 
+        }else if(gameState == ranking){
             ui.draw(g2); 
         }else{
             

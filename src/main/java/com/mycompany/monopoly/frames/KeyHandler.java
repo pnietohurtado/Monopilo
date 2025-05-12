@@ -228,7 +228,7 @@ public class KeyHandler implements KeyListener{
                     }else if(gp.ui.commandNumber == 1){
                         gp.ui.titleScreenState = 1; 
                     }else if(gp.ui.commandNumber == 2){
-                        gp.gameState = gp.playState; 
+                        gp.ui.titleScreenState = 4; 
                     }else if(gp.ui.commandNumber == 3){
                         System.exit(0); 
                     }

@@ -5,11 +5,18 @@
 package com.mycompany.monopoly.frames;
 
 
+import com.mycompany.monopoly.conexionBBDD.Conexion;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -42,6 +49,12 @@ public class UI {
         message = text; 
         messageOn = true; 
     }
+    
+    
+    private Connection getConnection() throws SQLException{
+        return Conexion.getConnection(); 
+    }
+    
     
     
     public void draw(Graphics2D g2){
@@ -126,7 +139,7 @@ public class UI {
 
             g2.setColor(Color.black);  // Cambiar el color del fondo
             g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
-
+            
             g2.setFont(g2.getFont().deriveFont(Font.BOLD, 56F));
             String text = "MONOPILO"; 
             int x = getXForCenteredText(text); 
@@ -369,6 +382,36 @@ public class UI {
             }
             
             
+        }else if(titleScreenState == 4){
+            g2.setColor(Color.black);  // Cambiar el color del fondo
+            g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+            
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 56F));
+            String text = "PUNTUACION"; 
+            int x = getXForCenteredText(text); 
+            int y = gp.tileSize ; // Altura del el letrero "Monopilo" 
+            
+            x = gp.tileSize * 2; 
+            y = gp.tileSize  * 2; 
+            //System.out.println("Vuelve a estar negro");
+            g2.setColor(Color.WHITE); 
+            try { 
+                pt = getConnection().prepareStatement("SELECT nombre, puntuacion FROM ranking ORDER BY puntuacion DESC LIMIT 3");
+                rs = pt.executeQuery(); 
+                while(rs.next()){
+                    nombre = rs.getString("nombre"); 
+                    puntuacion = rs.getString("puntuacion"); 
+                    
+                    g2.drawString(nombre + "_ _ _ _ _ _ _"+puntuacion, x, y * (i + 1) );
+                    i++; 
+                    //System.out.println(nombre + " " + puntuacion + " "+i);
+                        
+                    
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(UI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            i = 0; 
         }
         
     }
@@ -459,5 +502,13 @@ public class UI {
         
         }
     }
+    
+    String nombre = ""; 
+    String puntuacion = ""; 
+    PreparedStatement pt = null; 
+    ResultSet rs = null; 
+    int i = 1; 
+    
+    
     
 }
